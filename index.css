@@ -8,7 +8,7 @@ body {
     font-family: Arial, sans-serif;
 }
 .header {
-    background-color: #0066FF;
+    background-color: #0030FF;
     display: flex;
     align-items: center;
     padding: 30px;
@@ -38,36 +38,60 @@ body {
     width: 50px;
     height: 50px;
   }
-.sidebar {
+  .sidebar {
     background-color: white;
-    width: 25%;
+    width: 20%;
     padding: 20px;
 }
+
 .sidebar ul {
-    list-style: none;
+    list-style-type: none;
     padding: 0;
 }
-.sidebar ul li {
-    display: flex;
-    align-items: center;
-    color: #0066FF;
-    font-size: 18px;
-    margin-bottom: 20px;
+
+.sidebar li {
+    margin: 10px 0;
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
 }
-.sidebar ul li i {
-    margin-right: 10px;
+
+.product-icon {
+    margin-right: 10px; /* Add some space between the icon and the button */
 }
-.sidebar ul li .dot {
-    margin-left: auto;
-    font-size: 10px;
+
+.sidebar-button {
+    background-color: transparent; /* Make the button background transparent */
+    border: none; /* Remove border */
+    color: #080000; /* Text color */
+    font-size: 25px; /* Font size */
+    font-weight: bold; /* Font weight */
+    cursor: pointer; /* Change cursor to pointer */
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Space between text and icon */
+}
+
+.forward-icon {
+    margin-left: 10px; /* Adjust this value as needed */
+}
+
+.sidebar-button:hover {
+    color: #007BFF; /* Change color on hover */
+}
+
+.dot {
+    margin-left: 5px; /* Space between text and dot */
+    color: red; /* Dot color */
 }
 .main {
     background-color: #D3D3D3;
     flex: 1;
     padding: 20px;
+    display: flex;
+    align-items: items-center;
 }
 .main h1 {
     color: #0066FF;
-    font-size: 36px;
+    font-size: 40px;
     font-weight: bold;
 }
