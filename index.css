@@ -1,97 +1,123 @@
 * {
     box-sizing: border-box;
 }
+
 body {
     margin: 0;
     padding: 0;
     height: 100%;
     font-family: Arial, sans-serif;
 }
+
 .header {
     background-color: #0030FF;
     display: flex;
-    align-items: center;
-    padding: 30px;
+    padding: 15px;
 }
 
-.header .title {
-    color: white;
-    font-weight: bold;
-    font-size: 20px;
-}
-.container {
-    display: flex;
-    height: calc(100% - 60px); /* Adjust based on header height */
-}
 .logo-text {
     color: white;
     font-size: 32px;
     font-weight: bold;
     margin-right: 8px;
-  }
-  .logo-subtext {
+}
+
+.logo-subtext {
     color: white;
     font-size: 32px;
     margin-right: 16px;
-  }
-  .logo-image {
+}
+
+.logo-image {
     width: 50px;
     height: 50px;
-  }
-  .sidebar {
-    background-color: white;
-    width: 20%;
+}
+
+.container {
     padding: 20px;
 }
 
-.sidebar ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.sidebar li {
-    margin: 10px 0;
-    display: flex; /* Use flexbox for alignment */
-    align-items: center; /* Center items vertically */
-}
-
-.product-icon {
-    margin-right: 10px; /* Add some space between the icon and the button */
-}
-
-.sidebar-button {
-    background-color: transparent; /* Make the button background transparent */
-    border: none; /* Remove border */
-    color: #080000; /* Text color */
-    font-size: 25px; /* Font size */
-    font-weight: bold; /* Font weight */
-    cursor: pointer; /* Change cursor to pointer */
-    display: flex; /* Use flexbox for alignment */
-    align-items: center; /* Center items vertically */
-    justify-content: space-between; /* Space between text and icon */
-}
-
-.forward-icon {
-    margin-left: 10px; /* Adjust this value as needed */
-}
-
-.sidebar-button:hover {
-    color: #007BFF; /* Change color on hover */
-}
-
-.dot {
-    margin-left: 5px; /* Space between text and dot */
-    color: red; /* Dot color */
-}
-.main {
-    background-color: #D3D3D3;
-    flex: 1;
-    padding: 20px;
-    display: flex;
-    align-items: items-center;
-}
-.main h1 {
+h1, h2 {
     color: #0066FF;
-    font-size: 40px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.product-container {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    width: calc(33.333% - 20px); /* Three products per row */
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.product-container img {
+    width: 100px;
+    height: 100px;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
     font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }
