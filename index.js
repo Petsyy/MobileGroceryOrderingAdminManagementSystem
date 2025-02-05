@@ -13,16 +13,18 @@ const closeAddProductModal = document.getElementById('closeAddProductModal');
 async function fetchProducts() {
     const response = await fetch('api.php');
     const products = await response.json();
-    productList.innerHTML = '';
+    productList.innerHTML = ''; // Clear the current product list
     products.forEach(product => {
         const productContainer = document.createElement('div');
         productContainer.className = 'product-container';
+        productContainer.setAttribute('data-id', product.id); // Set data-id attribute
         productContainer.innerHTML = `
             <h3>${product.name}</h3>
             <img src="${product.image}" alt="${product.name}">
             <p>Price: $${product.price}</p>
             <p>Stock: ${product.stock}</p>
             <button onclick="openEditModal(${product.id}, ${product.price}, ${product.stock})">Edit</button>
+            <button class="delete-btn">Delete</button> <!-- Delete button -->
         `;
         productList.appendChild(productContainer);
     });
@@ -93,6 +95,29 @@ productForm.addEventListener('submit', async (e) => {
     addProductModal.style.display = 'none'; // Close the add product modal
 });
 
+// Handle delete button click
+productList.addEventListener('click', async (event) => {
+    if (event.target.classList.contains('delete-btn')) {
+        const productContainer = event.target.closest('.product-container');
+        const productId = productContainer.getAttribute('data-id');
+
+        if (confirm('Are you sure you want to delete this product?')) {
+            const response = await fetch('api.php', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `id=${productId}`
+            });
+
+            const data = await response.json();
+            alert(data.message || data.error);
+            fetchProducts(); // Refresh the product list
+        }
+    }
+});
+console.log(products);
+
 // Close the modal when clicking outside of it
 window.onclick = function(event) {
     if (event.target == addProductModal) {
@@ -102,6 +127,7 @@ window.onclick = function(event) {
         editModal.style.display = 'none'; // Hide the edit modal
     }
 }
+console.log(products);
 
 // Initial fetch of products
 fetchProducts();

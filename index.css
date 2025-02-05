@@ -43,7 +43,7 @@ h1, h2 {
 }
 
 button {
-    background-color: #4CAF50;
+    background-color: #0066FF;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -106,6 +106,20 @@ button:hover {
     background-color: #1976D2;
 }
 
+.delete-btn {
+    background-color: #f44336; /* Red color for delete button */
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -145,7 +159,7 @@ button:hover {
 }
 
 .modal-content button {
-    background-color: #4CAF50;
+    background-color: #0066FF;
     color: white;
     padding: 10px;
     border: none;
