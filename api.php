@@ -9,8 +9,11 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die(json_encode(["error" => "Connection failed: " . $conn->connect_error]));
 }
+
+// Set response content type to JSON
+header('Content-Type: application/json');
 
 // Handle GET request to fetch products
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -24,50 +27,88 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
     }
     echo json_encode($products);
+    $conn->close();
+    exit;
 }
 
 // Handle POST request to add a product
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = $_POST['name'];
-    $price = $_POST['price'];
-    $stock = $_POST['stock'];
-    $image = $_POST['image']; // Get the image path from the request
+    $name = $_POST['name'] ?? '';
+    $price = $_POST['price'] ?? 0;
+    $stock = $_POST['stock'] ?? 0;
+    $image = $_POST['image'] ?? '';
 
-    // Insert the product with the image path
-    $sql = "INSERT INTO products (name, price, stock, image) VALUES ('$name', '$price', '$stock', '$image')";
-    if ($conn->query($sql) === TRUE) {
+    // Validate inputs
+    if (empty($name) || !is_numeric($price) || !is_numeric($stock) || empty($image)) {
+        echo json_encode(["error" => "Invalid input data"]);
+        $conn->close();
+        exit;
+    }
+
+    // Use prepared statement to prevent SQL injection
+    $stmt = $conn->prepare("INSERT INTO products (name, price, stock, image) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("sdss", $name, $price, $stock, $image);
+
+    if ($stmt->execute()) {
         echo json_encode(["message" => "Product added successfully"]);
     } else {
-        echo json_encode(["error" => "Error: " . $sql . "<br>" . $conn->error]);
+        echo json_encode(["error" => "Error adding product: " . $stmt->error]);
     }
+    $stmt->close();
+    $conn->close();
+    exit;
 }
 
 // Handle PUT request to update a product
 if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     parse_str(file_get_contents("php://input"), $_PUT);
+    if (!isset($_PUT['id'], $_PUT['price'], $_PUT['stock'])) {
+        echo json_encode(["error" => "Missing parameters"]);
+        $conn->close();
+        exit;
+    }
+
     $id = $_PUT['id'];
     $price = $_PUT['price'];
     $stock = $_PUT['stock'];
 
-    $sql = "UPDATE products SET price='$price', stock='$stock' WHERE id='$id'";
-    if ($conn->query($sql) === TRUE) {
+    // Use prepared statement to prevent SQL injection
+    $stmt = $conn->prepare("UPDATE products SET price=?, stock=? WHERE id=?");
+    $stmt->bind_param("ddi", $price, $stock, $id);
+
+    if ($stmt->execute()) {
         echo json_encode(["message" => "Product updated successfully"]);
     } else {
-        echo json_encode(["error" => "Error: " . $sql . "<br>" . $conn->error]);
+        echo json_encode(["error" => "Error updating product: " . $stmt->error]);
     }
+    $stmt->close();
+    $conn->close();
+    exit;
 }
 
 // Handle DELETE request to delete a product
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     parse_str(file_get_contents("php://input"), $_DELETE);
+    if (!isset($_DELETE['id'])) {
+        echo json_encode(["error" => "Missing product ID"]);
+        $conn->close();
+        exit;
+    }
+
     $id = $_DELETE['id'];
 
-    $sql = "DELETE FROM products WHERE id='$id'";
-    if ($conn->query($sql) === TRUE) {
+    // Use prepared statement to prevent SQL injection
+    $stmt = $conn->prepare("DELETE FROM products WHERE id=?");
+    $stmt->bind_param("i", $id);
+
+    if ($stmt->execute()) {
         echo json_encode(["message" => "Product deleted successfully"]);
     } else {
-        echo json_encode(["error" => "Error: " . $sql . "<br>" . $conn->error]);
+        echo json_encode(["error" => "Error deleting product: " . $stmt->error]);
     }
+    $stmt->close();
+    $conn->close();
+    exit;
 }
 
 $conn->close();

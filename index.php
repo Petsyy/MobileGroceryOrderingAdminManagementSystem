@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
     <title>SM Hypermarket</title>
+    
+    <!-- Include jQuery from CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
     <!-- Header -->
@@ -17,16 +20,7 @@
     <div class="container">
         <h1 class="h1">Products</h1>
         <div id="productList" class="product-list">
-            <!-- Example Product Item -->
-            <div class="product-container" data-id="1"> <!-- Add data-id attribute -->
-                <img src="images/product1.jpg" alt="Product 1">
-                <h3>Product Name</h3>
-                <p class="price">$19.99</p>
-                <p class="stock">Stock: 10</p>
-                <button class="edit-btn" onclick="openEditModal(1, 19.99, 10)">Edit</button>
-                <button class="delete-btn">Delete</button> <!-- Delete button -->
-            </div>
-            <!-- More product items will be dynamically added here -->
+            <!-- Product items will be dynamically added here -->
         </div>
 
         <!-- Centered Add Product Button -->
@@ -69,6 +63,7 @@
        </div>
    </div>
 
+    <!-- Include your JavaScript file -->
     <script src="index.js"></script>
 </body>
 </html>
