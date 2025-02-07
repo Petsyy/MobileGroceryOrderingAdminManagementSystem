@@ -5,27 +5,26 @@ $(document).ready(function() {
     async function fetchProducts() {
         try {
             console.log("Fetching products...");
-            const response = await fetch('index.php'); // Fetch products from the server
-
-            if (!response.ok) throw new Error("Failed to fetch products");
-
-            const data = await response.json();
-            console.log("Fetched products:", data); // Debugging log to check fetched data
-
-            if (!Array.isArray(data)) { // Check if the fetched data is an array
-                throw new Error("Invalid data format: Expected an array");
-            }
-
-            products = data; // Assign fetched data to global variable
-            renderProducts(); // Call function to display products
-
-            // Log products after they have been fetched
-            console.log("Products after fetch:", products);
-
+            const response = await fetch('api.php');
+    
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+    
+            const text = await response.text(); // Get raw response
+            console.log("Raw response:", text); // Log raw response
+    
+            // Try parsing JSON
+            const data = JSON.parse(text);
+            console.log("Fetched products:", data);
+    
+            if (!Array.isArray(data)) throw new Error("Invalid data format");
+    
+            products = data;
+            renderProducts();
         } catch (error) {
             console.error("Error fetching products:", error);
         }
     }
+    
 
     // Render products in the productList
     function renderProducts() {
@@ -82,7 +81,7 @@ $(document).ready(function() {
         const price = $('#editPrice').val();
         const stock = $('#editStock').val();
 
-        const response = await fetch('index.php', {
+        const response = await fetch('SM/api.php', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `id=${id}&price=${price}&stock=${stock}`
@@ -102,7 +101,7 @@ $(document).ready(function() {
         const stock = $('#stock').val();
         const image = $('#image').val();
 
-        const response = await fetch('index.php', {
+        const response = await fetch('SM/api.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `name=${name}&price=${price}&stock=${stock}&image=${image}`
@@ -114,23 +113,24 @@ $(document).ready(function() {
         $('#addProductModal').hide();
     });
 
-    // Handle delete button click
-    $('#productList').on('click', '.delete-btn', async function() {
-        const productContainer = $(this).closest('.product-container');
-        const productId = productContainer.data('id');
+   // Handle delete button click
+$('#productList').on('click', '.delete-btn', async function() {
+    const productContainer = $(this).closest('.product-container');
+    const productId = productContainer.data('id');
 
-        if (confirm('Are you sure you want to delete this product?')) {
-            const response = await fetch('index.php', {
-                method: 'DELETE',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: `id=${productId}`
-            });
+    if (confirm('Are you sure you want to delete this product?')) {
+        const response = await fetch('SM/api.php', {  // Corrected URL here
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `id=${productId}`
+        });
 
-            const result = await response.json();
-            alert(result.message || result.error);
-            fetchProducts(); // Refresh product list
-        }
-    });
+        const result = await response.json();
+        alert(result.message || result.error);
+        fetchProducts(); // Refresh product list
+    }
+});
+
 
     // Close modals when clicking outside
     $(window).on('click', function(event) {
