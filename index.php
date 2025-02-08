@@ -13,8 +13,8 @@
 </head>
 <body>
     <div class="header">
-        <span class="logo-text">SM</span>
-        <span class="logo-subtext">Hypermarket</span>
+        <span class="logo-text">EZ</span>
+        <span class="logo-subtext">Mart</span>
         <img src="images/sm.png" alt="SM logo" class="logo-image">
     </div>
 
