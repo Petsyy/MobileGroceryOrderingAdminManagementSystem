@@ -13,9 +13,9 @@
 </head>
 <body>
     <div class="header">
+        <img src="images/menu.svg" alt="EZ Mart Logo" class="logo">
         <span class="logo-text">EZ</span>
         <span class="logo-subtext">Mart</span>
-        <img src="images/sm.png" alt="SM logo" class="logo-image">
     </div>
 
     <div class="container">
