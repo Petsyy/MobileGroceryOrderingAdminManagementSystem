@@ -3,23 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SM Hypermarket</title>
+    <title>EZ Mart</title>
     
-    <!-- Link to external CSS file (if needed) -->
+    <!-- Link to external CSS file -->
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="buttons/button.css">
     
     <!-- Include jQuery from CDN -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-    <div class="header">
-        <img src="images/menu.svg" alt="EZ Mart Logo" class="logo">
-        <span class="logo-text">EZ</span>
-        <span class="logo-subtext">Mart</span>
-    </div>
+    <header class="header">
+        <img src="images/menu.svg" alt="EZ Mart Logo" class="logo" id="menuIcon">
+        <span class="logo-text">EZ Mart</span>
+    </header>
+    
 
-    <div class="container">
-        <h1 class="h1">Products</h1>
+    <main class="container">
+        <h1>Dashboard</h1>
         <div id="productList" class="product-list">
             <!-- Product items will be dynamically added here -->
         </div>
@@ -28,6 +29,15 @@
         <div class="add-product-container">
             <button id="addProductBtn">Add Product</button>
         </div>
+    </main>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">Settings</a></li>
+        </ul>
     </div>
 
     <!-- Modal for Adding Product -->
@@ -46,6 +56,6 @@
 
     <!-- Include your JS file -->
     <script src="index.js"></script>
-
+    <script src="buttons/button.js"></script>
 </body>
 </html>

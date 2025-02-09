@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    let products = []; // Global variable to store fetched products
+    let products = []; 
 
     // Fetch products from the database
     async function fetchProducts() {

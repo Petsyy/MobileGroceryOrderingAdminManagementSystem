@@ -1,0 +1,76 @@
+/* Styling for the logo */
+.logo {
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.sidebar {
+    position: fixed;
+    top: 70px; /* Ensure the sidebar starts below the header */
+    left: -250px; /* Initially hide the sidebar off-screen */
+    width: 250px;
+    height: calc(100% - 70px); /* Sidebar height minus the header height */
+    background-color: #0030FF; /* Sidebar background color */
+    color: white;
+    transition: left 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease; /* Added transition for smooth effects */
+    padding: 20px;
+    z-index: 500; /* Ensure it's above other content */
+    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.2); /* Adds shadow to the sidebar for a lifted effect */
+    border-top-right-radius: 15px; /* Rounded top corners */
+    border-bottom-right-radius: 15px; /* Rounded bottom corners */
+}
+
+.sidebar.open {
+    left: 0; /* Sidebar comes into view */
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 40px; /* Add space from the top for a nice layout */
+}
+
+.sidebar ul li {
+    margin: 20px 0; /* Increase spacing between items */
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px; /* Larger, more readable font */
+    font-weight: 600; /* Make the links bold */
+    display: block;
+    padding: 8px 15px;
+    border-radius: 5px; /* Rounded link corners for a smooth look */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth hover effect */
+}
+
+.sidebar ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
+    transform: translateX(5px); /* Slight movement effect on hover */
+}
+
+.sidebar .sidebar-header {
+    font-size: 24px; /* Bigger font for header */
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 30px; /* Add space below header */
+    text-align: center;
+}
+
+.sidebar.white-bg {
+    background-color: white; /* White background option */
+    color: black; /* Text color for better contrast */
+}
+
+/* Sidebar closed animation */
+.sidebar.closed {
+    left: -250px; /* Sidebar hidden off-screen */
+}
+
+/* Optional media query to handle responsiveness */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px; /* Smaller width on mobile */
+    }
+}

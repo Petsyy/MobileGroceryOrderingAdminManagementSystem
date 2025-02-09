@@ -13,18 +13,20 @@ body {
 .header {
     background-color: #0030FF;
     display: flex;
-    align-items: center;
     padding: 15px;
-    justify-content: space-between;
+    height: 70px; /* Ensure a fixed height for the header */
+    align-items: center; /* Vertically align the logo */
 }
 
-.logo-text, .logo-subtext {
+
+.logo-text {
     color: white;
     font-size: 32px;
     font-weight: bold;
+    margin-left: 10px; /* Added margin for better spacing */
 }
 
-.logo-image {
+.logo {
     width: 50px;
     height: 50px;
 }
@@ -54,7 +56,7 @@ button {
 }
 
 button:hover {
-    background-color: #0066FF;
+    background-color: #0056b3; /* Darker shade on hover */
 }
 
 .product-list {
@@ -72,7 +74,7 @@ button:hover {
     background-color: #fff;
     text-align: center;
     transition: transform 0.2s;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .product-container:hover {
@@ -92,14 +94,17 @@ button:hover {
     margin: 10px 0;
 }
 
-.edit-btn {
-    background-color: #2196F3;
+.edit-btn, .delete-btn {
     padding: 8px 16px;
     border: none;
     border-radius: 4px;
     color: white;
     cursor: pointer;
     transition: background 0.3s ease;
+}
+
+.edit-btn {
+    background-color: #2196F3;
 }
 
 .edit-btn:hover {
@@ -108,12 +113,6 @@ button:hover {
 
 .delete-btn {
     background-color: #f44336; /* Red color for delete button */
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    color: white;
-    cursor: pointer;
-    transition: background 0.3s ease;
 }
 
 .delete-btn:hover {
@@ -121,23 +120,23 @@ button:hover {
 }
 
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
     left: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
 .modal-content {
     background-color: #fff;
-    margin: 10% auto;
+    margin: 10% auto; /* 10% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 300px;
+    width: 300px; /* Could be more or less, depending on screen size */
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -156,6 +155,7 @@ button:hover {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
+    margin-bottom: 10px; /* Added margin for spacing */
 }
 
 .modal-content button {
@@ -170,7 +170,7 @@ button:hover {
 }
 
 .modal-content button:hover {
-    background-color: #0066FF;
+    background-color: #0056b3; /* Darker shade on hover */
 }
 
 .close {
@@ -189,13 +189,13 @@ button:hover {
 
 @media (max-width: 768px) {
     .product-container {
-        width: calc(50% - 20px);
+        width: calc(50% - 20px); /* Adjust width for smaller screens */
     }
 }
 
 @media (max-width: 480px) {
     .product-container {
-        width: calc(100% - 20px);
+        width: calc(100% - 20px); /* Full width on very small screens */
     }
 
     .header {
@@ -204,6 +204,6 @@ button:hover {
     }
 
     .modal-content {
-        width: 90%;
+        width: 90%; /* Responsive modal width */
     }
 }
