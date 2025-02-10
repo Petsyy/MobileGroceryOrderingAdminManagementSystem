@@ -34,9 +34,9 @@
     <!-- Sidebar -->
     <div id="sidebar" class="sidebar">
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Products</a></li>
-            <li><a href="#">Settings</a></li>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="products/product.php">Products</a></li>
+            <li><a href="#">Orders</a></li>
         </ul>
     </div>
 
