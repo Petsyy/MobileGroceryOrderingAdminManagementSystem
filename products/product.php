@@ -7,7 +7,8 @@
     
     <!-- Link to external CSS files -->
     <link rel="stylesheet" href="../index.css">
-    <link rel="stylesheet" href="../buttons/button.css">
+    <link rel="stylesheet" href="../product/product.css">
+    <Link rel="stylesheet" href="../buttons/button.css">
     
     <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>

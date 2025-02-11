@@ -187,6 +187,7 @@ button:hover {
     cursor: pointer;
 }
 
+
 @media (max-width: 768px) {
     .product-container {
         width: calc(50% - 20px); /* Adjust width for smaller screens */
