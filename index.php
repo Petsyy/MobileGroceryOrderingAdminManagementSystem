@@ -18,7 +18,6 @@
         <span class="logo-text">EZ Mart</span>
     </header>
     
-
     <main class="container">
         <h1>Dashboard</h1>
         <div id="productList" class="product-list">
@@ -36,22 +35,8 @@
         <ul>
             <li><a href="index.php">Home</a></li>
             <li><a href="products/product.php">Products</a></li>
-            <li><a href="#">Orders</a></li>
+            <li><a href="order/order.php">Orders</a></li>
         </ul>
-    </div>
-
-    <!-- Modal for Adding Product -->
-    <div id="addProductModal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closeAddProductModal">&times;</span>
-            <h2>Add Product</h2>
-            <form id="productForm">
-                <input type="text" id="name" placeholder="Product Name" required>
-                <input type="number" id="price" placeholder="Price" required>
-                <input type="text" id="image" placeholder="Image Path" required>
-                <button type="submit">Add Product</button>
-            </form>
-        </div>
     </div>
 
     <!-- Include your JS file -->

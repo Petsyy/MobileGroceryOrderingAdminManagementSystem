@@ -1,209 +1,199 @@
-* {
-    box-sizing: border-box;
-}
-
+/* General Styles */
 body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
     margin: 0;
     padding: 0;
-    height: 100%;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-}
-
-.header {
-    background-color: #0030FF;
-    display: flex;
-    padding: 15px;
-    height: 70px; /* Ensure a fixed height for the header */
-    align-items: center; /* Vertically align the logo */
-}
-
-
-.logo-text {
-    color: white;
-    font-size: 32px;
-    font-weight: bold;
-    margin-left: 10px; /* Added margin for better spacing */
-}
-
-.logo {
-    width: 50px;
-    height: 50px;
 }
 
 .container {
+    max-width: 1200px;
+    margin: auto;
     padding: 20px;
 }
 
-h1, h2 {
-    color: #0066FF;
-}
-
-.add-product-container {
+h1 {
     text-align: center;
-    margin-top: 20px;
+    color: #333;
 }
 
-button {
-    background-color: #0066FF;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background 0.3s ease;
-}
-
-button:hover {
-    background-color: #0056b3; /* Darker shade on hover */
-}
-
+/* Product List */
 .product-list {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
+    padding: 20px;
 }
 
 .product-container {
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 15px;
-    width: calc(25% - 20px);
+    width: 260px;
     background-color: #fff;
     text-align: center;
-    transition: transform 0.2s;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .product-container:hover {
     transform: scale(1.05);
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .product-container img {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     object-fit: cover;
-    border-radius: 4px;
+    border-radius: 6px;
+    margin-bottom: 10px;
 }
 
 .price {
     font-size: 18px;
     color: #FF5722;
+    font-weight: bold;
     margin: 10px 0;
 }
 
-.edit-btn, .delete-btn {
-    padding: 8px 16px;
+.stock {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+/* Buttons */
+.order-btn, .edit-btn, .delete-btn {
+    background-color: #0066FF;
+    color: white;
+    padding: 10px 15px;
     border: none;
     border-radius: 4px;
-    color: white;
     cursor: pointer;
+    font-size: 14px;
     transition: background 0.3s ease;
+    margin: 5px;
+}
+
+.order-btn:hover {
+    background-color: #0056b3;
 }
 
 .edit-btn {
-    background-color: #2196F3;
+    background-color: #FFA500;
 }
 
 .edit-btn:hover {
-    background-color: #1976D2;
+    background-color: #e69500;
 }
 
 .delete-btn {
-    background-color: #f44336; /* Red color for delete button */
+    background-color: #FF0000;
 }
 
 .delete-btn:hover {
-    background-color: #d32f2f; /* Darker red on hover */
+    background-color: #cc0000;
 }
 
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+/* Add Product Button */
+.add-product-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#addProductBtn {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#addProductBtn:hover {
+    background-color: #218838;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+    width: 250px;
+    height: 100vh;
+    background: #333;
+    padding-top: 20px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.sidebar.active {
+    transform: translateX(0);
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 15px;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.sidebar ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
     background-color: #fff;
-    margin: 10% auto; /* 10% from the top and centered */
+    margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 300px; /* Could be more or less, depending on screen size */
+    width: 40%;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.modal-content h2 {
-    text-align: center;
-}
-
-.modal-content form {
-    display: flex;
-    flex-direction: column;
-}
-
-.modal-content input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    margin-bottom: 10px; /* Added margin for spacing */
-}
-
-.modal-content button {
-    background-color: #0066FF;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background 0.3s ease;
-}
-
-.modal-content button:hover {
-    background-color: #0056b3; /* Darker shade on hover */
 }
 
 .close {
-    color: #aaa;
     float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
+    font-size: 24px;
     cursor: pointer;
 }
 
-@media (max-width: 768px) {
-    .product-container {
-        width: calc(50% - 20px); /* Adjust width for smaller screens */
-    }
+.close:hover {
+    color: red;
 }
 
-@media (max-width: 480px) {
-    .product-container {
-        width: calc(100% - 20px); /* Full width on very small screens */
-    }
-
-    .header {
+/* Responsive Design */
+@media (max-width: 768px) {
+    .product-list {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
     }
-
+    .product-container {
+        width: 80%;
+    }
     .modal-content {
-        width: 90%; /* Responsive modal width */
+        width: 80%;
     }
 }
