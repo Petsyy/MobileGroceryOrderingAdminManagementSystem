@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order - EZ Mart</title>
-    <link rel="stylesheet" href="../index.css">
-    <link rel="stylesheet" href="../order/order.css">
-    <link rel="stylesheet" href="../buttons/button.css">
     
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="order.css">
+    <link rel="stylesheet" href="../buttons/button.css">
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
     <header class="header">
-        <img src="../images/menu.svg" alt="EZ Mart Logo" class="logo" id="menuIcon">
+        <img src="../images/menu.svg" alt="Menu Icon" class="logo" id="menuIcon">
         <span class="logo-text">EZ Mart</span>
     </header>
     
@@ -32,24 +33,25 @@
                 <tr>
                     <th>Name</th>
                     <th>Order</th>
-                    <th>Operation</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>John Doe</td>
-                    <td>Apple, Banana</td>
-                    <td><button class="add-btn">Add</button></td>
-                </tr>
-                <tr>
-                    <td>Jane Smith</td>
-                    <td>Milk, Bread</td>
-                    <td><button class="add-btn">Add</button></td>
-                </tr>
+            <tbody id="orderTableBody">
+                <!-- Orders will be dynamically inserted here -->
             </tbody>
         </table>
     </main>
-    
+
+    <!-- Order View Modal -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Order Details</h2>
+            <p id="orderDetails"></p>
+        </div>
+    </div>
+
+    <!-- JavaScript Files -->
     <script src="../buttons/button.js"></script>
-</body>
+    <script src="order.js"></script>
 </html>
