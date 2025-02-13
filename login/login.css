@@ -1,0 +1,95 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f0f2f5;
+    margin: 0;
+}
+
+.login-container {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 0 15px rgba(24, 119, 242, 0.3);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+fieldset {
+    border: none;
+    width: 100%;
+}
+
+legend {
+    font-size: 26px;
+    font-weight: bold;
+    color: #1877f2;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.input-group {
+    margin: 0px 0px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 100%;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    color: #333;
+    font-size: 16px;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+input {
+    width: calc(100% - 10px);
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border 0.3s ease;
+    margin-bottom: 10px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #1877f2;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background: #1877f2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    max-width: 100%;
+}
+
+button:hover {
+    background: #165dd1;
+}
+
+.error {
+    color: #ff4d4d;
+    font-size: 14px;
+    display: block;
+    margin-top: 5px;
+}
