@@ -84,11 +84,11 @@ h1 {
 }
 
 .edit-btn {
-    background-color: #FFA500;
+    background-color: #0066FF;
 }
 
 .edit-btn:hover {
-    background-color: #e69500;
+    background-color: #0056b3;
 }
 
 .delete-btn {
@@ -106,7 +106,7 @@ h1 {
 }
 
 #addProductBtn {
-    background-color: #28a745;
+    background-color: #0066FF;
     color: white;
     padding: 12px 20px;
     font-size: 16px;
@@ -117,7 +117,7 @@ h1 {
 }
 
 #addProductBtn:hover {
-    background-color: #218838;
+    background-color: #0056b3;
 }
 
 /* Sidebar */
@@ -156,6 +156,7 @@ h1 {
 }
 
 /* Modal Styling */
+/* Modal Styling */
 .modal {
     display: none;
     position: fixed;
@@ -172,10 +173,39 @@ h1 {
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 40%;
+    width: 350px;
     border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Adds spacing between elements */
 }
 
+/* Arrange input fields so price is first, stock is last */
+.modal-content label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.modal-content input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 16px;
+}
+
+/* Specific order for inputs */
+.modal-content .price {
+    order: 1; /* Appears first */
+    margin-bottom: 20px;
+}
+
+.modal-content .stock {
+    order: 2; /* Appears last */
+}
+
+/* Modal Close Button */
 .close {
     float: right;
     font-size: 24px;
@@ -188,13 +218,6 @@ h1 {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .product-list {
-        flex-direction: column;
-        align-items: center;
-    }
-    .product-container {
-        width: 80%;
-    }
     .modal-content {
         width: 80%;
     }

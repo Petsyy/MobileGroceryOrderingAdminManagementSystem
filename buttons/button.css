@@ -58,6 +58,15 @@
     text-align: center;
 }
 
+.account {
+    cursor: pointer;
+    position: absolute;
+    right: 20px; /* Adjust for spacing */
+    top: 15px; /* Adjust for alignment */
+    width: 50px; /* Set a size if needed */
+    height: auto;
+}
+
 .sidebar.white-bg {
     background-color: white; /* White background option */
     color: black; /* Text color for better contrast */

@@ -40,7 +40,8 @@ $(document).ready(function () {
                     <h3>${product.name}</h3>
                     <p class="price">Price: $${product.price}</p>
                     <p>Stock: ${product.stock}</p>
-                    <button class="order-btn" data-id="${product.id}">Order Now</button>
+                    <button class="edit-btn" data-id="${product.id}">Edit</button>
+                    <button class="delete-btn" data-id="${product.id}">Delete</button>
                 </div>
             `);
 
@@ -50,10 +51,78 @@ $(document).ready(function () {
         console.log("Rendered products:", products);
     }
 
-    // Handle order button click
-    $('#productList').on('click', '.order-btn', function () {
+    // Handle "Edit" button click
+    $('#productList').on('click', '.edit-btn', function () {
         const productId = $(this).data('id');
-        window.location.href = `../order/order.php?id=${productId}`;
+        const product = products.find(p => p.id == productId);
+
+        if (!product) return;
+
+        // Populate edit form
+        $('#editProductId').val(product.id);
+        $('#editPrice').val(product.price);
+        $('#editStock').val(product.stock);
+
+        // Show the modal
+        $('#editModal').fadeIn();
+    });
+
+    // Close Edit Modal
+    $('#closeModal').click(function () {
+        $('#editModal').fadeOut();
+    });
+
+    // Handle form submission for editing
+    $('#editForm').submit(function (event) {
+        event.preventDefault();
+
+        const productId = $('#editProductId').val();
+        const updatedPrice = $('#editPrice').val();
+        const updatedStock = $('#editStock').val();
+
+        $.ajax({
+            url: '../api.php',
+            method: 'POST',
+            data: {
+                action: 'update',
+                id: productId,
+                price: updatedPrice,
+                stock: updatedStock
+            },
+            success: function (response) {
+                console.log(response);
+                alert("Product updated successfully!");
+                $('#editModal').fadeOut();
+                fetchProducts(); // Refresh the product list
+            },
+            error: function (error) {
+                console.error("Error updating product:", error);
+            }
+        });
+    });
+
+    // Handle "Delete" button click
+    $('#productList').on('click', '.delete-btn', function () {
+        const productId = $(this).data('id');
+
+        if (!confirm("Are you sure you want to delete this product?")) return;
+
+        $.ajax({
+            url: '../api.php',
+            method: 'POST',
+            data: {
+                action: 'delete',
+                id: productId
+            },
+            success: function (response) {
+                console.log(response);
+                alert("Product deleted successfully!");
+                fetchProducts(); // Refresh product list
+            },
+            error: function (error) {
+                console.error("Error deleting product:", error);
+            }
+        });
     });
 
     // Toggle Sidebar

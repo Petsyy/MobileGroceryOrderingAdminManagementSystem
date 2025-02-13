@@ -7,7 +7,7 @@
     
     <!-- Link to external CSS files -->
     <link rel="stylesheet" href="../index.css">
-    <link rel="stylesheet" href="../product/product.css">
+    <link rel="stylesheet" href="../products/product.css">
     <Link rel="stylesheet" href="../buttons/button.css">
     
     <!-- Include jQuery -->

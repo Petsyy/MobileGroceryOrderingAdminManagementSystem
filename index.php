@@ -19,15 +19,18 @@
     </header>
     
     <main class="container">
-        <h1>Dashboard</h1>
-        <div id="productList" class="product-list">
-            <!-- Product items will be dynamically added here -->
-        </div>
+    <h1>Dashboard</h1>
 
-        <!-- Add Product Button -->
-        <div class="add-product-container">
-            <button id="addProductBtn">Add Product</button>
-        </div>
+    <!-- Total Products Count -->
+    <div class="product-counter">
+    <label>Total Products:</label>
+    <span id="totalProductCount">0</span>
+    </div>
+
+
+    <div id="productList" class="product-list">
+        <!-- Product items will be dynamically added here -->
+    </div>
     </main>
 
     <!-- Sidebar -->
@@ -36,11 +39,12 @@
             <li><a href="index.php">Home</a></li>
             <li><a href="products/product.php">Products</a></li>
             <li><a href="order/order.php">Orders</a></li>
+            <li><a href="login/login.php">Log out</a></li>
         </ul>
     </div>
 
     <!-- Include your JS file -->
-    <script src="index.js"></script>
     <script src="buttons/button.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>
