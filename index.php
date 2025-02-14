@@ -27,6 +27,12 @@
     <span id="totalProductCount">0</span>
     </div>
 
+    
+    <div class="order-counter">
+    <label>Total Order: :</label>
+    <span id="totalOrderCount">0</span>
+    </div>
+
 
     <div id="productList" class="product-list">
         <!-- Product items will be dynamically added here -->
