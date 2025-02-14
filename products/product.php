@@ -37,6 +37,7 @@
             <li><a href="../index.php">Home</a></li>
             <li><a href="../products/product.php">Products</a></li>
             <li><a href="../order/order.php">Orders</a></li>
+            <li><a href="../login/login.php">Log out</a></li>
         </ul>
     </div>
 
