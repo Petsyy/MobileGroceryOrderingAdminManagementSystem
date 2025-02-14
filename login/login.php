@@ -21,7 +21,7 @@
                     <input type="password" name="password" id="password" required>
                     <span id="password-error" class="error"></span>
                 </div>
-                <button type="submit">Login</button>
+                <button type="submit">Logiin</button>
             </form>
      <div class="bilog1"></div>
     <div class="bilog2"></div>
