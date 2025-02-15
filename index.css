@@ -96,32 +96,96 @@ button:hover {
 /* Product Counter */
 .product-counter {
     background-color: white;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 30px auto; /* Moves it down and centers it */
+    border-radius: 12px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15);
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    max-width: 300px;
-    font-size: 18px;
+    width: 250px; /* Ensures consistency */
+    text-align: center;
     font-weight: bold;
     color: #0030FF;
+    position: relative;
+    top: 20px; /* Moves it a little lower */
 }
 
 .product-counter label {
-    font-size: 16px;
+    font-size: 18px;
     color: #333;
+    margin-bottom: 10px;
 }
 
 .product-counter span {
     background-color: #0030FF;
     color: white;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 28px;
     font-weight: bold;
+    display: inline-block;
+    min-width: 60px;
+    text-align: center;
 }
+
+/* Wrapper for multiple counters */
+.product-counter-container {
+    display: flex;
+    justify-content: center; /* Centers the counters */
+    gap: 20px; /* Space between multiple counters */
+    flex-wrap: wrap; /* Ensures responsiveness */
+    margin-top: 20px;
+}
+
+/* Order Counter */
+.order-counter {
+    background-color: white;
+    padding: 20px;
+    margin: 30px auto; /* Centers and moves it down */
+    border-radius: 12px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 250px; /* Consistent width */
+    text-align: center;
+    font-weight: bold;
+    color: #0030FF;
+    position: relative;
+    top: 20px; /* Moves it slightly down */
+}
+
+/* Label Styling */
+.order-counter label {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Number Styling */
+.order-counter span {
+    background-color: #0030FF;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 28px;
+    font-weight: bold;
+    display: inline-block;
+    min-width: 60px;
+    text-align: center;
+}
+
+/* Wrapper for Multiple Counters */
+.order-counter-container {
+    display: flex;
+    justify-content: center; /* Centers multiple counters */
+    gap: 20px; /* Space between counters */
+    flex-wrap: wrap; /* Allows stacking on smaller screens */
+    margin-top: 20px;
+}
+
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
