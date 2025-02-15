@@ -101,7 +101,6 @@ button:hover {
     border-radius: 8px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
     align-items: center;
-    justify-content: space-between;
     max-width: 300px;
     font-size: 18px;
     font-weight: bold;
@@ -129,13 +128,12 @@ button:hover {
     border-radius: 8px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
     align-items: center;
-    justify-content: space-between;
     max-width: 300px;
     font-size: 18px;
     font-weight: bold;
     color: #0030FF;
 }
-
+    
 .order-counter label {
     font-size: 16px;
     color: #333;

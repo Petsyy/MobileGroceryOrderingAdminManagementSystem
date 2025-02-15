@@ -100,10 +100,9 @@ button:hover {
     top: -79px;
     left: -63px;
     background-size: cover;
-    filter: blur(5px);
     z-index: -1;
     background-color: rgba(102, 170, 249, 1);
-    border-radius: 50%;
+
   }
   .bilog2 {
     position: absolute;
@@ -112,7 +111,6 @@ button:hover {
     top: 107px;
     left: 1129px;
     background-size: cover;
-    filter: blur(5px);
     z-index: -1;
     background-color: rgba(47, 230, 68, 0.89);
     border-radius: 50%;
@@ -124,7 +122,6 @@ button:hover {
     top: 157px;
     left: 622px;
     background-size: cover;
-    filter: blur(5px);
     z-index: -1;
     background-color: rgba(47, 230, 68, 0.89);
     border-radius: 50%;
@@ -136,7 +133,6 @@ button:hover {
     top: 171px;
     left: 1415px;
     background-size: cover;
-    filter: blur(5px);
     z-index: -1;
     background-color: rgba(255, 0, 0, 1);
     border-radius: 50%;
@@ -148,7 +144,6 @@ button:hover {
     top: 617px;
     left: -63px;
     background-size: cover;
-    filter: blur(5px);
     z-index: -1;
     background-color: rgba(241, 162, 50, 1);
     border-radius: 50%;
@@ -160,7 +155,6 @@ button:hover {
     top: 740px;
     left: 1020px;
     background-size: cover;
-    filter: blur(5px);
     z-index: -1;
     background-color: rgba(187, 0, 255, 1);
     border-radius: 50%;
