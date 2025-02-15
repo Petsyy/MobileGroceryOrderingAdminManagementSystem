@@ -23,16 +23,11 @@
 
     <!-- Total Products Count -->
     <div class="product-counter">
-    <label>Tootal Products:</label>
+    <label>Total Products:</label>
     <span id="totalProductCount">0</span>
     </div>
-
-        
-    <div class="order-counter">
-    <label>Total Order:</label>
-    <span id="totalOrderCount">0</span>
-    </div>
-        
+ 
+    <!-- Order-Counter -->
     <div class="order-counter">
     <label>Total Order: :</label>
     <span id="totalOrderCount">0</span>
