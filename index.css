@@ -96,12 +96,11 @@ button:hover {
 /* Product Counter */
 .product-counter {
     background-color: white;
-    padding: 20px;
-    margin: 30px auto; /* Moves it down and centers it */
-    border-radius: 12px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15);
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-direction: column;
     align-items: center;
     width: 250px; /* Ensures consistency */
     text-align: center;
@@ -171,21 +170,7 @@ button:hover {
     border-radius: 8px;
     font-size: 28px;
     font-weight: bold;
-    display: inline-block;
-    min-width: 60px;
-    text-align: center;
 }
-
-/* Wrapper for Multiple Counters */
-.order-counter-container {
-    display: flex;
-    justify-content: center; /* Centers multiple counters */
-    gap: 20px; /* Space between counters */
-    flex-wrap: wrap; /* Allows stacking on smaller screens */
-    margin-top: 20px;
-}
-
-
 
 /* Responsive Design */
 @media (max-width: 768px) {
