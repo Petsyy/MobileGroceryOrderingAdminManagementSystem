@@ -7,10 +7,10 @@
 .sidebar {
     position: fixed;
     top: 70px; /* Ensure the sidebar starts below the header */
-    left: -250px; /* Initially hide the sidebar off-screen */
+    left: -250px; /* Initially hide the sidebar off-screen */   
     width: 250px;
     height: calc(100% - 70px); /* Sidebar height minus the header height */
-    background-color: #0030FF; /* Sidebar background color */
+    background-color:rgba(17, 14, 225, 1); /* Sidebar background color */
     color: white;
     transition: left 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease; /* Added transition for smooth effects */
     padding: 20px;

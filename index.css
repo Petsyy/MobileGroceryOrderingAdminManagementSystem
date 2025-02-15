@@ -12,7 +12,7 @@ body {
 
 /* Header */
 .header {
-    background-color: #0030FF;
+    background-color: rgba(17, 14, 225, 1);
     display: flex;
     align-items: center;
     padding: 15px;
