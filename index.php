@@ -23,7 +23,7 @@
 
     <!-- Total Products Count -->
     <div class="product-counter">
-    <label>Total Products:</label>
+    <label>Tootal Products:</label>
     <span id="totalProductCount">0</span>
     </div>
 
