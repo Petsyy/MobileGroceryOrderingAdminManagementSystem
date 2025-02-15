@@ -90,7 +90,7 @@ button:hover {
 .error {
     color: #ff4d4d;
     font-size: 14px;
-    display: block;
+    display: block;   
     margin-top: 5px;
 }
 .bilog1 {
@@ -102,7 +102,9 @@ button:hover {
     background-size: cover;
     z-index: -1;
     background-color: rgba(102, 170, 249, 1);
-    border-radius: 50%;
+    border-radius: 20%;
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
+    transform: rotate(-50deg);
 
   }
   .bilog2 {
@@ -113,8 +115,9 @@ button:hover {
     left: 1129px;
     background-size: cover;
     z-index: -1;
-    background-color: rgba(47, 230, 68, 0.89);
-    border-radius: 50%;
+    background-color: rgba(150, 216, 206, 1);
+    border-radius: 20%;
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
   }
   .bilog3 {
     position: absolute;
@@ -124,8 +127,9 @@ button:hover {
     left: 622px;
     background-size: cover;
     z-index: -1;
-    background-color: rgba(47, 230, 68, 0.89);
-    border-radius: 50%;
+    background-color: rgba(150, 216, 206, 1);
+    border-radius: 20%;
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
   }
   .bilog4 {
     position: absolute;
@@ -135,8 +139,9 @@ button:hover {
     left: 1415px;
     background-size: cover;
     z-index: -1;
-    background-color: rgba(255, 0, 0, 1);
-    border-radius: 50%;
+    background-color: rgba(187, 0, 255, 1);
+    border-radius: 20%;
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
   }
   .bilog5 {
     position: absolute;
@@ -147,7 +152,8 @@ button:hover {
     background-size: cover;
     z-index: -1;
     background-color: rgba(241, 162, 50, 1);
-    border-radius: 50%;
+    border-radius: 20%;
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
   }
   .bilog6 {
     position: absolute;
@@ -158,17 +164,19 @@ button:hover {
     background-size: cover;
     z-index: -1;
     background-color: rgba(187, 0, 255, 1);
-    border-radius: 50%;
+    border-radius: 20%;
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
   }
   .bilog7 {
     position: absolute;
     width: 352px;
-    height: 352px;
+    height: 550px;
     top: 617px;
     left: 1497px;
     background-size: cover;
-    filter: blur(5px);
     z-index: -1;
     background-color: rgba(218, 230, 47, 0.89);
-    border-radius: 50%;
+    border-radius: 20%;
+    box-shadow: -12px 11px 5px rgba(0, 0, 0, 0.5);
+    transform: rotate(-50deg);
   }

@@ -13,17 +13,17 @@
             <form action="login_process.php"  method="post" onsubmit="return validateForm()">
                 <div class="input-group">
                     <label for="username">Username</label>
-                    <input type="text" name="username" id="username" required>
+                    <input type="text" placeholder="Enter Username" name="username" id="username" required>
                     <span id="username-error" class="error"></span>
                 </div>
                 <div class="input-group">
                     <label for="password">Password</label>
-                    <input type="password" name="password" id="password" required>
+                    <input type="password" placeholder="Enter Password" name="password" id="password" required>
                     <span id="password-error" class="error"></span>
                 </div>
                 <button type="submit">Login</button>
             </form>
-    <div class="bilog1"></div>
+     <div class="bilog1"></div>
     <div class="bilog2"></div>
     <div class="bilog3"></div>
     <div class="bilog4"></div> 
