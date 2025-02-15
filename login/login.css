@@ -13,8 +13,8 @@ body {
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 0 15px rgba(24, 119, 242, 0.3);
-    width: 100%;
-    max-width: 400px;
+    width: 70%;
+    max-width: 350px;
     text-align: center;
     display: flex;
     flex-direction: column;
