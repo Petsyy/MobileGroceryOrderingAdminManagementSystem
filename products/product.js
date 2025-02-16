@@ -34,16 +34,16 @@ $(document).ready(function () {
         $('#productList').empty(); // Clear existing products
 
         products.forEach(product => {
-            const productContainer = $(`
-                <div class="product-container" data-id="${product.id}">
-                    <img src="../images/${product.image}" alt="${product.name}">
+            const productContainer = $(
+                `<div class="product-container" data-id="${product.id}">
+                    <img src="http://localhost/SM/${product.image}" alt="${product.name}">
                     <h3>${product.name}</h3>
                     <p class="price">Price: $${product.price}</p>
                     <p>Stock: ${product.stock}</p>
                     <button class="edit-btn" data-id="${product.id}">Edit</button>
                     <button class="delete-btn" data-id="${product.id}">Delete</button>
-                </div>
-            `);
+                </div>`
+            );
 
             $('#productList').append(productContainer);
         });
@@ -121,6 +121,53 @@ $(document).ready(function () {
             },
             error: function (error) {
                 console.error("Error deleting product:", error);
+            }
+        });
+    });
+
+    // Open "Add Product" Modal
+    $('#addProductBtn').click(function () {
+        $('#addProductModal').fadeIn();
+    });
+
+    // Close "Add Product" Modal
+    $('#closeAddProductModal').click(function () {
+        $('#addProductModal').fadeOut();
+    });
+
+    // Handle "Add Product" form submission
+    $('#productForm').submit(function (event) {
+        event.preventDefault();
+
+        const productName = $('#name').val().trim();
+        const productPrice = $('#price').val().trim();
+        const productStock = $('#stock').val().trim();
+        const productImage = $('#image').val().trim();
+
+        if (!productName || !productPrice || !productStock || !productImage) {
+            alert("Please fill out all fields.");
+            return;
+        }
+
+        $.ajax({
+            url: '../api.php',
+            method: 'POST',
+            data: {
+                action: 'add',
+                name: productName,
+                price: productPrice,
+                stock: productStock,
+                image: productImage
+            },
+            success: function (response) {
+                console.log(response);
+                alert("Product added successfully!");
+                $('#productForm')[0].reset(); // Reset form
+                $('#addProductModal').fadeOut();
+                fetchProducts(); // Refresh the product list
+            },
+            error: function (error) {
+                console.error("Error adding product:", error);
             }
         });
     });

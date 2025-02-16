@@ -2,11 +2,12 @@
 .view-btn {
     background-color: #f0ad4e;
     color: white;
-    padding: 8px 12px;
+    padding: 6px 10px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background 0.3s;
+    font-size: 14px;
 }
 
 .view-btn:hover {
@@ -16,11 +17,12 @@
 .confirm-btn {
     background-color: #5cb85c;
     color: white;
-    padding: 8px 12px;
+    padding: 6px 10px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background 0.3s;
+    font-size: 14px;
 }
 
 .confirm-btn:hover {
@@ -30,11 +32,12 @@
 .delete-btn {
     background-color: #d9534f;
     color: white;
-    padding: 8px 12px;
+    padding: 6px 10px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background 0.3s;
+    font-size: 14px;
 }
 
 .delete-btn:hover {
@@ -74,31 +77,47 @@
 .close:hover {
     color: black;
 }
+
 /* Order Table */
 .order-table {
-    width: 100%;
+    width: 80%; /* Adjusted width for centering */
+    margin: 20px auto; /* Centers the table horizontally */
     border-collapse: collapse;
     background-color: white;
-    margin-top: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     overflow: hidden;
     border: 2px solid #ddd; /* Ensure border around the table */
-}
-
-.order-table th, .order-table td {
-    border: 2px solid #ddd; /* Ensure cell borders */
-    padding: 12px;
-    text-align: left;
+    table-layout: auto; /* Adjusts column width dynamically */
 }
 
 .order-table th {
-    background-color: #0066FF;
-    color: white;
+    background-color: #0030FF;
     font-weight: bold;
+    text-align: left;
+    padding: 12px;
 }
 
-.order-table tr:hover {
-    background-color: #f1f1f1; /* Highlight on hover */
+.order-table th, .order-table td {
+    border: 2px solid #ddd;
+    padding: 12px;
+    text-align: left;
+    white-space: nowrap; /* Prevents unnecessary wrapping */
 }
 
+/* Action Column Fix */
+.order-table th:last-child, 
+.order-table td:last-child {
+    width: auto; /* Adjust width dynamically */
+    text-align: center;
+    padding: 6px; /* Reducing padding to minimize extra space */
+}
+
+/* Buttons inside the Action Column */
+.order-table td:last-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px; /* Ensures even spacing between buttons */
+    flex-wrap: nowrap; /* Prevents wrapping */
+}
