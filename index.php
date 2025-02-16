@@ -29,7 +29,7 @@
  
     <!-- Order-Counter -->
     <div class="order-counter">
-    <label>Total Order: :</label>
+    <label>Total Order:</label>
     <span id="totalOrderCount">0</span>
     </div>
 
