@@ -125,6 +125,16 @@ $(document).ready(function () {
         });
     });
 
+    // Handle "Add Product" button click
+    $('#addProductBtn').click(function () {
+        $('#addProductModal').fadeIn(); // Show the modal
+    });
+
+    // Close Add Product Modal
+    $('#closeAddProductModal').click(function () {
+        $('#addProductModal').fadeOut(); // Hide the modal
+    });
+    
     // Toggle Sidebar
     $("#menuIcon").click(function () {
         $("#sidebar").toggleClass("active");
