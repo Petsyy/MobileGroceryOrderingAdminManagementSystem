@@ -23,7 +23,7 @@
                 </div>
                 <button type="submit">Login</button>
             </form>
-     <div class="bilog1"></div>
+    <div class="bilog1"></div>
     <div class="bilog2"></div>
     <div class="bilog3"></div>
     <div class="bilog4"></div> 
