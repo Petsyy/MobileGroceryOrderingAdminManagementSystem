@@ -16,6 +16,7 @@
     <body>
         <header class="header">
             <img src="../images/menu.svg" alt="EZ Mart Logo" class="logo" id="menuIcon">
+            <img src="../images/ez-mart.svg" alt="EZ Mart Logo" class="ez_logo" id="ezLogo" style="width: 60px; height: auto;">
             <span class="logo-text">EZ Mart</span>
         </header>
         

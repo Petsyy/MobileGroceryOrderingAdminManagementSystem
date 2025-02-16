@@ -1,4 +1,7 @@
-/* Buttons */
+body{
+    color: white;
+}
+
 .view-btn {
     background-color: #f0ad4e;
     color: white;
@@ -80,15 +83,15 @@
 
 /* Order Table */
 .order-table {
-    width: 80%; /* Adjusted width for centering */
-    margin: 20px auto; /* Centers the table horizontally */
+    width: 80%;
+    margin: 20px auto;
     border-collapse: collapse;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     overflow: hidden;
-    border: 2px solid #ddd; /* Ensure border around the table */
-    table-layout: auto; /* Adjusts column width dynamically */
+    border: 2px solid #ddd;
+    table-layout: auto;
 }
 
 .order-table th {
@@ -102,22 +105,22 @@
     border: 2px solid #ddd;
     padding: 12px;
     text-align: left;
-    white-space: nowrap; /* Prevents unnecessary wrapping */
+    white-space: nowrap;
 }
 
 /* Action Column Fix */
 .order-table th:last-child, 
 .order-table td:last-child {
-    width: auto; /* Adjust width dynamically */
+    width: auto;
     text-align: center;
-    padding: 6px; /* Reducing padding to minimize extra space */
+    padding: 6px;
 }
 
-/* Buttons inside the Action Column */
+
 .order-table td:last-child {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 5px; /* Ensures even spacing between buttons */
-    flex-wrap: nowrap; /* Prevents wrapping */
+    gap: 5px;
+    flex-wrap: nowrap;
 }
