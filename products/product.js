@@ -125,6 +125,37 @@ $(document).ready(function () {
         });
     });
 
+    // Handle form submission for adding a product
+    $('#productForm').submit(function (event) {
+        event.preventDefault();
+
+        const name = $('#name').val();
+        const price = $('#price').val();
+        const stock = $('#stock').val();
+        const image = $('#image').val();
+
+        $.ajax({
+            url: '../api.php',
+            method: 'POST',
+            data: {
+                action: 'add',
+                name: name,
+                price: price,
+                stock: stock,
+                image: image
+            },
+            success: function (response) {
+                console.log(response);
+                alert("Product added successfully!");
+                $('#addProductModal').fadeOut(); // Hide the modal
+                fetchProducts(); // Refresh the product list
+            },
+            error: function (error) {
+                console.error("Error adding product:", error);
+            }
+        });
+    });
+
     // Handle "Add Product" button click
     $('#addProductBtn').click(function () {
         $('#addProductModal').fadeIn(); // Show the modal
