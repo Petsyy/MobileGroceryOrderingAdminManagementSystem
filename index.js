@@ -13,6 +13,21 @@ $(document).ready(function () {
             .catch(error => console.error("Error fetching total products:", error));
     }
 
-    // Call the function when the page loads
+    function fetchTotalOrder() {
+        fetch('order/total_order.php') // Ensure this path is correct
+            .then(response => response.json())
+            .then(data => {
+                console.log("Fetched total orders:", data); // Debugging log
+                if (data.total_order !== undefined) { // Fixed variable name
+                    $("#totalOrderCount").text(data.total_order); // Fixed variable name
+                } else {
+                    console.error("Error: Invalid response", data);
+                }
+            })
+            .catch(error => console.error("Error fetching total orders:", error));
+    }
+
+    // Call both functions when the page loads
     fetchTotalProducts();
+    fetchTotalOrder();
 });
