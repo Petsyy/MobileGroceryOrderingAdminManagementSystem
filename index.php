@@ -16,7 +16,7 @@
     <header class="header">
         <img src="images/menu.svg" alt="menu-icon" id="menuIcon">
         <img src="./images/ez-mart.svg" alt="EZ Mart Logo" class="ez_logo" id="ezLogo" style="width: 60px; margin-left: 10px; ">
-        <span class="logo-text">EZ Mart</span>
+        <span class="logo-text">Mart</span>
     </header>
 
     
