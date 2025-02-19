@@ -1,7 +1,8 @@
-body{
+body {
     color: white;
 }
 
+/* Buttons */
 .view-btn {
     background-color: #f0ad4e;
     color: white;
@@ -99,6 +100,7 @@ body{
     font-weight: bold;
     text-align: left;
     padding: 12px;
+    color: white;
 }
 
 .order-table th, .order-table td {
@@ -106,6 +108,7 @@ body{
     padding: 12px;
     text-align: left;
     white-space: nowrap;
+    color: black; /* Ensures visibility */
 }
 
 /* Action Column Fix */
@@ -115,7 +118,6 @@ body{
     text-align: center;
     padding: 6px;
 }
-
 
 .order-table td:last-child {
     display: flex;
