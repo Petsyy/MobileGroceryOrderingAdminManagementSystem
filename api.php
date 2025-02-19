@@ -4,7 +4,7 @@ $username = "root";
 $password = "";
 $dbname = "inventory_db";
 
-// Create connection
+// Create connection (Fixed)
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
@@ -32,10 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 
 // Handle POST request to add a product
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'add') {
     $name = $_POST['name'] ?? '';
-    $price = $_POST['price'] ?? 0;
-    $stock = $_POST['stock'] ?? 0;
+    $price = $_POST['price'] ?? '';
+    $stock = $_POST['stock'] ?? '';
     $image = $_POST['image'] ?? '';
 
     // Validate inputs
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("sdss", $name, $price, $stock, $image);
 
     if ($stmt->execute()) {
-        echo json_encode(["message" => "Product added successfully"]);
+        echo json_encode(["success" => true, "message" => "Product added successfully"]);
     } else {
         echo json_encode(["error" => "Error adding product: " . $stmt->error]);
     }
@@ -59,25 +59,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-// Handle PUT request to update a product
-if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
-    parse_str(file_get_contents("php://input"), $_PUT);
-    if (!isset($_PUT['id'], $_PUT['price'], $_PUT['stock'])) {
-        echo json_encode(["error" => "Missing parameters"]);
+// Handle POST request to update a product
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'update') {
+    $id = $_POST['id'] ?? '';
+    $price = $_POST['price'] ?? '';
+    $stock = $_POST['stock'] ?? '';
+
+    // Validate inputs
+    if (!is_numeric($id) || !is_numeric($price) || !is_numeric($stock)) {
+        echo json_encode(["error" => "Invalid input data"]);
         $conn->close();
         exit;
     }
-
-    $id = $_PUT['id'];
-    $price = $_PUT['price'];
-    $stock = $_PUT['stock'];
 
     // Use prepared statement to prevent SQL injection
     $stmt = $conn->prepare("UPDATE products SET price=?, stock=? WHERE id=?");
     $stmt->bind_param("ddi", $price, $stock, $id);
 
     if ($stmt->execute()) {
-        echo json_encode(["message" => "Product updated successfully"]);
+        echo json_encode(["success" => true, "message" => "Product updated successfully"]);
     } else {
         echo json_encode(["error" => "Error updating product: " . $stmt->error]);
     }
@@ -86,23 +86,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     exit;
 }
 
-// Handle DELETE request to delete a product
-if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    parse_str(file_get_contents("php://input"), $_DELETE);
-    if (!isset($_DELETE['id'])) {
-        echo json_encode(["error" => "Missing product ID"]);
+// Handle POST request to delete a product
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'delete') {
+    $id = $_POST['id'] ?? '';
+
+    if (!is_numeric($id)) {
+        echo json_encode(["error" => "Invalid product ID"]);
         $conn->close();
         exit;
     }
-
-    $id = $_DELETE['id'];
 
     // Use prepared statement to prevent SQL injection
     $stmt = $conn->prepare("DELETE FROM products WHERE id=?");
     $stmt->bind_param("i", $id);
 
     if ($stmt->execute()) {
-        echo json_encode(["message" => "Product deleted successfully"]);
+        echo json_encode(["success" => true, "message" => "Product deleted successfully"]);
     } else {
         echo json_encode(["error" => "Error deleting product: " . $stmt->error]);
     }
@@ -111,5 +110,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     exit;
 }
 
+// Close the connection at the end
 $conn->close();
 ?>
