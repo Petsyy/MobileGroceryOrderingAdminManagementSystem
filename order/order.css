@@ -1,51 +1,46 @@
 body {
     color: white;
+    font-family: Arial, sans-serif;
 }
 
 /* Buttons */
-.view-btn {
-    background-color: #f0ad4e;
-    color: white;
-    padding: 6px 10px;
+.view-btn, .confirm-btn, .delete-btn {
+    padding: 8px 12px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background 0.3s, transform 0.2s;
     font-size: 14px;
+}
+
+.view-btn {
+    background-color: #f0ad4e;
+    color: white;
 }
 
 .view-btn:hover {
     background-color: #ec971f;
+    transform: scale(1.05);
 }
 
 .confirm-btn {
     background-color: #5cb85c;
     color: white;
-    padding: 6px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.3s;
-    font-size: 14px;
 }
 
 .confirm-btn:hover {
     background-color: #4cae4c;
+    transform: scale(1.05);
 }
 
 .delete-btn {
     background-color: #d9534f;
     color: white;
-    padding: 6px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.3s;
-    font-size: 14px;
 }
 
 .delete-btn:hover {
     background-color: #c9302c;
+    transform: scale(1.05);
 }
 
 /* Modal */
@@ -58,28 +53,44 @@ body {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-content {
     background-color: white;
-    margin: 10% auto;
+    color: black;
     padding: 20px;
     border-radius: 8px;
-    width: 300px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 350px;
+    max-width: 90%;
+    text-align: left;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.3s ease-in-out;
 }
 
 .close {
     float: right;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
     cursor: pointer;
+    color: #333;
 }
 
 .close:hover {
     color: black;
+}
+
+.modal h2 {
+    margin-top: 0;
+    font-size: 20px;
+}
+
+.modal p {
+    font-size: 16px;
+    margin: 10px 0;
 }
 
 /* Order Table */
@@ -87,12 +98,11 @@ body {
     width: 80%;
     margin: 20px auto;
     border-collapse: collapse;
-    background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     overflow: hidden;
     border: 2px solid #ddd;
-    table-layout: auto;
+    background-color: white;
 }
 
 .order-table th {
@@ -108,13 +118,12 @@ body {
     padding: 12px;
     text-align: left;
     white-space: nowrap;
-    color: black; /* Ensures visibility */
+    color: black;
 }
 
 /* Action Column Fix */
 .order-table th:last-child, 
 .order-table td:last-child {
-    width: auto;
     text-align: center;
     padding: 6px;
 }
@@ -125,4 +134,16 @@ body {
     align-items: center;
     gap: 5px;
     flex-wrap: nowrap;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
