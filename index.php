@@ -14,12 +14,10 @@
 </head>
 <body>
     <header class="header">
-        <img src="images/menu.svg" alt="menu-icon" id="menuIcon">
-        <img src="./images/ez-mart.svg" alt="EZ Mart Logo" class="ez_logo" id="ezLogo" style="width: 60px; margin-left: 10px; ">
+        <img src="./images/ez-mart.svg" alt="EZ Mart Logo" class="ez_logo" id="ezLogo" style="width: 60px;">
         <span class="logo-text"> Mart</span>
     </header>
 
-    
     <main class="container">
         <h1>Dashboard</h1>
 

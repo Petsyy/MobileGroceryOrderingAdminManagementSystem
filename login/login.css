@@ -32,6 +32,7 @@ legend {
     color: #1877f2;
     margin-bottom: 15px;
     text-align: center;
+    width: 100%;
 }
 
 .input-group {
