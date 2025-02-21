@@ -93,84 +93,114 @@ button:hover {
     background-color: #0056b3;
 }
 
+/* Counter Container */
+.counter-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+    max-width: 900px;
+    
+}
+
 /* Product Counter */
 .product-counter {
     background-color: white;
-    padding: 15px;
-    margin-bottom: 20px;
+    padding: 12px;
     border-radius: 8px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 300px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     color: #0030FF;
-    position: relative;
-    top: 20px; /* Moves it a little lower */
+    min-width: 270px;
+    max-width: 100px;
+    text-align: center;
 }
 
 .product-counter label {
-    font-size: 18px;
+    font-size: 16px;
     color: #333;
-    margin-bottom: 10px;
 }
 
 .product-counter span {
     background-color: #0030FF;
     color: white;
-    padding: 10px 20px;
+    padding: 8px 16px;
     border-radius: 8px;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
-    display: inline-block;
-    min-width: 60px;
+    min-width: 50px;
     text-align: center;
 }
 
-/* Wrapper for multiple counters */
-.product-counter-container {
-    display: flex;
-    justify-content: center; /* Centers the counters */
-    gap: 20px; /* Space between multiple counters */
-    flex-wrap: wrap; /* Ensures responsiveness */
-    margin-top: 20px;
-}
-
-/* Product Counter */
+/* Order Counter */
 .order-counter {
     background-color: white;
-    padding: 15px;
-    margin-bottom: 20px;
+    padding: 12px;
     border-radius: 8px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 300px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     color: #0030FF;
-    position: relative;
-    top: 20px; /* Moves it a little lower */
+    min-width: 270px;
+    max-width: 100px;
+    text-align: center;
 }
 
 .order-counter label {
-    font-size: 18px;
+    font-size: 16px;
     color: #333;
-    margin-bottom: 10px;
 }
 
 .order-counter span {
     background-color: #0030FF;
     color: white;
-    padding: 10px 20px;
+    padding: 8px 16px;
     border-radius: 8px;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
-    display: inline-block;
-    min-width: 60px;
+    min-width: 50px;
+    text-align: center;
+}
+
+/* Recent Order Counter */
+.recent-counter {
+    background-color: white;
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: bold;
+    color: #0030FF;
+    min-width: 270px;
+    max-width: 100px;
+    text-align: center;
+}
+
+.recent-counter label {
+    font-size: 16px;
+    color: #333;
+}
+
+.recent-counter span {
+    background-color: #0030FF;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 24px;
+    font-weight: bold;
+    min-width: 50px;
     text-align: center;
 }
 

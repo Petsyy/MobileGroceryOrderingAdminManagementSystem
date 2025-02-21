@@ -16,23 +16,33 @@
     <header class="header">
         <img src="images/menu.svg" alt="menu-icon" id="menuIcon">
         <img src="./images/ez-mart.svg" alt="EZ Mart Logo" class="ez_logo" id="ezLogo" style="width: 60px; margin-left: 10px; ">
-        <span class="logo-text">Mart</span>
+        <span class="logo-text"> Mart</span>
     </header>
 
     
-<main class="container">
-    <h1>Dashboard</h1>
+    <main class="container">
+        <h1>Dashboard</h1>
 
-    <!-- Total Products Count -->
-    <div class="product-counter">
-        <label>Total Products:</label>
-        <span id="totalProductCount">0</span>
-    </div>
- 
-    <!-- Order-Counter -->
-    <div class="order-counter">
-    <label>Total Order:</label>
-    <span id="totalOrderCount">0</span>
+    <!-- Counter Container -->
+    <div class="counter-container">
+        
+        <!-- Total Products Count -->
+        <div class="product-counter">
+            <label>Total Products:</label>
+            <span id="totalProductCount">0</span>
+        </div>
+
+        <!-- Order-Counter -->
+        <div class="order-counter">
+            <label>Total Order:</label>
+            <span id="totalOrderCount">0</span>
+        </div>
+
+        <!-- Recent Counter -->
+        <div class="recent-counter">
+            <label>Recent Order:</label>
+            <span id="totalRecentCount">0</span>
+        </div>
     </div>
 
     <div id="productList" class="product-list">
