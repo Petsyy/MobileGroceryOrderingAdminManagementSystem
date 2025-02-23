@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="buttons/button.css">
     <link rel="stylesheet" href="user-profile/user.css">
+    <link rel="stylesheet" href="notification-bell/notification.css">
     
     <!-- Include jQuery from CDN -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -30,6 +31,16 @@
                 <li><a href="login/login.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
             </ul>
         </div>
+        <div class="notification-bell" onclick="toggleNotifications()">
+    <i class="fas fa-bell"></i>
+    <div class="badge" id="badge">3</div>
+  </div>
+
+  <div class="notifications" id="notifications">
+    <div class="notification-item">New message from John</div>
+    <div class="notification-item">Your order has been shipped</div>
+    <div class="notification-item">New comment on your post</div>
+  </div>
     </div>
 </header>
 
@@ -76,5 +87,6 @@
     <script src="buttons/button.js"></script>
     <script src="index.js"></script>
     <script src="user-profile/user.js"></script>
+    <script src="notification-bell/notification.js"></script>
 </body>
 </html>
