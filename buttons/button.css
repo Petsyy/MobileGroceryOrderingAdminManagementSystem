@@ -7,15 +7,30 @@
 /* Sidebar Styles */
 .sidebar {
     position: fixed;
+<<<<<<< HEAD
     top: 0;
     width: 100px;
     height: 100%;
     background-color: rgba(17, 14, 225, 1);
+=======
+    top: 70px; /* Ensure the sidebar starts below the header */
+    left: -250px; /* Initially hide the sidebar off-screen */   
+    width: 250px;
+    height: calc(100% - 70px); /* Sidebar height minus the header height */
+    background-color:rgba(17, 14, 225, 1); /* Sidebar background color */
+>>>>>>> parent of 3ae3cb2 (new changes for the sidebar & header fix also the alignment of containers)
     color: white;
     transition: left 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
     padding: 20px;
+<<<<<<< HEAD
     z-index: 500;
     box-shadow: 3px 0 10px rgba(0, 0, 0, 0.2);
+=======
+    z-index: 500; /* Ensure it's above other content */
+    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.2); /* Adds shadow to the sidebar for a lifted effect */
+    border-top-right-radius: 15px; /* Rounded top corners */
+    border-bottom-right-radius: 15px; /* Rounded bottom corners */
+>>>>>>> parent of 3ae3cb2 (new changes for the sidebar & header fix also the alignment of containers)
 }
 
 .sidebar.open {
@@ -25,11 +40,15 @@
 .sidebar ul {
     list-style-type: none;
     padding: 0;
+<<<<<<< HEAD
     margin-top: 100px;
+=======
+    margin-top: 40px; /* Add space from the top for a nice layout */
+>>>>>>> parent of 3ae3cb2 (new changes for the sidebar & header fix also the alignment of containers)
 }
 
 .sidebar ul li {
-    margin: 45px 0;
+    margin: 20px 0; /* Increase spacing between items */
 }
 
 .sidebar ul li a {

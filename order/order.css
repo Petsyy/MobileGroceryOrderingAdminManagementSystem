@@ -95,9 +95,8 @@ body {
 
 /* Order Table */
 .order-table {
-    width: 70%;
+    width: 80%;
     margin: 20px auto;
-    margin-left: 250px;
     border-collapse: collapse;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
