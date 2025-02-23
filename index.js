@@ -14,12 +14,12 @@ $(document).ready(function () {
     }
 
     function fetchTotalOrder() {
-        fetch('order/total_order.php') // Ensure this path is correct
+        fetch('order/total_order.php') 
             .then(response => response.json())
             .then(data => {
-                console.log("Fetched total orders:", data); // Debugging log
-                if (data.total_order !== undefined) { // Fixed variable name
-                    $("#totalOrderCount").text(data.total_order); // Fixed variable name
+                console.log("Fetched total orders:", data); 
+                if (data.total_order !== undefined) {
+                    $("#totalOrderCount").text(data.total_order); 
                 } else {
                     console.error("Error: Invalid response", data);
                 }
@@ -27,7 +27,7 @@ $(document).ready(function () {
             .catch(error => console.error("Error fetching total orders:", error));
     }
 
-    // Call both functions when the page loads
+    
     fetchTotalProducts();
     fetchTotalOrder();
 });

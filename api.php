@@ -4,18 +4,17 @@ $username = "root";
 $password = "";
 $dbname = "inventory_db";
 
-// Create connection (Fixed)
+
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
+
 if ($conn->connect_error) {
     die(json_encode(["error" => "Connection failed: " . $conn->connect_error]));
 }
 
-// Set response content type to JSON
+
 header('Content-Type: application/json');
 
-// Handle GET request to fetch products
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $sql = "SELECT * FROM products";
     $result = $conn->query($sql);
@@ -31,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     exit;
 }
 
-// Handle POST request to add a product
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'add') {
     $name = $_POST['name'] ?? '';
     $price = $_POST['price'] ?? '';
