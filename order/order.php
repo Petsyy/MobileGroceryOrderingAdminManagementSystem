@@ -18,7 +18,7 @@
     </header>
     
     <!-- Sidebar -->
-<div id="sidebar" class="sidebar">
+    <div id="sidebar" class="sidebar">
         <ul>
             <li>
                 <a href="../index.php" title="Home">
@@ -41,7 +41,7 @@
                 </a>
             </li>
         </ul>
-</div>
+    </div>
     
     <main class="container">
         <h1>Order Section</h1>

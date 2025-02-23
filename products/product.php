@@ -32,7 +32,7 @@
         </main>
 
         <!-- Sidebar -->
-        <div id="sidebar" class="sidebar">
+    <div id="sidebar" class="sidebar">
         <ul>
             <li>
                 <a href="../index.php" title="Home">
@@ -55,7 +55,7 @@
                 </a>
             </li>
         </ul>
-</div>
+    </div>
 
         <!-- Modals -->
         <div id="addProductModal" class="modal">
