@@ -26,7 +26,67 @@ body {
     font-weight: bold;
     margin-left: 10px;
 }
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Space between user container and notification */
+}
 
+.user-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.user-profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.dropdown-icon {
+    margin-left: 10px;
+}
+
+.notification-bell {
+    position: relative;
+    cursor: pointer;
+}
+
+.badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 50%;
+}
+
+.notifications {
+    position: absolute;
+    right: 0;
+    top: 60px; /* Position the dropdown */
+    background-color: white;
+    border: 1px solid #ddd;
+    display: none;
+    width: 250px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.notification-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+/* Show the notifications when toggled */
+.notifications.show {
+    display: block;
+}
 /* Main Container */
 .container {
     padding: 20px;
@@ -40,7 +100,6 @@ h1 {
 .product-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
     justify-content: center;
 }
 

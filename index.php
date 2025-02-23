@@ -21,26 +21,29 @@
         <img src="./images/ez-mart.svg" alt="EZ Mart Logo" class="ez_logo" id="ezLogo" style="width: 60px;">
         <span class="logo-text"> Mart</span>
     </div>
-    <div class="user-container" id="userContainer">
-        <img src="./images/user-profile.png" alt="user-profile" class="user-profile" id="userProfile">
-        <i class="fa-solid fa-caret-down dropdown-icon" id="dropdownIcon"></i>
-        <div class="user-dropdown" id="userDropdown">
-            <ul>
-                <li><a href="#"><i class="fa-solid fa-user"></i> Edit Profile</a></li>
-                <li><a href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
-                <li><a href="login/login.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
-            </ul>
+    <div class="header-right">
+        <div class="user-container" id="userContainer">
+            <img src="./images/user-profile.png" alt="user-profile" class="user-profile" id="userProfile">
+            <i class="fa-solid fa-caret-down dropdown-icon" id="dropdownIcon"></i>
+            <div class="user-dropdown" id="userDropdown">
+                <ul>
+                    <li><a href="#"><i class="fa-solid fa-user"></i> Edit Profile</a></li>
+                    <li><a href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
+                    <li><a href="login/login.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+                </ul>
+            </div>
         </div>
-        <div class="notification-bell" onclick="toggleNotifications()">
-    <i class="fas fa-bell"></i>
-    <div class="badge" id="badge">3</div>
-  </div>
 
-  <div class="notifications" id="notifications">
-    <div class="notification-item">New message from John</div>
-    <div class="notification-item">Your order has been shipped</div>
-    <div class="notification-item">New comment on your post</div>
-  </div>
+        <div class="notification-bell" onclick="toggleNotifications()">
+            <i class="fas fa-bell"></i>
+            <div class="badge" id="badge">3</div>
+        </div>
+    </div>
+
+    <div class="notifications" id="notifications">
+        <div class="notification-item">New message from John</div>
+        <div class="notification-item">Your order has been shipped</div>
+        <div class="notification-item">New comment on your post</div>
     </div>
 </header>
 
