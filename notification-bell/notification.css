@@ -1,42 +1,42 @@
 .notification-bell {
-    position: relative;
-    font-size: 40px;
-    cursor: pointer;
-  }
+  position: relative;
+  font-size: 40px;
+  cursor: pointer;
+}
 
-  .badge {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background-color: red;
-    color: white;
-    border-radius: 50%;
-    padding: 5px 10px;
-    font-size: 14px;
-  }
+.badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 5px 10px;
+  font-size: 14px;
+}
 
-  .notifications {
-    display: none;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    position: absolute;
-    top: 50px;
-    right: 0;
-    width: 200px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-  }
+.notifications {
+  display: none;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
 
-  .notifications.show {
-    display: block;
-  }
+.notifications.show {
+  display: block;
+}
 
-  .notification-item {
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-  }
+.notification-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
 
-  .notification-item:last-child {
-    border-bottom: none;
-  }
+.notification-item:last-child {
+  border-bottom: none;
+}
