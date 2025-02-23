@@ -8,15 +8,30 @@
     <!-- Link to external CSS file -->
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="buttons/button.css">
+    <link rel="stylesheet" href="user-profile/user.css">
     
     <!-- Include jQuery from CDN -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <header class="header">
+<header class="header">
+    <div class="logo-container">
         <img src="./images/ez-mart.svg" alt="EZ Mart Logo" class="ez_logo" id="ezLogo" style="width: 60px;">
         <span class="logo-text"> Mart</span>
-    </header>
+    </div>
+    <div class="user-container" id="userContainer">
+        <img src="./images/user-profile.png" alt="user-profile" class="user-profile" id="userProfile">
+        <i class="fa-solid fa-caret-down dropdown-icon" id="dropdownIcon"></i>
+        <div class="user-dropdown" id="userDropdown">
+            <ul>
+                <li><a href="#"><i class="fa-solid fa-user"></i> Edit Profile</a></li>
+                <li><a href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
+                <li><a href="login/login.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
 
     <main class="container">
         <h1>Dashboard</h1>
@@ -60,5 +75,6 @@
     <!-- Include your JS file -->
     <script src="buttons/button.js"></script>
     <script src="index.js"></script>
+    <script src="user-profile/user.js"></script>
 </body>
 </html>
