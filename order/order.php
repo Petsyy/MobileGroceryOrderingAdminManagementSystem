@@ -18,14 +18,30 @@
     </header>
     
     <!-- Sidebar -->
-    <div id="sidebar" class="sidebar">
-        <ul>
-            <li><a href="../index.php">Home</a></li>
-            <li><a href="../products/product.php">Products</a></li>
-            <li><a href="../order/order.php">Orders</a></li>
-            <li><a href="../login/login.php">Log out</a></li>
-        </ul>
-    </div>
+<div id="sidebar" class="sidebar">
+    <ul>
+        <li>
+            <a href="../index.php" title="Home">
+                <img src="../icons/dashboard-icon.png" alt="Home" class="sidebar-icon">
+            </a>
+        </li>
+        <li>
+            <a href="../products/product.php" title="Products">
+                <img src="../icons/product-icon.png" alt="Products" class="sidebar-icon">
+            </a>
+        </li>
+        <li>
+            <a href="../order/order.php" title="Orders">
+                <img src="../icons/order-icon.png" alt="Orders" class="sidebar-icon">
+            </a>
+        </li>
+        <li>
+            <a href="../login/login.php" title="Log out">
+                <img src="../icons/logout-icon.png" alt="Log out" class="sidebar-icon">
+            </a>
+        </li>
+    </ul>
+</div>
     
     <main class="container">
         <h1>Order Section</h1>

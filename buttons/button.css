@@ -6,16 +6,21 @@
 
 .sidebar {
     position: fixed;
-    top: 0; /* Ensure the sidebar starts below the header */
-    width: 250px;
+    top: 0;
+    left: 0;
+    width: 80px; /* Reduced width for icons only */
     height: 100%;
-    background-color: #1E204A;; /* Sidebar background color */
+    background-color: #1E204A;
     color: white;
-    transition: left 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease; /* Added transition for smooth effects */
-    padding: 20px;
-    z-index: 500; /* Ensure it's above other content */
-    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.2); /* Adds shadow to the sidebar for a lifted effect */
+    transition: left 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    padding: 20px 0; /* Adjusted padding */
+    z-index: 500;
+    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
 
 .sidebar.open {
     left: 0; /* Sidebar comes into view */
@@ -24,35 +29,36 @@
 .sidebar ul {
     list-style-type: none;
     padding: 0;
-    margin-top: 100px; /* Add space from the top for a nice layout */
+    margin-top: 20px; /* Adjusted margin */
+    width: 100%;
 }
 
 .sidebar ul li {
-    margin: 45px 0;
+    margin: 25px 0; /* Adjusted margin */
+    text-align: center;
 }
 
 .sidebar ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px; /* Larger, more readable font */
-    font-weight: 600; /* Make the links bold */
     display: block;
-    padding: 8px 15px;
-    border-radius: 5px; /* Rounded link corners for a smooth look */
-    transition: background-color 0.3s, transform 0.3s; /* Smooth hover effect */
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .sidebar ul li a:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Subtle hover effect */
-    transform: translateX(5px); /* Slight movement effect on hover */
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
 }
 
-.sidebar .sidebar-header {
-    font-size: 24px; /* Bigger font for header */
-    font-weight: bold;
-    color: #fff;
-    margin-bottom: 30px; /* Add space below header */
-    text-align: center;
+.sidebar-icon {
+    width: 25px; /* Adjust icon size */
+    height: 25px;
+    filter: brightness(0) invert(1); /* Make icons white */
+    transition: filter 0.3s ease;
+}
+
+.sidebar ul li a:hover .sidebar-icon {
+    filter: brightness(1) invert(0); /* Revert to original color on hover */
 }
 
 .account {

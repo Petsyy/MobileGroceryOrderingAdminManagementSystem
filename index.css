@@ -17,7 +17,7 @@ body {
     align-items: center;
     padding: 15px;
     height: 85px;
-    margin-left: 250px;
+    margin-left: 80px;
 }
 
 .logo-text {
@@ -34,6 +34,7 @@ body {
 
 h1 {
     color: #0066FF;
+    margin-left: 80px;
 }
 
 /* Product List */
@@ -96,7 +97,7 @@ button:hover {
     flex-wrap: wrap;
     gap: 15px;
     margin-top: 20px;
-    max-width: 1350px;
+    max-width: 1120px;
     
 }
 
