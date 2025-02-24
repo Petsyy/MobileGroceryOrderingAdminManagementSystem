@@ -21,7 +21,6 @@
     align-items: center;
 }
 
-
 .sidebar.open {
     left: 0; /* Sidebar comes into view */
 }
@@ -78,11 +77,4 @@
 /* Sidebar closed animation */
 .sidebar.closed {
     left: -250px; /* Sidebar hidden off-screen */
-}
-
-/* Optional media query to handle responsiveness */
-@media (max-width: 768px) {
-    .sidebar {
-        width: 200px; /* Smaller width on mobile */
-    }
 }

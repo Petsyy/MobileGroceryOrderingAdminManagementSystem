@@ -34,7 +34,7 @@
 </header>
 
     <main class="container">
-        <h1>Dashboard</h1>
+        <h1 id="dashBoard">Dashboard</h1>
 
     <!-- Counter Container -->
     <div class="counter-container">

@@ -23,7 +23,7 @@
         <h1>Products</h1>
         <!-- Filter Container -->
         <div class="filter-container">
-            <label for="categoryFilter" class="filter-label">Filter by Category:</label>
+            <label for="categoryFilter" class="filter-label">Category:</label>
             <select id="categoryFilter" class="filter-select">
                 <option value="All">All</option>
                 <option value="Snacks">Snacks</option>
