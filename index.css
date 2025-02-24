@@ -200,6 +200,62 @@ button:hover {
     text-align: center;
 }
 
+/* Sidebar Icon Styling */
+#sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+#sidebar li {
+    position: relative; /* Allows positioning of tooltip */
+    margin: 15px 0; /* Space between icons */
+}
+
+#sidebar img {
+    width: 40px;  /* Adjust as needed */
+    height: 40px;
+    display: block;
+    margin: 0 auto;
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Hover effect */
+#sidebar img:hover {
+    transform: scale(1.1);
+}
+
+/* Tooltip Styling */
+.tooltip {
+    position: relative;
+    display: block;
+}
+
+.tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -25px; /* Moves label below icon */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 5px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease-in-out;
+}
+
+/* Show tooltip on hover */
+.tooltip:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .product-container {
