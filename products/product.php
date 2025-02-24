@@ -36,22 +36,22 @@
         <ul>
             <li>
                 <a href="../index.php" title="Home">
-                    <img src="../icons/dashboard.png" alt="Home" id="sidebar-icon" style="width: 33px; height: 33px;">
+                    <img src="../icons/dashboard.png" alt="Home" id="sidebar-icon" style="width: 27px; height: 27px;">
                 </a>
             </li>
             <li>
                 <a href="../products/product.php" title="Products">
-                    <img src="../icons/product.png" alt="Products" id="sidebar-icon" style="width: 29px; height: 29px;">
+                    <img src="../icons/product.png" alt="Products" id="sidebar-icon" style="width: 24px; height: 24px;">
                 </a>
             </li>
             <li>
                 <a href="../order/order.php" title="Orders">
-                    <img src="../icons/order.png" alt="Orders" id="sidebar-icon" style="width: 33px; height: 33px;">
+                    <img src="../icons/order.png" alt="Orders" id="sidebar-icon" style="width: 27px; height: 27px;">
                 </a>
             </li>
             <li>
                 <a href="../login/login.php" title="Log out">
-                    <img src="../icons/logout.png" alt="Log out" id="sidebar-icon" style="width: 33px; height: 33px;">
+                    <img src="../icons/logout.png" alt="Log out" id="sidebar-icon" style="width: 26px; height: 26px;">
                 </a>
             </li>
         </ul>
