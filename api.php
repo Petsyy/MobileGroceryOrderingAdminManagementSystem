@@ -36,17 +36,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'add') {
     $price = $_POST['price'] ?? '';
     $stock = $_POST['stock'] ?? '';
     $image = $_POST['image'] ?? '';
+    $category = $_POST['category'] ?? '';
 
     // Validate inputs
-    if (empty($name) || !is_numeric($price) || !is_numeric($stock) || empty($image)) {
+    if (empty($name) || !is_numeric($price) || !is_numeric($stock) || empty($image) || empty($category)) {
         echo json_encode(["error" => "Invalid input data"]);
         $conn->close();
         exit;
     }
 
     // Use prepared statement to prevent SQL injection
-    $stmt = $conn->prepare("INSERT INTO products (name, price, stock, image) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("sdss", $name, $price, $stock, $image);
+    $stmt = $conn->prepare("INSERT INTO products (name, price, stock, image, category) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sdsss", $name, $price, $stock, $image, $category);
 
     if ($stmt->execute()) {
         echo json_encode(["success" => true, "message" => "Product added successfully"]);
@@ -63,17 +64,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'update') {
     $id = $_POST['id'] ?? '';
     $price = $_POST['price'] ?? '';
     $stock = $_POST['stock'] ?? '';
+    $category = $_POST['category'] ?? '';
 
     // Validate inputs
-    if (!is_numeric($id) || !is_numeric($price) || !is_numeric($stock)) {
+    if (!is_numeric($id) || !is_numeric($price) || !is_numeric($stock) || empty($category)) {
         echo json_encode(["error" => "Invalid input data"]);
         $conn->close();
         exit;
     }
 
     // Use prepared statement to prevent SQL injection
-    $stmt = $conn->prepare("UPDATE products SET price=?, stock=? WHERE id=?");
-    $stmt->bind_param("ddi", $price, $stock, $id);
+    $stmt = $conn->prepare("UPDATE products SET price=?, stock=?, category=? WHERE id=?");
+    $stmt->bind_param("ddsi", $price, $stock, $category, $id);
 
     if ($stmt->execute()) {
         echo json_encode(["success" => true, "message" => "Product updated successfully"]);
