@@ -168,7 +168,7 @@ button:hover {
 }
 
 /* Recent Order Counter */
-.recent-counter {
+.total-customer {
     background-color: white;
     padding: 12px;
     border-radius: 8px;
@@ -184,12 +184,12 @@ button:hover {
     text-align: center;
 }
 
-.recent-counter label {
+.total-customer label {
     font-size: 16px;
     color: #333;
 }
 
-.recent-counter span {
+.total-customer span {
     background-color: #0030FF;
     color: white;
     padding: 8px 16px;
@@ -255,6 +255,34 @@ button:hover {
     visibility: visible;
 }
 
+/* Chart Container */
+.chart-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between charts */
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+/* Chart Size */
+canvas {
+    width: 280px;  /* Same width as counters */
+    height: 250px; /* Normalized height */
+    max-width: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .counter-container, .chart-container {
+        flex-direction: column; /* Stack items on smaller screens */
+    }
+
+    canvas {
+        width: 100%; /* Allow full width for smaller screens */
+        max-width: 350px; /* Prevents charts from being too large */
+    }
+}
+    
 
 /* Responsive Design */
 @media (max-width: 768px) {

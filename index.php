@@ -52,8 +52,8 @@
         </div>
 
         <!-- Recent Counter -->
-        <div class="recent-counter">
-            <label>Recent Order:</label>
+        <div class="total-customer">
+            <label>Total Customer:</label>
             <span id="totalRecentCount">0</span>
         </div>
     </div>
@@ -90,7 +90,15 @@
     </ul>
 </div>
 
+    <div class="chart-container">
+        <canvas id="myChart"></canvas>
+        <canvas id="customerChart"></canvas>
+    </div>
+
+
     <!-- Include your JS file -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="chart.js"></script>
     <script src="buttons/button.js"></script>
     <script src="index.js"></script>
     <script src="user-profile/user.js"></script>
