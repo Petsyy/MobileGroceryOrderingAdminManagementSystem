@@ -8,12 +8,10 @@ body {
 
 .container {
     max-width: 1400px;
-    margin: auto;
     padding: 20px;
 }
 
 h1 {
-    text-align: center;
     color: #0066FF;
 }
 
@@ -88,8 +86,8 @@ h1 {
 
 /* Add Product Button */
 .add-product-container {
-    text-align: center;
     margin-top: 20px;
+    margin-left: 80px;
 }
 
 #addProductBtn {
@@ -113,7 +111,8 @@ h1 {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-left: 30px;
+    margin-left: 80px;
+
 }
 
 .filter-label {

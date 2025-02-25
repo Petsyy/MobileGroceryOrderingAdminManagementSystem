@@ -17,7 +17,7 @@
 <body>
 <header class="header">
     <div class="logo-container">
-        <img src="./images/ez-mart.svg" alt="EZ Mart Logo" class="ez_logo" id="ezLogo" style="width: 60px;">
+        <img src="./images/ez-mart.svg" alt="EZ Mart Logo" class="ez_logo" id="ezLogo" style="width: 50px;">
         <span class="logo-text"> Mart</span>
     </div>
     <div class="user-container" id="userContainer">

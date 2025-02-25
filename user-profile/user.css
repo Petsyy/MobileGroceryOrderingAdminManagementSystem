@@ -3,7 +3,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between; /* Push elements to edges */
-    height: 85px;
+    height: 60px;
 }
 
 /* Logo Container (Left Side) */

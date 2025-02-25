@@ -16,13 +16,13 @@ body {
     display: flex;
     align-items: center;
     padding: 15px;
-    height: 85px;
+    height: 60px;
     margin-left: 80px;
 }
 
 .logo-text {
     color: white;
-    font-size: 32px;
+    font-size: 30px;
     font-weight: bold;
     margin-left: 10px;
 }
