@@ -4,13 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products - EZ Mart</title>
-    
-    <!-- Link to external CSS files -->
     <link rel="stylesheet" href="../index.css">
     <link rel="stylesheet" href="../products/product.css">
     <link rel="stylesheet" href="../buttons/button.css">
-    
-    <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
@@ -28,6 +24,8 @@
                 <option value="All">All</option>
                 <option value="Snacks">Snacks</option>
                 <option value="Pantry">Pantry</option>
+                <option value="Beverage">Beverage</option>
+                <option value="Bakery">Bakery</option>
             </select>
         </div>
         <!-- Product List -->
@@ -45,7 +43,7 @@
         <ul>
             <li>
                 <a href="../index.php" title="Home">
-                    <img src="../icons/home-icon.png" alt="Home" id="sidebar-icon" style="width: 27px; height: 27px;">
+                    <img src="../icons/dashboard.png" alt="Home" id="sidebar-icon" style="width: 27px; height: 27px;">
                 </a>
             </li>
             <li>
@@ -68,63 +66,67 @@
 
     <!-- Modals -->
     <div id="addProductModal" class="modal">
-    <div class="modal-content">
-        <span id="closeAddProductModal" class="close">&times;</span>
-        <h2>Add Product</h2>
-        <form id="productForm">
-            <div class="form-group">
-                <label for="name">Product Name</label>
-                <input type="text" id="name" placeholder="Enter product name" required>
-            </div>
-            <div class="form-group">
-                <label for="price">Price</label>
-                <input type="number" id="price" placeholder="Enter price" required>
-            </div>
-            <div class="form-group">
-                <label for="stock">Stock</label>
-                <input type="number" id="stock" placeholder="Enter stock" required>
-            </div>
-            <div class="form-group">
-                <label for="image">Image URL</label>
-                <input type="text" id="image" placeholder="Enter image URL" required>
-            </div>
-            <div class="form-group">
-                <label for="category">Category</label>
-                <select id="category" class="styled-select" required>
-                    <option value="Snacks">Snacks</option>
-                    <option value="Pantry">Pantry</option>
-                </select>
-            </div>
-            <button type="submit" class="submit-btn">Add Product</button>
-        </form>
+        <div class="modal-content">
+            <span id="closeAddProductModal" class="close">&times;</span>
+            <h2>Add Product</h2>
+            <form id="productForm">
+                <div class="form-group">
+                    <label for="name">Product Name</label>
+                    <input type="text" id="name" placeholder="Enter product name" required>
+                </div>
+                <div class="form-group">
+                    <label for="price">Price</label>
+                    <input type="number" id="price" placeholder="Enter price" required>
+                </div>
+                <div class="form-group">
+                    <label for="stock">Stock</label>
+                    <input type="number" id="stock" placeholder="Enter stock" required>
+                </div>
+                <div class="form-group">
+                    <label for="image">Image URL</label>
+                    <input type="text" id="image" placeholder="Enter image URL" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" required>
+                        <option value="Snacks">Snacks</option>
+                        <option value="Pantry">Pantry</option>
+                        <option value="Beverage">Beverage</option>
+                        <option value="Bakery">Bakery</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Add Product</button>
+            </form>
+        </div>
     </div>
-</div>
 
-<div id="editModal" class="modal">
-    <div class="modal-content">
-        <span id="closeModal" class="close">&times;</span>
-        <h2>Edit Product</h2>
-        <form id="editForm">
-            <input type="hidden" id="editProductId">
-            <div class="form-group">
-                <label for="editPrice">Price</label>
-                <input type="number" id="editPrice" placeholder="Enter price" required>
-            </div>
-            <div class="form-group">
-                <label for="editStock">Stock</label>
-                <input type="number" id="editStock" placeholder="Enter stock" required>
-            </div>
-            <div class="form-group">
-                <label for="editCategory">Category</label>
-                <select id="editCategory" class="styled-select" required>
-                    <option value="Snacks">Snacks</option>
-                    <option value="Pantry">Pantry</option>
-                </select>
-            </div>
-            <button type="submit" class="submit-btn">Update Product</button>
-        </form>
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" class="close">&times;</span>
+            <h2>Edit Product</h2>
+            <form id="editForm">
+                <input type="hidden" id="editProductId">
+                <div class="form-group">
+                    <label for="editPrice">Price</label>
+                    <input type="number" id="editPrice" placeholder="Enter price" required>
+                </div>
+                <div class="form-group">
+                    <label for="editStock">Stock</label>
+                    <input type="number" id="editStock" placeholder="Enter stock" required>
+                </div>
+                <div class="form-group">
+                    <label for="editCategory">Category</label>
+                    <select id="editCategory" required>
+                        <option value="Snacks">Snacks</option>
+                        <option value="Pantry">Pantry</option>
+                        <option value="Beverage">Beverage</option>
+                        <option value="Bakery">Bakery</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Update Product</button>
+            </form>
+        </div>
     </div>
-</div>
 
     <!-- Include product-specific JS -->
     <script src="product.js"></script>
