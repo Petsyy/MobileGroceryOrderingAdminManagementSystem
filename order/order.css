@@ -1,6 +1,10 @@
 body {
-    color: white;
     font-family: Arial, sans-serif;
+}
+
+.orderSection{
+    color: #0030FF;
+    margin-left: 80px;
 }
 
 /* Buttons */
@@ -114,12 +118,18 @@ body {
     color: white;
 }
 
-.order-table th, .order-table td {
+.order-table th{
+    border: 2px solid #ddd;
+    padding: 12px;
+    color: white;
+}
+
+.order-table td{
+    padding: 12px;
     border: 2px solid #ddd;
     padding: 12px;
     text-align: left;
     white-space: nowrap;
-    color: black;
 }
 
 /* Action Column Fix */

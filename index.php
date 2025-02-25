@@ -34,7 +34,7 @@
 </header>
 
     <main class="container">
-        <h1>Dashboard</h1>
+        <h1 id="dashBoard">Dashboard</h1>
 
     <!-- Counter Container -->
     <div class="counter-container">
@@ -65,37 +65,30 @@
 
     <!-- Sidebar -->
 <!-- Sidebar -->
-<div id="sidebar" class="sidebar">
-    <ul>
-        <li>
-            <a href="./index.php" class="tooltip" data-tooltip="Home">
-                <img src="./icons/dashboard.png" alt="Home" id="sidebar-icon">
-            </a>
-        </li>
-        <li>
-            <a href="./products/product.php" class="tooltip" data-tooltip="Products">
-                <img src="./icons/product.png" alt="Products" id="sidebar-icon">
-            </a>
-        </li>
-        <li>
-            <a href="./order/order.php" class="tooltip" data-tooltip="Orders">
-                <img src="./icons/order.png" alt="Orders" id="sidebar-icon">
-            </a>
-        </li>
-        <li>
-            <a href="./login/login.php" class="tooltip" data-tooltip="Log out">
-                <img src="./icons/logout.png" alt="Log out" id="sidebar-icon">
-            </a>
-        </li>
-    </ul>
-</div>
-
-    <div class="chart-container">
-        <canvas id="myChart"></canvas>
-        <canvas id="customerChart"></canvas>
+    <div id="sidebar" class="sidebar">
+        <ul>
+            <li>
+                <a href="./index.php" title="Home">
+                    <img src="./icons/home-icon.png" alt="Home" id="sidebar-icon" style="width: 27px; height: 27px;">
+                </a>
+            </li>
+            <li>
+                <a href="./products/product.php" title="Products">
+                    <img src="./icons/product.png" alt="Products" id="sidebar-icon" style="width: 24px; height: 24px;">
+                </a>
+            </li>
+            <li>
+                <a href="./order/order.php" title="Orders">
+                    <img src="./icons/order.png" alt="Orders" id="sidebar-icon" style="width: 27px; height: 27px;">
+                </a>
+            </li>
+            <li>
+                <a href="./login/login.php" title="Log out">
+                    <img src="./icons/logout.png" alt="Log out" id="sidebar-icon" style="width: 26px; height: 26px;">
+                </a>
+            </li>
+        </ul>
     </div>
-
-
     <!-- Include your JS file -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="chart.js"></script>

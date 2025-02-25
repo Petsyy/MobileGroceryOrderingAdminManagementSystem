@@ -1,68 +1,83 @@
 $(document).ready(function () {
-    let products = []; 
+    let products = []; // Store all products
 
     // Fetch products from the database
     async function fetchProducts() {
         try {
             console.log("Fetching products...");
             const response = await fetch('../api.php');
-    
+
             if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-    
+
             const text = await response.text();
             console.log("Raw response:", text);
-    
+
             const data = JSON.parse(text);
             console.log("Fetched products:", data);
-    
+
             if (!Array.isArray(data)) throw new Error("Invalid data format");
-    
-            products = data;
-            renderProducts(products); // Pass the products to render
+
+            products = data; // Update the global products array
+            renderProducts(products); // Render all products
         } catch (error) {
             console.error("Error fetching products:", error);
         }
     }
 
     // Render products in the productList
-$('#categoryFilter').change(function () {
-    const selectedCategory = $(this).val();
-    if (selectedCategory === "All") {
-        renderProducts(products);
-    } else {
-        const filteredProducts = products.filter(product => product.category === selectedCategory);
-        renderProducts(filteredProducts);
+    function renderProducts(productsToRender) {
+        if (!Array.isArray(productsToRender)) {
+            console.error("Error: products is not an array", productsToRender);
+            return;
+        }
+
+        $('#productList').empty(); // Clear existing products
+
+        productsToRender.forEach(product => {
+            let imagePath = product.image.trim();
+
+            if (imagePath.startsWith('http')) {
+                // If image URL is already absolute (full URL), use it as is
+                imagePath = product.image;
+            } else {
+                // If image URL is relative, prefix it with the base path
+                imagePath = `http://localhost/WEB-SM/${imagePath}`;
+            }
+    
+            // If the image path is still empty or invalid, use a fallback default image
+            if (!imagePath || imagePath.trim() === "" || imagePath.endsWith('/')) {
+                imagePath = "http://localhost/WEB-SM/images/default.jpg"; // Fallback image
+            } else {
+                console.log(`Using image path: ${imagePath}`);
+            }
+
+            const productContainer = $(`
+                <div class="product-container" data-id="${product.id}">
+                    <img src="${imagePath}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p class="price">Price: $${product.price}</p>
+                    <p>Stock: ${product.stock}</p>
+                    <button class="edit-btn" data-id="${product.id}">Edit</button>
+                    <button class="delete-btn" data-id="${product.id}">Delete</button>
+                </div>
+            `);
+
+            $('#productList').append(productContainer);
+        });
+
+        console.log("Rendered products:", productsToRender);
     }
-});
 
-function renderProducts(productsToRender) {
-    if (!Array.isArray(productsToRender)) {
-        console.error("Error: products is not an array", productsToRender);
-        return;
-    }
-
-    // Clear the existing product list
-    $('#productList').empty();
-
-    // Render the updated list of products
-    productsToRender.forEach(product => {
-        const productContainer = $(
-            `<div class="product-container" data-id="${product.id}">
-                <img src="http://localhost/SM/${product.image}" alt="${product.name}">
-                <h3>${product.name}</h3>
-                <p class="price">Price: $${product.price}</p>
-                <p>Stock: ${product.stock}</p>
-                <p>Category: ${product.category}</p>
-                <button class="edit-btn" data-id="${product.id}">Edit</button>
-                <button class="delete-btn" data-id="${product.id}">Delete</button>
-            </div>`
-        );
-
-        $('#productList').append(productContainer);
+    // Handle category filter change
+    $('#categoryFilter').change(function () {
+        const selectedCategory = $(this).val();
+        if (selectedCategory === "All") {
+            renderProducts(products); // Render all products
+        } else {
+            const filteredProducts = products.filter(product => product.category === selectedCategory);
+            renderProducts(filteredProducts); // Render filtered products
+        }
     });
-
-    console.log("Rendered products:", productsToRender);
-}
 
     // Handle "Edit" button click
     $('#productList').on('click', '.edit-btn', function () {
@@ -89,12 +104,12 @@ function renderProducts(productsToRender) {
     // Handle form submission for editing
     $('#editForm').submit(function (event) {
         event.preventDefault();
-    
+
         const productId = $('#editProductId').val();
         const updatedPrice = $('#editPrice').val();
         const updatedStock = $('#editStock').val();
         const updatedCategory = $('#editCategory').val();
-    
+
         $.ajax({
             url: '../api.php',
             method: 'POST',
@@ -152,43 +167,43 @@ function renderProducts(productsToRender) {
     });
 
     // Handle "Add Product" form submission
-$('#productForm').off('submit').on('submit', function (event) {
-    event.preventDefault();
+    $('#productForm').off('submit').on('submit', function (event) {
+        event.preventDefault();
 
-    const productName = $('#name').val().trim();
-    const productPrice = $('#price').val().trim();
-    const productStock = $('#stock').val().trim();
-    const productImage = $('#image').val().trim();
-    const productCategory = $('#category').val();
+        const productName = $('#name').val().trim();
+        const productPrice = $('#price').val().trim();
+        const productStock = $('#stock').val().trim();
+        const productImage = $('#image').val().trim();
+        const productCategory = $('#category').val();
 
-    if (!productName || !productPrice || !productStock || !productImage || !productCategory) {
-        alert("Please fill out all fields.");
-        return;
-    }
-
-    $.ajax({
-        url: '../api.php',
-        method: 'POST',
-        data: {
-            action: 'add',
-            name: productName,
-            price: productPrice,
-            stock: productStock,
-            image: productImage,
-            category: productCategory
-        },
-        success: function (response) {
-            console.log(response);
-            alert("Product added successfully!");
-            $('#productForm')[0].reset(); // Reset form
-            $('#addProductModal').fadeOut();
-            fetchProducts(); // Refresh the product list
-        },
-        error: function (error) {
-            console.error("Error adding product:", error);
+        if (!productName || !productPrice || !productStock || !productImage || !productCategory) {
+            alert("Please fill out all fields.");
+            return;
         }
+
+        $.ajax({
+            url: '../api.php',
+            method: 'POST',
+            data: {
+                action: 'add',
+                name: productName,
+                price: productPrice,
+                stock: productStock,
+                image: productImage,
+                category: productCategory
+            },
+            success: function (response) {
+                console.log(response);
+                alert("Product added successfully!");
+                $('#productForm')[0].reset(); // Reset form
+                $('#addProductModal').fadeOut();
+                fetchProducts(); // Refresh the product list
+            },
+            error: function (error) {
+                console.error("Error adding product:", error);
+            }
+        });
     });
-});
 
     // Toggle Sidebar
     $("#menuIcon").click(function () {

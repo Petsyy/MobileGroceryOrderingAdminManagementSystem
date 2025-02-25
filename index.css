@@ -32,7 +32,7 @@ body {
     padding: 20px;
 }
 
-h1 {
+#dashBoard {
     color: #0066FF;
     margin-left: 80px;
 }
@@ -255,34 +255,6 @@ button:hover {
     visibility: visible;
 }
 
-/* Chart Container */
-.chart-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px; /* Space between charts */
-    flex-wrap: wrap;
-    margin-top: 20px;
-}
-
-/* Chart Size */
-canvas {
-    width: 280px;  /* Same width as counters */
-    height: 250px; /* Normalized height */
-    max-width: 100%;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .counter-container, .chart-container {
-        flex-direction: column; /* Stack items on smaller screens */
-    }
-
-    canvas {
-        width: 100%; /* Allow full width for smaller screens */
-        max-width: 350px; /* Prevents charts from being too large */
-    }
-}
-    
 
 /* Responsive Design */
 @media (max-width: 768px) {
