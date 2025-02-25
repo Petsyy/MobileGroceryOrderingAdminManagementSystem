@@ -45,7 +45,7 @@
         <ul>
             <li>
                 <a href="../index.php" title="Home">
-                    <img src="../icons/dashboard.png" alt="Home" id="sidebar-icon" style="width: 27px; height: 27px;">
+                    <img src="../icons/home-icon.png" alt="Home" id="sidebar-icon" style="width: 27px; height: 27px;">
                 </a>
             </li>
             <li>
