@@ -89,6 +89,12 @@
             </li>
         </ul>
     </div>
+
+    <div class="chart-container">
+        <canvas id="myChart"></canvas>
+        <canvas id="customerChart"></canvas>
+    </div>
+
     <!-- Include your JS file -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="chart.js"></script>

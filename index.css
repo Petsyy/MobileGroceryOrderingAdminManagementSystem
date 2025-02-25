@@ -32,7 +32,7 @@ body {
     padding: 20px;
 }
 
-#dashBoard {
+h1 {
     color: #0066FF;
     margin-left: 80px;
 }
@@ -89,115 +89,62 @@ button:hover {
     background-color: #0056b3;
 }
 
-/* Counter Container */
-.counter-container {
+/* Counter & Chart Layout */
+.counter-container, .chart-container {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 20px;
     flex-wrap: wrap;
-    gap: 15px;
     margin-top: 20px;
     max-width: 1120px;
-    
 }
 
-/* Product Counter */
-.product-counter {
+/* Counter Box */
+.counter-container > div {
     background-color: white;
-    padding: 12px;
+    padding: 15px;
     border-radius: 8px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     font-size: 16px;
     font-weight: bold;
     color: #0030FF;
-    min-width: 270px;
-    max-width: 100px;
+    width: 280px;
     text-align: center;
 }
 
-.product-counter label {
+/* Counter Label & Value */
+.counter-container label {
     font-size: 16px;
     color: #333;
+    display: block;
 }
 
-.product-counter span {
+.counter-container span {
     background-color: #0030FF;
     color: white;
     padding: 8px 16px;
     border-radius: 8px;
     font-size: 24px;
     font-weight: bold;
-    min-width: 50px;
-    text-align: center;
+    display: block;
+    margin-top: 8px;
 }
 
-/* Order Counter */
-.order-counter {
-    background-color: white;
-    padding: 12px;
-    border-radius: 8px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+/* Chart Container */
+.chart-container {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 16px;
-    font-weight: bold;
-    color: #0030FF;
-    min-width: 270px;
-    max-width: 100px;
-    text-align: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
 }
 
-.order-counter label {
-    font-size: 16px;
-    color: #333;
-}
-
-.order-counter span {
-    background-color: #0030FF;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 24px;
-    font-weight: bold;
-    min-width: 50px;
-    text-align: center;
-}
-
-/* Recent Order Counter */
-.total-customer {
-    background-color: white;
-    padding: 12px;
-    border-radius: 8px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 16px;
-    font-weight: bold;
-    color: #0030FF;
-    min-width: 270px;
-    max-width: 100px;
-    text-align: center;
-}
-
-.total-customer label {
-    font-size: 16px;
-    color: #333;
-}
-
-.total-customer span {
-    background-color: #0030FF;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 24px;
-    font-weight: bold;
-    min-width: 50px;
-    text-align: center;
+/* Chart Size */
+canvas {
+    width: 280px;
+    height: 250px;
+    max-width: 100%;
 }
 
 /* Sidebar Icon Styling */
@@ -209,12 +156,12 @@ button:hover {
 }
 
 #sidebar li {
-    position: relative; /* Allows positioning of tooltip */
-    margin: 15px 0; /* Space between icons */
+    position: relative;
+    margin: 15px 0;
 }
 
 #sidebar img {
-    width: 30px;  /* Adjust as needed */
+    width: 30px;
     height: 30px;
     display: block;
     margin: 0 auto;
@@ -235,7 +182,7 @@ button:hover {
 .tooltip::after {
     content: attr(data-tooltip);
     position: absolute;
-    bottom: -25px; /* Moves label below icon */
+    bottom: -25px;
     left: 50%;
     transform: translateX(-50%);
     background-color: rgba(0, 0, 0, 0.8);
@@ -254,6 +201,48 @@ button:hover {
     opacity: 1;
     visibility: visible;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .counter-container, .chart-container {
+        flex-direction: column;
+    }
+
+    canvas {
+        width: 100%;
+        max-width: 350px;
+    }
+    .product-container {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .product-container {
+        width: calc(100% - 20px);
+    }
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .header {
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+    }
+    #menuIcon {
+        width: 40px;
+    }
+    .ez_logo {
+        width: 60px;
+    }
+    .logo-text {
+        font-size: 30px;
+        white-space: nowrap;
+    }
+}
+
 
 
 /* Responsive Design */
