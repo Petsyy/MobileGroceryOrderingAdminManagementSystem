@@ -44,7 +44,7 @@
     </div>
     
     <main class="container">
-        <h1>Order Section</h1>
+        <h1 class="orderSection">Order Section</h1>
         <table class="order-table">
             <thead>
                 <tr>
