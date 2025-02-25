@@ -95,7 +95,6 @@ button:hover {
     justify-content: center;
     align-items: center;
     gap: 20px;
-    flex-wrap: wrap;
     margin-top: 20px;
     max-width: 1120px;
 }
@@ -135,37 +134,8 @@ button:hover {
 .chart-container {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
     margin-top: 20px;
-}
-
-/* Chart Size */
-canvas {
-    width: 280px;
-    height: 250px;
-    max-width: 100%;
-}
-
-/* Sidebar Icon Styling */
-#sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    text-align: center;
-}
-
-#sidebar li {
-    position: relative;
-    margin: 15px 0;
-}
-
-#sidebar img {
-    width: 30px;
-    height: 30px;
-    display: block;
-    margin: 0 auto;
-    transition: transform 0.2s ease-in-out;
+    margin-left: 300px;
 }
 
 /* Hover effect */
@@ -208,10 +178,11 @@ canvas {
         flex-direction: column;
     }
 
-    canvas {
+    .chart {
         width: 100%;
         max-width: 350px;
     }
+
     .product-container {
         width: calc(50% - 20px);
     }
@@ -221,63 +192,24 @@ canvas {
     .product-container {
         width: calc(100% - 20px);
     }
-    .header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+
     .header {
         flex-direction: row;
         align-items: center;
         justify-content: flex-start;
         width: 100%;
     }
+
     #menuIcon {
         width: 40px;
     }
+
     .ez_logo {
         width: 60px;
     }
+
     .logo-text {
         font-size: 30px;
         white-space: nowrap;
     }
-}
-
-
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .product-container {
-        width: calc(50% - 20px);
-    }
-}
-
-@media (max-width: 480px) {
-    .product-container {
-        width: calc(100% - 20px);
-    }
-    .header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-@media (max-width: 480px) {
-    .header {
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-        width: 100%;
-    }
-    #menuIcon {
-        width: 40px;
-    }
-    .ez_logo {
-        width: 60px;
-    }
-    .logo-text {
-        font-size: 30px;
-        white-space: nowrap;
-    }
-}
-
 }

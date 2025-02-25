@@ -19,11 +19,13 @@ h1 {
 .product-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
     justify-content: center;
+    gap: 10px;
     padding: 10px;
-    max-width: 1400px;
+    min-width: 1250px;
+    max-width: 500px;
     margin: auto;
+    margin-left: 120px; /* Add margin to avoid overlapping with the sidebar */
 }
 
 /* Product Cards */

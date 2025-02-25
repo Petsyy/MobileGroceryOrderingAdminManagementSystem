@@ -90,9 +90,9 @@
         </ul>
     </div>
 
-    <div class="chart-container">
-        <canvas id="myChart"></canvas>
-        <canvas id="customerChart"></canvas>
+    <div class="chart-container" style="height: 400px; width: 400px;">
+        <canvas id="myChart" class="chart"></canvas>
+        <canvas id="customerChart" class="chart"></canvas>
     </div>
 
     <!-- Include your JS file -->
