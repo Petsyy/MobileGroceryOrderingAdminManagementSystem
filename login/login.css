@@ -180,3 +180,21 @@ button:hover {
     box-shadow: -12px 11px 5px rgba(0, 0, 0, 0.5);
     transform: rotate(-50deg);
   }
+
+  .forgot-password {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.forgot-password a {
+    color: #1877f2;
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.forgot-password a:hover {
+    color: #165dd1;
+    text-decoration: underline;
+}
