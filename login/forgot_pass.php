@@ -9,22 +9,19 @@
 <body>
     <div class="login-container">
         <fieldset>
-            <legend>Log Into Dashboard</legend>
+            <legend>Forgot Password</legend>
             <form action="login_process.php"  method="post" onsubmit="return validateForm()">
                 <div class="input-group">
-                    <label for="username">Username</label>
-                    <input type="text" placeholder="Enter Username" name="username" id="username" required>
+                    <label for="username">Enter new password</label>
+                    <input type="text" placeholder="Enter new password" name="username" id="username" required>
                     <span id="username-error" class="error"></span>
                 </div>
                 <div class="input-group">
-                    <label for="password">Password</label>
-                    <input type="password" placeholder="Enter Password" name="password" id="password" required>
+                    <label for="password">Confirm new passwprd</label>
+                    <input type="password" placeholder="Confirm new password" name="password" id="password" required>
                     <span id="password-error" class="error"></span>
                 </div>
-                <button type="submit">Login</button>
-                <div class="forgot-password">
-                    <a href="forgot_pass.php">Forgot Password?</a>
-                </div>
+                <button type="submit">Confirm</button>
             </form>
     <div class="bilog1"></div>
     <div class="bilog2"></div>
