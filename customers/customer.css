@@ -12,12 +12,12 @@ body {
     margin-left: 80px;
 }
 
-h1{
+h1 {
     margin-left: 80px;
     color: #0066FF;
 }
 
-.ez_logo{
+.ez_logo {
     margin-left: 10px;
 }
 
@@ -50,7 +50,7 @@ h1{
 }
 
 .button-primary:hover {
-    background-color: #0030FF;
+    background-color: #0022cc;
 }
 
 .customer-list {
@@ -86,19 +86,37 @@ td {
 }
 
 td button {
-    background-color: #c9302c;
     border: none;
-    color: white;
-    padding: 5px 10px;
-    margin-right: 5px;
+    padding: 8px 12px;
+    margin-right: 8px;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-td button:hover {
-    background-color: #c9302c;
+td button.edit {
+    background-color: #4cae4c;
+    color: #fff;
 }
 
+td button.edit:hover {
+    background-color: #4cae4c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+td button.delete {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+td button.delete:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
 /* Modal Styles */
 .modal {
@@ -110,29 +128,57 @@ td button:hover {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-content {
     background-color: #fff;
-    margin: 15% auto;
     padding: 20px;
     border-radius: 10px;
     width: 400px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
 .modal h2 {
     margin-bottom: 20px;
-    color: #2c3e50;
+}
+
+/* Form Group Styling */
+.form-group {
+    margin-bottom: 8px;
+}
+
+/* Label Styling */
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+/* Input Field Styling */
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #0030FF;
+    box-shadow: 0 0 5px rgba(0, 48, 255, 0.3);
+    outline: none;
 }
 
 input[type="text"], input[type="number"] {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 input[type="number"] {
@@ -152,5 +198,5 @@ input[type="number"] {
 }
 
 .close:hover {
-    color: black;
+    color: #000;
 }

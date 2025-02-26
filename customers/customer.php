@@ -21,8 +21,8 @@
         <span class="logo-text">Mart</span>
     </header>
 
-<!-- Sidebar -->
-<div id="sidebar" class="sidebar">
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
         <ul>
             <li>
                 <a href="../index.php" title="Home">
@@ -65,11 +65,25 @@
     <div id="addCustomerModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Add New Customer</h2>
+                <h2>Add New Customer</h2>
             <form id="addCustomerForm">
-                <input type="text" id="name" placeholder="Customer Name" required>
-                <input type="text" id="product" placeholder="Product" required>
-                <input type="number" id="total_price" placeholder="Total Price" required>
+                <!-- Customer Name Field -->
+                <div class="form-group">
+                    <label for="name">Customer Name:</label>
+                    <input type="text" id="name" placeholder="Enter customer name" required>
+                </div>
+
+                <!-- Product Field -->
+                <div class="form-group">
+                    <label for="product">Product:</label>
+                    <input type="text" id="product" placeholder="Enter product name" required>
+                </div>
+
+                <!-- Total Price Field -->
+                <div class="form-group">
+                    <label for="total_price">Total Price:</label>
+                    <input type="number" id="total_price" placeholder="Enter total price" required>
+                </div>
                 <button type="submit" class="button-primary">Add Customer</button>
             </form>
         </div>

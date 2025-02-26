@@ -4,7 +4,7 @@ $(document).ready(function() {
 
     // Add customer functionality
     $('#addCustomerBtn').click(function() {
-        $('#addCustomerModal').show();
+        $('#addCustomerModal').css('display', 'flex');
     });
 
     // Close the modal
@@ -45,8 +45,8 @@ function fetchCustomers() {
                     <td>${customer.product}</td>
                     <td>${customer.total_price}</td>
                     <td>
-                        <button onclick="updateCustomer(${customer.id})">Edit</button>
-                        <button onclick="deleteCustomer(${customer.id})">Delete</button>
+                        <button class="edit" onclick="updateCustomer(${customer.id})">Edit</button>
+                        <button class="delete" onclick="deleteCustomer(${customer.id})">Delete</button>
                     </td>
                 </tr>
             `;
