@@ -21,6 +21,10 @@
     align-items: center;
 }
 
+.sidebar .active {
+    background-color: #1abc9c;
+}
+
 .sidebar.open {
     left: 0; /* Sidebar comes into view */
 }

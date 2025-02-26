@@ -57,7 +57,7 @@
                 </a>
             </li>
             <li>
-                <a href="../customers/customer.php" title="Log out">
+                <a href="../customers/customer.php" title="Customer">
                     <img src="../icons/customer.png" alt="Log out" id="sidebar-icon" style="width: 26px; height: 26px;">
                 </a>
             </li>

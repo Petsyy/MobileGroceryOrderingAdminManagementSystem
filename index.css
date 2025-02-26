@@ -20,6 +20,11 @@ body {
     margin-left: 80px;
 }
 
+h1 {
+    color: #0066FF;
+    margin-left: 80px;
+}
+
 .logo-text {
     color: white;
     font-size: 30px;
@@ -30,11 +35,6 @@ body {
 /* Main Container */
 .container {
     padding: 20px;
-}
-
-h1 {
-    color: #0066FF;
-    margin-left: 80px;
 }
 
 /* Product List */

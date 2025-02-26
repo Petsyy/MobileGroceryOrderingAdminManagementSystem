@@ -1,90 +1,74 @@
-$(document).ready(function () {
-    // Initialize empty customer orders array
-    let customerOrders = [];
+$(document).ready(function() {
+    // Fetch customers when the page loads
+    fetchCustomers();
 
-    // Function to render customer orders
-    function renderCustomerOrders(orders) {
-        const tbody = $("#customerOrdersBody");
-        tbody.empty(); // Clear existing rows
-
-        if (orders.length === 0) {
-            tbody.append(`<tr><td colspan="4" style="text-align: center;">No orders yet.</td></tr>`);
-        } else {
-            orders.forEach((order, index) => {
-                const row = $(`
-                    <tr>
-                        <td>${order.customerName}</td>
-                        <td>${order.productName}</td>
-                        <td>${order.totalPrice}</td>
-                        <td>
-                            <button class="delete-btn" data-index="${index}">🗑️ Delete</button>
-                        </td>
-                    </tr>
-                `);
-                tbody.append(row);
-            });
-        }
-    }
-
-    // Initial render (empty state)
-    renderCustomerOrders(customerOrders);
-
-    // Handle form submission
-    $("#addCustomerOrderForm").submit(function (event) {
-        event.preventDefault(); // Prevent page refresh
-
-        // Get form values
-        const customerName = $("#customerName").val().trim();
-        const productName = $("#productName").val().trim();
-        let totalPrice = $("#totalPrice").val().trim();
-
-        // Validation
-        if (!customerName || !productName || !totalPrice) {
-            alert("⚠️ Please fill in all fields.");
-            return;
-        }
-
-        // Ensure totalPrice is properly formatted
-        totalPrice = `$${parseFloat(totalPrice).toFixed(2)}`;
-
-        // Add new order to the array
-        const newOrder = { customerName, productName, totalPrice };
-        customerOrders.push(newOrder);
-
-        // Re-render table
-        renderCustomerOrders(customerOrders);
-
-        // Reset form fields
-        $("#addCustomerOrderForm")[0].reset();
-
-        // Close modal after adding order
-        $("#customerModal").fadeOut();
+    // Add customer functionality
+    $('#addCustomerBtn').click(function() {
+        $('#addCustomerModal').show();
     });
 
-    // Handle delete button
-    $(document).on("click", ".delete-btn", function () {
-        const index = $(this).data("index");
-        customerOrders.splice(index, 1); // Remove from array
-        renderCustomerOrders(customerOrders); // Re-render table
+    // Close the modal
+    $('.close').click(function() {
+        $('#addCustomerModal').hide();
     });
 
-    // Ensure modal is hidden on page load
-    $("#customerModal").hide();
+    // Add customer form submission
+    $('#addCustomerForm').submit(function(e) {
+        e.preventDefault();
+        let name = $('#name').val();
+        let product = $('#product').val();
+        let total_price = $('#total_price').val();
 
-    // Show modal only when "Add Customer" button is clicked
-    $("#openModal").click(function () {
-        $("#customerModal").fadeIn();
-    });
-
-    // Close modal when clicking the close button
-    $(".close-btn").click(function () {
-        $("#customerModal").fadeOut();
-    });
-
-    // Close modal when clicking outside of it
-    $(window).click(function (event) {
-        if ($(event.target).is("#customerModal")) {
-            $("#customerModal").fadeOut();
-        }
+        $.post('customerapi.php', {
+            action: 'add',
+            name: name,
+            product: product,
+            total_price: total_price
+        }, function(response) {
+            alert(response.message);
+            if (response.success) {
+                fetchCustomers();
+                $('#addCustomerModal').hide();
+            }
+        }, 'json');
     });
 });
+
+// Fetch customers function
+function fetchCustomers() {
+    $.get('customerapi.php', function(response) {
+        let customerHtml = '<table><tr><th>Name</th><th>Product</th><th>Total Price</th><th>Actions</th></tr>';
+        response.forEach(function(customer) {
+            customerHtml += `
+                <tr>
+                    <td>${customer.name}</td>
+                    <td>${customer.product}</td>
+                    <td>${customer.total_price}</td>
+                    <td>
+                        <button onclick="updateCustomer(${customer.id})">Edit</button>
+                        <button onclick="deleteCustomer(${customer.id})">Delete</button>
+                    </td>
+                </tr>
+            `;
+        });
+        customerHtml += '</table>';
+        $('#customerList').html(customerHtml);
+    }, 'json');
+}
+
+// Delete customer function
+function deleteCustomer(id) {
+    if (confirm('Are you sure you want to delete this customer?')) {
+        $.post('customerapi.php', { action: 'delete', id: id }, function(response) {
+            alert(response.message);
+            if (response.success) {
+                fetchCustomers();
+            }
+        }, 'json');
+    }
+}
+
+// Update customer functionality (to be implemented in the future)
+function updateCustomer(id) {
+    alert("Update functionality is not implemented yet for customer ID: " + id);
+}
