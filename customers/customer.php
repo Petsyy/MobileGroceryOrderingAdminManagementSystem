@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order - EZ Mart</title>
+    <title>Customer - EZ Mart</title>
     
     <link rel="stylesheet" href="../index.css">
-    <link rel="stylesheet" href="order.css">
+    <link rel="stylesheet" href="customer.css">
     <link rel="stylesheet" href="../buttons/button.css">
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -36,8 +36,8 @@
                 </a>
             </li>
             <li>
-                <a href="../customers/customer.php" title="Log out">
-                    <img src="../icons/customer.png" alt="Log out" id="sidebar-icon" style="width: 26px; height: 26px;">
+                <a href="../customers/customer.php" title="Customers">
+                    <img src="../icons/customer.png" alt="Customers" id="sidebar-icon" style="width: 26px; height: 26px;">
                 </a>
             </li>
             <li>
@@ -49,31 +49,22 @@
     </div>
     
     <main class="container">
-        <h1 class="orderSection">Order Section</h1>
-        <table class="order-table">
+        <h1 class="CustomerSection">Customers</h1>
+        
+        <!-- Previous Orders Table -->
+        <table class="customer-table">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Order</th>
-                    <th>Actions</th>
+                    <th>Customer Name</th>
+                    <th>Product Name</th>
+                    <th>Total Price</th>
                 </tr>
             </thead>
-            <tbody id="orderTableBody">
-                <!-- Orders will be dynamically inserted here -->
-            </tbody>
         </table>
     </main>
 
-    <!-- Order View Modal -->
-    <div id="orderModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2>Order Details</h2>
-            <p id="orderDetails"></p>
-        </div>
-    </div>
-
     <!-- JavaScript Files -->
     <script src="../buttons/button.js"></script>
-    <script src="order.js"></script>
+    <script src="customer.js"></script>
+</body>
 </html>
