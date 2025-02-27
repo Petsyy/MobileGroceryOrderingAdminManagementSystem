@@ -7,18 +7,14 @@ function validateForm() {
     usernameError.textContent = "";
     passwordError.textContent = "";
 
-    // Hardcoded credentials
-    const validUsername = "admin";
-    const validPassword = "admin123";
-
-    if (username !== validUsername) {
-        usernameError.textContent = "Invalid username.";
-        return false; // Stop form submission
+    if (username === "") {
+        usernameError.textContent = "Username is required.";
+        return false;
     }
 
-    if (password !== validPassword) {
-        passwordError.textContent = "Invalid password.";
-        return false; // Stop form submission
+    if (password === "") {
+        passwordError.textContent = "Password is required.";
+        return false;
     }
 
     return true; // Allow form submission

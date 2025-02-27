@@ -1,21 +1,26 @@
 <?php
 session_start();
+require '../order/db.php'; // Ensure correct path
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
-    // Hardcoded credentials
-    $valid_username = "admin";
-    $valid_password = "admin123";
+    // Fetch user data
+    $sql = "SELECT * FROM users WHERE username = :username";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindValue(':username', $username, PDO::PARAM_STR);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($username === $valid_username && $password === $valid_password) {
-        $_SESSION['user'] = $username;
-        header("Location: ../index.php"); // Redirect to dashboard
-        exit; // Stop script execution
+    if ($user && password_verify($password, $user['password'])) {
+        $_SESSION['username'] = $username;
+        header("Location: /SM/index.php");
+        exit();
     } else {
-        header("Location: ../login.php?error=Invalid username or password");
-        exit; // Stop script execution
+        $_SESSION['error'] = "Invalid username or password.";
+        header("Location: login.php");
+        exit();
     }
 }
 ?>
