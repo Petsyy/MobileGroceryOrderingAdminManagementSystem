@@ -1,3 +1,11 @@
+<?php
+session_start(); // Required to access session variables
+
+// Check if an error exists in the session
+$error = isset($_SESSION['error']) ? $_SESSION['error'] : "";
+unset($_SESSION['error']); // Clear the error message after displaying it
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,22 +18,23 @@
     <div class="login-container">
         <fieldset>
             <legend>Log Into Dashboard</legend>
-            <form action="login_process.php"  method="post" onsubmit="return validateForm()">
+            <?php if (!empty($error)) echo "<p class='error'>$error</p>"; ?>
+            <form action="login_process.php" method="post">
                 <div class="input-group">
                     <label for="username">Username</label>
                     <input type="text" placeholder="Enter Username" name="username" id="username" required>
-                    <span id="username-error" class="error"></span>
                 </div>
                 <div class="input-group">
                     <label for="password">Password</label>
                     <input type="password" placeholder="Enter Password" name="password" id="password" required>
-                    <span id="password-error" class="error"></span>
                 </div>
                 <button type="submit">Login</button>
                 <div class="forgot-password">
                     <a href="forgot_pass.php">Forgot Password?</a>
                 </div>
             </form>
+        </fieldset>
+    </div>
     <div class="bilog1"></div>
     <div class="bilog2"></div>
     <div class="bilog3"></div>
@@ -36,4 +45,4 @@
     </div>
     <script src="login.js"></script>
 </body>
-</html> 
+</html>
