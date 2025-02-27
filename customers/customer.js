@@ -32,27 +32,48 @@ $(document).ready(function() {
             }
         }, 'json');
     });
+
+    // Search functionality
+    $('#searchCustomer').on('input', function() {
+        let searchTerm = $(this).val().toLowerCase();
+        filterCustomers(searchTerm);
+    });
 });
 
 // Fetch customers function
 function fetchCustomers() {
     $.get('customerapi.php', function(response) {
-        let customerHtml = '<table><tr><th>Name</th><th>Product</th><th>Total Price</th><th>Actions</th></tr>';
-        response.forEach(function(customer) {
-            customerHtml += `
-                <tr>
-                    <td>${customer.name}</td>
-                    <td>${customer.product}</td>
-                    <td>${customer.total_price}</td>
-                    <td>
-                        <button class="edit" onclick="updateCustomer(${customer.id})">Edit</button>
-                        <button class="delete" onclick="deleteCustomer(${customer.id})">Delete</button>
-                    </td>
-                </tr>
-            `;
+        displayCustomers(response);
+    }, 'json');
+}
+
+// Display customers function
+function displayCustomers(customers) {
+    let customerHtml = '<table><tr><th>Name</th><th>Product</th><th>Total Price</th><th>Actions</th></tr>';
+    customers.forEach(function(customer) {
+        customerHtml += `
+            <tr>
+                <td>${customer.name}</td>
+                <td>${customer.product}</td>
+                <td>${customer.total_price}</td>
+                <td>
+                    <button class="edit" onclick="updateCustomer(${customer.id})">Edit</button>
+                    <button class="delete" onclick="deleteCustomer(${customer.id})">Delete</button>
+                </td>
+            </tr>
+        `;
+    });
+    customerHtml += '</table>';
+    $('#customerList').html(customerHtml);
+}
+
+// Filter customers function
+function filterCustomers(searchTerm) {
+    $.get('customerapi.php', function(response) {
+        let filteredCustomers = response.filter(function(customer) {
+            return customer.name.toLowerCase().includes(searchTerm);
         });
-        customerHtml += '</table>';
-        $('#customerList').html(customerHtml);
+        displayCustomers(filteredCustomers);
     }, 'json');
 }
 

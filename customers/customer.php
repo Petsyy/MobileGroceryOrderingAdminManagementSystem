@@ -4,15 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customers - EZ Mart</title>
-    
-    <!-- External CSS -->
     <link rel="stylesheet" href="../customers/customer.css">
     <link rel="stylesheet" href="../buttons/button.css">
 
-    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
-    <!-- Add your custom scripts -->
     <script src="customer.js"></script>
 </head>
 <body>
@@ -53,13 +48,16 @@
     </div>
 
     <div class="main-content">
-        <div class="header-action">
-            <h1>Customers</h1>
+    <div class="header-action">
+        <h1>Customers</h1>
+        <div class="action-container">
+            <input type="text" id="searchCustomer" placeholder="Search by customer name..." class="search-input">
             <button id="addCustomerBtn" class="button-primary">Add Customer</button>
         </div>
-
-        <div id="customerList" class="customer-list"></div>
     </div>
+    <div id="customerList" class="customer-list"></div>
+</div>
+
 
     <!-- Modal for Adding Customer -->
     <div id="addCustomerModal" class="modal">

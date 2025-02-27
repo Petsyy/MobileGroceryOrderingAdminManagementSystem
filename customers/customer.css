@@ -42,6 +42,7 @@ h1 {
     background-color: #0030FF;
     color: white;
     border: none;
+    margin-right: 30px;
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 5px;
@@ -55,6 +56,20 @@ h1 {
 
 .customer-list {
     margin-top: 20px;
+}
+
+.action-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.search-input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 200px;
 }
 
 /* Table styles */
@@ -173,9 +188,7 @@ td button.delete:hover {
 }
 
 input[type="text"], input[type="number"] {
-    width: 95%;
     padding: 10px;
-    margin-bottom: 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 16px;
