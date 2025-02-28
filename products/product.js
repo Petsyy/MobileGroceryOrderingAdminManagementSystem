@@ -6,18 +6,21 @@ $(document).ready(function () {
         try {
             console.log("Fetching products...");
             const response = await fetch('../api.php');
-
+    
             if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-
+    
             const text = await response.text();
             console.log("Raw response:", text);
-
+    
             const data = JSON.parse(text);
-            console.log("Fetched products:", data);
-
-            if (!Array.isArray(data)) throw new Error("Invalid data format");
-
-            products = data; // Update the global products array
+            console.log("Fetched data:", data);
+    
+            // Check if the response contains the 'products' key and it's an array
+            if (!data.success || !Array.isArray(data.products)) {
+                throw new Error("Invalid data format: Expected 'products' array");
+            }
+    
+            products = data.products; // Update the global products array with the 'products' key
             renderProducts(products); // Render all products
         } catch (error) {
             console.error("Error fetching products:", error);

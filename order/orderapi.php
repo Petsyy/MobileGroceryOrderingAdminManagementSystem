@@ -85,6 +85,26 @@ if ($action === "fetch") {
     } catch (PDOException $e) {
         echo json_encode(["success" => false, "error" => $e->getMessage()]);
     }
+} elseif ($action === "getTotalOrders") {
+    // 📌 Get total number of orders
+    try {
+        $stmt = $conn->prepare("SELECT COUNT(*) AS total_orders FROM orders");
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        echo json_encode($row); // Returns { "total_orders": 100 }
+    } catch (PDOException $e) {
+        echo json_encode(["success" => false, "error" => $e->getMessage()]);
+    }
+} elseif ($action === "getTotalProducts") {
+    // 📌 Get total number of products
+    try {
+        $stmt = $conn->prepare("SELECT COUNT(*) AS total_products FROM products");
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        echo json_encode($row); // Returns { "total_products": 50 }
+    } catch (PDOException $e) {
+        echo json_encode(["success" => false, "error" => $e->getMessage()]);
+    }
 } else {
     echo json_encode(["success" => false, "error" => "Invalid action"]);
 }

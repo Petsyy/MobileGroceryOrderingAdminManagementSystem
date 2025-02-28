@@ -5,37 +5,36 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!ordersCanvas || !customersCanvas) {
         console.error('One or more chart elements are missing in the HTML.');
-        return; // Exit script if canvas elements are missing
+        return; // Exit if elements are missing
     }
 
     const ctxOrders = ordersCanvas.getContext('2d');
     const ctxCustomers = customersCanvas.getContext('2d');
 
-    // Initialize the Orders Per Day Chart (Pie Chart)
+    // Initialize the Pie Chart for Total Products and Total Orders
     const myChart = new Chart(ctxOrders, {
         type: 'pie',
         data: {
-            labels: [],
+            labels: ['Total Products', 'Total Orders'],
             datasets: [{
-                label: 'Total Orders Per Day',
-                data: [],
-                backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)', 'rgba(255, 206, 86, 0.5)'],
-                borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)'],
+                label: 'Total Products and Orders',
+                data: [0, 0], // Default values
+                backgroundColor: ['rgba(75, 192, 192, 0.5)', 'rgba(255, 99, 132, 0.5)'],
+                borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
                 borderWidth: 1
             }]
         },
-        options: { responsive: true }
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Total Products and Orders',
+                    font: { size: 16 }
+                }
+            }
+        }
     });
-
-    // Fetch order stats (Total Orders Per Day)
-    fetch('order/orderapi.php?action=getOrderStats')
-        .then(response => response.json())
-        .then(data => {
-            myChart.data.labels = data.labels;
-            myChart.data.datasets[0].data = data.values;
-            myChart.update();
-        })
-        .catch(error => console.error('Error fetching order data:', error));
 
     // Initialize the Orders Per Customer Chart (Bar Chart)
     const customerChart = new Chart(ctxCustomers, {
@@ -56,13 +55,57 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Fetch customer order stats
-    fetch('order/orderapi.php?action=customerOrderStats')
-        .then(response => response.json())
-        .then(data => {
-            customerChart.data.labels = data.labels;
-            customerChart.data.datasets[0].data = data.values;
-            customerChart.update();
-        })
-        .catch(error => console.error('Error fetching customer order data:', error));
+    // Fetch data in parallel and update charts
+    Promise.all([
+        fetchData('api.php?action=getTotalProducts', 'totalProducts', 0, myChart),
+        fetchData('order/orderapi.php?action=getTotalOrders', 'total_orders', 1, myChart),
+        fetchData('order/orderapi.php?action=customerOrderStats', null, null, customerChart)
+    ]).then(() => {
+        myChart.update();
+        customerChart.update();
+    }).catch(error => console.error("Error updating charts:", error));
 });
+
+function fetchData(url, key, index, chart) {
+    return fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(`Fetched data from ${url}:`, data); // Debugging
+
+            if (typeof data !== 'object') {
+                console.error(`Invalid JSON response from ${url}:`, data);
+                return;
+            }
+
+            // Handling "customerOrderStats" (bar chart)
+            if (!key && chart.config.type === 'bar') {
+                if (Array.isArray(data.labels) && Array.isArray(data.values)) {
+                    chart.data.labels = data.labels;
+                    chart.data.datasets[0].data = data.values;
+                    chart.update();
+                } else {
+                    console.error(`Invalid format for customer order stats from ${url}:`, data);
+                }
+                return;
+            }
+
+            // Handling "getTotalOrders" and "getTotalProducts" (pie chart)
+            if (key && data.hasOwnProperty(key)) {
+                let value = Number(data[key]); // Ensure it's a number
+                if (!isNaN(value)) {
+                    chart.data.datasets[0].data[index] = value;
+                    chart.update();
+                } else {
+                    console.error(`Invalid number format for ${key} from ${url}:`, data[key]);
+                }
+            } else {
+                console.error(`Invalid response format from ${url}. Response received:`, JSON.stringify(data));
+            }
+        })
+        .catch(error => console.error(`Error fetching data from ${url}:`, error));
+}
