@@ -1,19 +1,13 @@
 <?php
-include("order/db.php");
+require 'order/db.php';
 
 header('Content-Type: application/json');
 
-try {
-    // Fetch unread notifications
-    $stmt = $conn->query("SELECT id, message FROM notifications WHERE status = 'unread' ORDER BY id DESC");
-    $notifications = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$query = "SELECT id, message FROM notifications WHERE status = 'unread' ORDER BY created_at DESC";
+$stmt = $conn->prepare($query);
+$stmt->execute();
 
-    echo json_encode([
-        "success" => true,
-        "new_orders" => count($notifications),
-        "notifications" => $notifications
-    ]);
-} catch (PDOException $e) {
-    echo json_encode(["success" => false, "error" => $e->getMessage()]);
-}
+$notifications = $stmt->fetchAll(PDO::FETCH_ASSOC); // ✅ Correct method for PDO
+
+echo json_encode($notifications);
 ?>

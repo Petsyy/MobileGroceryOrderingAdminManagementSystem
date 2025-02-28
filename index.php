@@ -16,8 +16,24 @@
 </head>
 <body>
 <header class="header">
+<img src="icons/bell.svg" alt="bell" class="bell" id="bell">
+
+<!-- Notification Table -->
+<div id="notification-container">
+    <table id="notification-table">
+        <thead>
+            <tr>
+                <th>Message</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td colspan="2">No new notifications</td></tr>
+        </tbody>
+    </table>
+    <button id="mark-all-read">Mark All as Read</button>
+</div>
     <div class="logo-container">
-        <img src="./images/ez-mart.svg" alt="EZ Mart Logo" class="ez_logo" id="ezLogo" style="width: 50px;">
         <span class="logo-text"> Mart</span>
     </div>
     <div class="user-container" id="userContainer">
@@ -106,5 +122,6 @@
     <script src="buttons/button.js"></script>
     <script src="index.js"></script>
     <script src="user-profile/user.js"></script>
+    <script src="bell.js"></script>
 </body>
 </html>

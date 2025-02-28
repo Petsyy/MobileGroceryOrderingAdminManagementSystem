@@ -172,6 +172,32 @@ button:hover {
     visibility: visible;
 }
 
+#notification-container {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    width: 300px;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Notification bell animation */
+.has-notification {
+    animation: bell-shake 0.5s infinite alternate;
+    filter: brightness(1.5);
+}
+
+@keyframes bell-shake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    50% { transform: rotate(10deg); }
+    75% { transform: rotate(-5deg); }
+    100% { transform: rotate(5deg); }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .counter-container, .chart-container {
