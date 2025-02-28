@@ -108,4 +108,59 @@ if ($action === "fetch") {
 } else {
     echo json_encode(["success" => false, "error" => "Invalid action"]);
 }
+
+// Assuming you have an order insertion process somewhere in orderapi.php
+if ($action === "place_order") { 
+    $customer_name = $_POST['customer_name'] ?? '';
+    $order_details = $_POST['order_details'] ?? '';
+
+    try {
+        // Insert order into orders table
+        $stmt = $conn->prepare("INSERT INTO orders (customer_name, order_details, status) VALUES (?, ?, 'Pending')");
+        $stmt->execute([$customer_name, $order_details]);
+
+        // Get the last inserted order ID
+        $order_id = $conn->lastInsertId();
+
+        // Insert a notification
+        $notif_stmt = $conn->prepare("INSERT INTO notifications (message, status) VALUES (?, 'unread')");
+        $notif_stmt->execute(["New order received from $customer_name"]);
+
+        echo json_encode(["success" => true, "order_id" => $order_id]);
+    } catch (PDOException $e) {
+        echo json_encode(["success" => false, "error" => $e->getMessage()]);
+    }
+}
+if ($action === "place_order") { 
+    $customer_name = $_POST['customer_name'] ?? '';
+    $order_details = $_POST['order_details'] ?? '';
+
+    try {
+        // Insert the new order
+$stmt = $conn->prepare("INSERT INTO orders (customer_name, order_details, status) VALUES (?, ?, 'Pending')");
+$stmt->execute([$customer_name, $order_details]);
+
+// 📌 Insert a new notification when an order is placed
+$stmt = $conn->prepare("INSERT INTO notifications (message, status, created_at) VALUES (?, 'unread', NOW())");
+$stmt->execute(["New order received from $customer_name!"]);
+
+
+        // Get last inserted order ID
+        $order_id = $conn->lastInsertId();
+
+        // Insert notification
+        $notif_stmt = $conn->prepare("INSERT INTO notifications (message, status) VALUES (?, 'unread')");
+        $notif_stmt->execute(["New order received from $customer_name"]);
+
+        $stmt = $conn->prepare("INSERT INTO notifications (message, status, created_at) VALUES (?, 'unread', NOW())");
+        $stmt->execute(["New order received!"]);
+
+
+        echo json_encode(["success" => true, "order_id" => $order_id]);
+    } catch (PDOException $e) {
+        echo json_encode(["success" => false, "error" => $e->getMessage()]);
+    }
+}
+
+
 ?>
