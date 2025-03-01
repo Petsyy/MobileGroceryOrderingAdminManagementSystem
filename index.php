@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EZ Mart</title>
     
-    <!-- Link to external CSS file -->
+    <!-- Link to external CSS files -->
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="buttons/button.css">
     <link rel="stylesheet" href="user-profile/user.css">
@@ -15,108 +15,117 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
+    <!-- Header -->
 <header class="header">
-<img src="icons/bell.svg" alt="bell" class="bell" id="bell">
-
-<!-- Notification Table -->
-<div id="notification-container">
-    <table id="notification-table">
-        <thead>
-            <tr>
-                <th>Message</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr><td colspan="2">No new notifications</td></tr>
-        </tbody>
-    </table>
-    <button id="mark-all-read">Mark All as Read</button>
-</div>
     <div class="logo-container">
-        <span class="logo-text"> Mart</span>
+        <img src="./images/ez-mart.svg" alt="EZ Mart Logo" class="ez_logo" id="ezLogo" style="width: 50px; height: auto;">
+        <span class="logo-text">Mart</span>
     </div>
-    <div class="user-container" id="userContainer">
-        <img src="./images/user_profile.png" alt="user-profile" class="user-profile" id="userProfile">
-        <i class="fa-solid fa-caret-down dropdown-icon" id="dropdownIcon"></i>
-        <div class="user-dropdown" id="userDropdown">
-            <ul>
-                <li><a href="#"><i class="fa-solid fa-user"></i> Edit Profile</a></li>
-                <li><a href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
-                <li><a href="login/login.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
-            </ul>
+
+    <!-- User Profile and Notification Section -->
+    <div class="user-notification-container">
+        <!-- Notification Bell -->
+        <div class="notification-container">
+            <img src="icons/bell.svg" alt="Notifications" class="bell" id="bell">
+            
+            <!-- Notification Center -->
+            <div id="notification-center">
+                <h2>Notifications</h2>
+                <div id="notification-container">
+                    <ul id="notification-list">
+                        <li>No new notifications</li>
+                    </ul>
+                    <button id="mark-all-read">Mark All as Read</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Profile Section -->
+        <div class="user-container" id="userContainer">
+            <img src="./images/user_profile.png" alt="User Profile" class="user-profile" id="userProfile">
+            <i class="fa-solid fa-caret-down dropdown-icon" id="dropdownIcon"></i>
+
+            <!-- User Dropdown Menu -->
+            <div class="user-dropdown hidden" id="userDropdown">
+                <ul>
+                    <li><a href="#"><i class="fa-solid fa-user"></i> Edit Profile</a></li>
+                    <li><a href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
+                    <li><a href="login/login.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 </header>
 
+    <!-- Main Content -->
     <main class="container">
         <h1 id="dashBoard">Dashboard</h1>
 
-    <!-- Counter Container -->
-    <div class="counter-container">
-        
-        <!-- Total Products Count -->
-        <div class="product-counter">
-            <label>Total Products:</label>
-            <span id="totalProductCount">0</span>
+        <!-- Counter Container -->
+        <div class="counter-container">
+            <!-- Total Products Count -->
+            <div class="product-counter">
+                <label>Total Products:</label>
+                <span id="totalProductCount">0</span>
+            </div>
+
+            <!-- Order Counter -->
+            <div class="order-counter">
+                <label>Total Orders:</label>
+                <span id="totalOrderCount">0</span>
+            </div>
+
+            <!-- Total Customer Counter -->
+            <div class="total-customer">
+                <label>Total Customers:</label>
+                <span id="totalRecentCount">0</span>
+            </div>
         </div>
 
-        <!-- Order-Counter -->
-        <div class="order-counter">
-            <label>Total Order:</label>
-            <span id="totalOrderCount">0</span>
+        <!-- Product List -->
+        <div id="productList" class="product-list">
+            <!-- Product items will be dynamically added here -->
         </div>
-
-        <!-- Recent Counter -->
-        <div class="total-customer">
-            <label>Total Customer:</label>
-            <span id="totalRecentCount">0</span>
-        </div>
-    </div>
-
-    <div id="productList" class="product-list">
-        <!-- Product items will be dynamically added here -->
-    </div>
-</main>
+    </main>
 
     <!-- Sidebar -->
-<!-- Sidebar -->
     <div id="sidebar" class="sidebar">
         <ul>
             <li>
                 <a href="./index.php" title="Home">
-                    <img src="./icons/home-icon.png" alt="Home" id="sidebar-icon" style="width: 27px; height: 27px;">
+                    <img src="./icons/home-icon.png" alt="Home" class="sidebar-icon">
                 </a>
             </li>
             <li>
                 <a href="./products/product.php" title="Products">
-                    <img src="./icons/product.png" alt="Products" id="sidebar-icon" style="width: 24px; height: 24px;">
+                    <img src="./icons/product.png" alt="Products" class="sidebar-icon">
                 </a>
             </li>
             <li>
                 <a href="./order/order.php" title="Orders">
-                    <img src="./icons/order.png" alt="Orders" id="sidebar-icon" style="width: 27px; height: 27px;">
+                    <img src="./icons/order.png" alt="Orders" class="sidebar-icon">
                 </a>
             </li>
             <li>
-                <a href="./customers/customer.php" title="Log out">
-                    <img src="./icons/customer.png" alt="Log out" id="sidebar-icon" style="width: 26px; height: 26px;">
+                <a href="./customers/customer.php" title="Customers">
+                    <img src="./icons/customer.png" alt="Customers" class="sidebar-icon">
                 </a>
             </li>
             <li>
                 <a href="./login/login.php" title="Log out">
-                    <img src="./icons/logout.png" alt="Log out" id="sidebar-icon" style="width: 26px; height: 26px;">
+                    <img src="./icons/logout.png" alt="Log out" class="sidebar-icon">
                 </a>
             </li>
         </ul>
     </div>
 
+    <!-- Chart Container -->
     <div class="chart-container" style="height: 400px; width: 400px;">
         <canvas id="myChart" class="chart"></canvas>
         <canvas id="customerChart" class="chart"></canvas>
     </div>
 
-    <!-- Include your JS file -->
+    <!-- Include external JavaScript files -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="chart.js"></script>
     <script src="buttons/button.js"></script>

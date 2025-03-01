@@ -1,7 +1,7 @@
 $(document).ready(function () {
     const bell = $("#bell");
-    const notificationContainer = $("#notification-container");
-    const notificationTable = $("#notification-table tbody");
+    const notificationCenter = $("#notification-center");
+    const notificationList = $("#notification-list");
     const markAllReadButton = $("#mark-all-read");
 
     // Fetch Notifications
@@ -11,21 +11,21 @@ $(document).ready(function () {
             method: "GET",
             dataType: "json",
             success: function (response) {
-                notificationTable.empty(); // Clear table
+                notificationList.empty();
 
                 if (response.length > 0) {
-                    bell.addClass("has-notification"); // Add shake effect
+                    bell.addClass("has-notification");
                     response.forEach(notification => {
-                        notificationTable.append(`
-                            <tr>
-                                <td>${notification.message}</td>
-                                <td><button class="mark-read" data-id="${notification.id}">Mark as Read</button></td>
-                            </tr>
+                        notificationList.append(`
+                            <li class="${notification.status === 'read' ? 'read' : 'unread'}">
+                                ${notification.message}
+                                ${notification.status === 'read' ? '✔' : `<button class="mark-read" data-id="${notification.id}">✔</button>`}
+                            </li>
                         `);
                     });
                 } else {
                     bell.removeClass("has-notification");
-                    notificationTable.append('<tr><td colspan="2">No new notifications</td></tr>');
+                    notificationList.append('<li>No notifications</li>');
                 }
             },
             error: function () {
@@ -39,11 +39,20 @@ $(document).ready(function () {
         const notificationId = $(this).data("id");
 
         $.ajax({
-            url: "mark_notification_read.php",
+            url: "mark_notifications.php", // Corrected filename
             method: "POST",
-            data: { id: notificationId },
-            success: function () {
-                fetchNotifications();
+            data: JSON.stringify({ id: notificationId }),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+                if (response.success) {
+                    fetchNotifications(); // Refresh list after marking as read
+                } else {
+                    console.error("Error marking notification as read:", response.error);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX error:", xhr.status, error);
             }
         });
     });
@@ -51,18 +60,36 @@ $(document).ready(function () {
     // Mark All as Read
     markAllReadButton.on("click", function () {
         $.ajax({
-            url: "mark_all_read.php",
+            url: "mark_notifications.php", // Corrected filename
             method: "POST",
-            success: function () {
-                fetchNotifications();
+            data: JSON.stringify({ mark_all: true }), // Indicate that all notifications should be marked as read
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+                if (response.success) {
+                    fetchNotifications(); // Refresh the notifications
+                } else {
+                    console.error("Error marking all as read:", response.error);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX error:", xhr.status, error);
             }
         });
     });
 
-    // Toggle Notification Box
-    bell.on("click", function () {
-        notificationContainer.toggle();
-        fetchNotifications(); // Fetch on open
+    // Toggle Notification Center
+    bell.on("click", function (event) {
+        event.stopPropagation();
+        notificationCenter.toggle();
+        fetchNotifications();
+    });
+
+    // Close when clicking outside
+    $(document).on("click", function (event) {
+        if (!notificationCenter.is(event.target) && notificationCenter.has(event.target).length === 0) {
+            notificationCenter.hide();
+        }
     });
 
     // Fetch notifications every 5 seconds
