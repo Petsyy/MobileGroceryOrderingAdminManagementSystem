@@ -4,7 +4,6 @@ $(document).ready(function () {
     const notificationList = $("#notification-list");
     const markAllReadButton = $("#mark-all-read");
 
-    // Fetch Notifications
     function fetchNotifications() {
         $.ajax({
             url: "fetch_notifications.php",
@@ -34,7 +33,6 @@ $(document).ready(function () {
         });
     }
 
-    // Mark a Notification as Read
     $(document).on("click", ".mark-read", function () {
         const notificationId = $(this).data("id");
 

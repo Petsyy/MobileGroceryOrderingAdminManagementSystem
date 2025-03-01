@@ -258,6 +258,26 @@ button:hover {
     background: #0056b3;
 }
 
+/* Bell bounce effect */
+@keyframes bell-bounce {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(10deg); }
+}
+
+
+/* Soft bell bounce */
+@keyframes bell-bounce {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(10deg); }
+}
+
+/* Keyframe for a softer bell effect */
+@keyframes bell-bounce {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(10deg); }
+}
+
+
 @keyframes bell-shake {
     0% { transform: rotate(0deg); }
     25% { transform: rotate(15deg); }
