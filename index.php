@@ -17,8 +17,6 @@
 <body>
 <header class="header">
 <img src="icons/bell.svg" alt="bell" class="bell" id="bell">
-
-<!-- Notification Table -->
 <div id="notification-container">
     <table id="notification-table">
         <thead>
@@ -31,8 +29,9 @@
             <tr><td colspan="2">No new notifications</td></tr>
         </tbody>
     </table>
-    <button id="mark-all-read">Mark All as Read</button>
+    <button id="mark-all-read" class="notification-btn">Mark All as Read</button>
 </div>
+
     <div class="logo-container">
         <span class="logo-text"> Mart</span>
     </div>

@@ -4,22 +4,21 @@ $(document).ready(function () {
     const notificationTable = $("#notification-table tbody");
     const markAllReadButton = $("#mark-all-read");
 
-    // Fetch Notifications
     function fetchNotifications() {
         $.ajax({
             url: "fetch_notifications.php",
             method: "GET",
             dataType: "json",
             success: function (response) {
-                notificationTable.empty(); // Clear table
+                notificationTable.empty(); 
 
                 if (response.length > 0) {
-                    bell.addClass("has-notification"); // Add shake effect
+                    bell.addClass("has-notification"); 
                     response.forEach(notification => {
                         notificationTable.append(`
                             <tr>
                                 <td>${notification.message}</td>
-                                <td><button class="mark-read" data-id="${notification.id}">Mark as Read</button></td>
+                                <td><button class="mark-read" data-id="${notification.id}">✓</button></td>
                             </tr>
                         `);
                     });
@@ -34,7 +33,6 @@ $(document).ready(function () {
         });
     }
 
-    // Mark a Notification as Read
     $(document).on("click", ".mark-read", function () {
         const notificationId = $(this).data("id");
 
@@ -46,9 +44,10 @@ $(document).ready(function () {
                 fetchNotifications();
             }
         });
+
+        $(this).closest("tr").fadeOut(300, function () { $(this).remove(); }); // Smooth removal
     });
 
-    // Mark All as Read
     markAllReadButton.on("click", function () {
         $.ajax({
             url: "mark_all_read.php",
@@ -57,14 +56,14 @@ $(document).ready(function () {
                 fetchNotifications();
             }
         });
+
+        notificationTable.find("tr").fadeOut(300, function () { $(this).remove(); }); 
     });
 
-    // Toggle Notification Box
     bell.on("click", function () {
-        notificationContainer.toggle();
-        fetchNotifications(); // Fetch on open
+        notificationContainer.toggleClass("show");
+        fetchNotifications();
     });
 
-    // Fetch notifications every 5 seconds
     setInterval(fetchNotifications, 5000);
 });
