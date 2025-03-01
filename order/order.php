@@ -39,7 +39,12 @@
             </li>
             <li>
                 <a href="../customers/customer.php" title="Log out">
-                    <img src="../icons/customer.png" alt="Log out" id="sidebar-icon" style="width: 26px; height: 26px;">
+                    <img src="../icons/customer.png" alt="Customer" id="sidebar-icon" style="width: 29px; height: 29px;">
+                </a>
+            </li>
+            <li>
+                <a href="../user_accounts/user-accounts.php" title="Log out">
+                    <img src="../icons/user-settings.png" alt="User-Settings" id="sidebar-icon" style="width: 30px; height: 30px;">
                 </a>
             </li>
             <li>

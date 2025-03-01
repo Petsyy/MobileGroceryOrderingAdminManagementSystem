@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customers - EZ Mart</title>
-    <link rel="stylesheet" href="../customers/customer.css">
+    <title>User -EZ Mart</title>
+    
+    <!-- Link to external CSS files -->
+    <link rel="stylesheet" href="../index.css">
     <link rel="stylesheet" href="../buttons/button.css">
-
+    
+    <!-- Include jQuery from CDN -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="customer.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <header class="header">
-        <img src="../images/ez-mart.svg" alt="EZ Mart Logo" class="ez_logo" id="ezLogo" style="width: 50px;">
+    <!-- Header -->
+<header class="header">
+    <div class="logo-container">
+        <img src="../images/ez-mart.svg" alt="EZ Mart Logo" class="ez_logo" id="ezLogo" style="width: 50px; height: auto;">
         <span class="logo-text">Mart</span>
-    </header>
+    </div>
+</header>
 
     <!-- Sidebar -->
     <div id="sidebar" class="sidebar">
@@ -52,44 +58,5 @@
         </ul>
     </div>
 
-    <div class="main-content">
-    <div class="header-action">
-        <h1>Customers</h1>
-        <div class="action-container">
-            <input type="text" id="searchCustomer" placeholder="Search by customer name..." class="search-input">
-            <button id="addCustomerBtn" class="button-primary">Add Customer</button>
-        </div>
-    </div>
-    <div id="customerList" class="customer-list"></div>
-</div>
-
-
-    <!-- Modal for Adding Customer -->
-    <div id="addCustomerModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-                <h2>Add New Customer</h2>
-            <form id="addCustomerForm">
-                <!-- Customer Name Field -->
-                <div class="form-group">
-                    <label for="name">Customer Name:</label>
-                    <input type="text" id="name" placeholder="Enter customer name" required>
-                </div>
-
-                <!-- Product Field -->
-                <div class="form-group">
-                    <label for="product">Product:</label>
-                    <input type="text" id="product" placeholder="Enter product name" required>
-                </div>
-
-                <!-- Total Price Field -->
-                <div class="form-group">
-                    <label for="total_price">Total Price:</label>
-                    <input type="number" id="total_price" placeholder="Enter total price" required>
-                </div>
-                <button type="submit" class="button-primary">Add Customer</button>
-            </form>
-        </div>
-    </div>
 </body>
 </html>
