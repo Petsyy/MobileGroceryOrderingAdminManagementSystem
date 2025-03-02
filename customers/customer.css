@@ -76,12 +76,13 @@ h1 {
 /* Table styles */
 table {
     width: 80%;
-    max-width: 1000px;
-    margin: 20px auto;
-    border-collapse: collapse;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    overflow: hidden;
+    margin-left: 120px;
+    border-radius: 5px;
+    border: 2px solid #ddd;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 8px;
+    background-color: white;
 }
 
 td{
@@ -95,7 +96,7 @@ th, td {
 }
 
 th {
-    background-color: rgba(17, 14, 225, 1);
+    background-color: #0066FF;
     color: white;
     font-weight: bold;
 }

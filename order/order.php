@@ -63,6 +63,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Order</th>
+                    <th>Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>

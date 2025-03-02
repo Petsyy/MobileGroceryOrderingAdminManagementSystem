@@ -9,9 +9,25 @@ $action = $_POST['action'] ?? $_GET['action'] ?? '';
 
 if ($action === "fetch") {
     try {
-        $stmt = $conn->prepare("SELECT id, customer_name, order_details, status FROM orders ORDER BY id DESC");
+        // Fetch orders along with customer details
+        $stmt = $conn->prepare("
+            SELECT 
+                o.id AS order_id, 
+                o.customer_name, 
+                o.order_details, 
+                o.total_price AS order_total_price, 
+                o.status, 
+                o.created_at AS order_created_at,
+                c.product AS customer_product, 
+                c.total_price AS customer_total_price
+            FROM orders o
+            JOIN customers c ON o.customer_name = c.name
+            ORDER BY o.created_at DESC
+        ");
         $stmt->execute();
-        echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        echo json_encode($results);
     } catch (PDOException $e) {
         echo json_encode(["success" => false, "error" => $e->getMessage()]);
     }
@@ -105,62 +121,87 @@ if ($action === "fetch") {
     } catch (PDOException $e) {
         echo json_encode(["success" => false, "error" => $e->getMessage()]);
     }
-} else {
-    echo json_encode(["success" => false, "error" => "Invalid action"]);
-}
-
-// Assuming you have an order insertion process somewhere in orderapi.php
-if ($action === "place_order") { 
+} elseif ($action === "place_order") { 
     $customer_name = $_POST['customer_name'] ?? '';
     $order_details = $_POST['order_details'] ?? '';
+    $total_price = $_POST['total_price'] ?? 0;
 
-    try {
-        // Insert order into orders table
-        $stmt = $conn->prepare("INSERT INTO orders (customer_name, order_details, status) VALUES (?, ?, 'Pending')");
-        $stmt->execute([$customer_name, $order_details]);
-
-        // Get the last inserted order ID
-        $order_id = $conn->lastInsertId();
-
-        // Insert a notification
-        $notif_stmt = $conn->prepare("INSERT INTO notifications (message, status) VALUES (?, 'unread')");
-        $notif_stmt->execute(["New order received from $customer_name"]);
-
-        echo json_encode(["success" => true, "order_id" => $order_id]);
-    } catch (PDOException $e) {
-        echo json_encode(["success" => false, "error" => $e->getMessage()]);
+    // Validate input data
+    if (empty($customer_name) || empty($order_details) || !is_numeric($total_price)) {
+        echo json_encode(["success" => false, "error" => "Invalid input data"]);
+        exit();
     }
-}
-if ($action === "place_order") { 
-    $customer_name = $_POST['customer_name'] ?? '';
-    $order_details = $_POST['order_details'] ?? '';
 
     try {
         // Insert the new order
-$stmt = $conn->prepare("INSERT INTO orders (customer_name, order_details, status) VALUES (?, ?, 'Pending')");
-$stmt->execute([$customer_name, $order_details]);
+        $stmt = $conn->prepare("INSERT INTO orders (customer_name, order_details, total_price, status, created_at) VALUES (?, ?, ?, 'Pending', NOW())");
+        $stmt->execute([$customer_name, $order_details, $total_price]);
 
-// 📌 Insert a new notification when an order is placed
-$stmt = $conn->prepare("INSERT INTO notifications (message, status, created_at) VALUES (?, 'unread', NOW())");
-$stmt->execute(["New order received from $customer_name!"]);
-
-
-        // Get last inserted order ID
-        $order_id = $conn->lastInsertId();
-
-        // Insert notification
-        $notif_stmt = $conn->prepare("INSERT INTO notifications (message, status) VALUES (?, 'unread')");
+        // Insert a notification
+        $notif_stmt = $conn->prepare("INSERT INTO notifications (message, status, created_at) VALUES (?, 'unread', NOW())");
         $notif_stmt->execute(["New order received from $customer_name"]);
 
-        $stmt = $conn->prepare("INSERT INTO notifications (message, status, created_at) VALUES (?, 'unread', NOW())");
-        $stmt->execute(["New order received!"]);
-
-
-        echo json_encode(["success" => true, "order_id" => $order_id]);
+        echo json_encode(["success" => true, "order_id" => $conn->lastInsertId()]);
     } catch (PDOException $e) {
         echo json_encode(["success" => false, "error" => $e->getMessage()]);
     }
+} elseif ($action === "fetchSingleOrder") {
+    if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+        echo json_encode(["success" => false, "error" => "Invalid or missing order ID"]);
+        exit();
+    }
+
+    $id = intval($_GET['id']);
+
+    try {
+        $stmt = $conn->prepare("
+            SELECT 
+                o.id AS order_id, 
+                o.customer_name, 
+                o.order_details, 
+                o.total_price AS order_total_price, 
+                o.status, 
+                o.created_at AS order_created_at,
+                c.product AS customer_product, 
+                c.total_price AS customer_total_price
+            FROM orders o
+            JOIN customers c ON o.customer_name = c.name
+            WHERE o.id = ?
+        ");
+        $stmt->execute([$id]);
+        $order = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($order) {
+            echo json_encode($order);
+        } else {
+            echo json_encode(["success" => false, "error" => "Order not found"]);
+        }
+    } catch (PDOException $e) {
+        echo json_encode(["success" => false, "error" => $e->getMessage()]);
+    }
+} elseif ($action === "updateOrder") {
+    if (!isset($_POST['id']) || !is_numeric($_POST['id'])) {
+        echo json_encode(["success" => false, "error" => "Invalid or missing order ID"]);
+        exit();
+    }
+
+    $id = intval($_POST['id']);
+    $customer_name = $_POST['customer_name'] ?? '';
+    $order_details = $_POST['order_details'] ?? '';
+    $total_price = $_POST['total_price'] ?? 0;
+    $status = $_POST['status'] ?? 'Pending';
+
+    try {
+        $stmt = $conn->prepare("UPDATE orders SET customer_name = ?, order_details = ?, total_price = ?, status = ? WHERE id = ?");
+        if ($stmt->execute([$customer_name, $order_details, $total_price, $status, $id])) {
+            echo json_encode(["success" => true]);
+        } else {
+            echo json_encode(["success" => false, "error" => "Failed to update order"]);
+        }
+    } catch (PDOException $e) {
+        echo json_encode(["success" => false, "error" => $e->getMessage()]);
+    }
+} else {
+    echo json_encode(["success" => false, "error" => "Invalid action"]);
 }
-
-
 ?>

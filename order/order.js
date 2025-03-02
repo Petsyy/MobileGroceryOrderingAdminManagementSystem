@@ -16,7 +16,11 @@ $(document).ready(function () {
 
     $(document).on("click", ".delete-btn", function () {
         let id = $(this).attr("data-id"); // Get order ID
-        deleteOrder(id, this);
+        if (id) {
+            deleteOrder(id, this);
+        } else {
+            console.error("Order ID is undefined.");
+        }
     });
 
     // Close modal when clicking outside the modal content
@@ -47,10 +51,11 @@ function fetchOrders() {
             let row = `<tr>
                 <td>${order.customer_name}</td>
                 <td>${order.order_details}</td>
+                <td>${order.status}</td>
                 <td>
                     <button class="view-btn">View</button>
-                    <button class="confirm-btn" data-id="${order.id}">Confirm</button>
-                    <button class="delete-btn" data-id="${order.id}">Delete</button>
+                    <button class="confirm-btn" data-id="${order.order_id}">Confirm</button>
+                    <button class="delete-btn" data-id="${order.order_id}">Delete</button>
                 </td>
             </tr>`;
             tableBody.append(row);
@@ -90,11 +95,10 @@ function confirmOrder(id, button) {
     });
 }
 
-// Delete Order
 function deleteOrder(id, button) {
-    if (confirm("Are you sure you want to delete this order?")) {
-        console.log("Deleting Order ID:", id); // Debugging log
+    console.log("Deleting Order ID:", id); // Debugging log
 
+    if (confirm("Are you sure you want to delete this order?")) {
         $.post("orderapi.php", { action: "delete", id: id }, function (response) {
             console.log("Response from Server:", response); // Debugging log
 
@@ -103,7 +107,7 @@ function deleteOrder(id, button) {
                     $(this).remove();
                 });
             } else {
-                alert("Error deleting order.");
+                alert("Error deleting order: " + response.error);
             }
         }, "json").fail(function (xhr, status, error) {
             console.error("AJAX Error:", status, error);
