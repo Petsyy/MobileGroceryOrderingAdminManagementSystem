@@ -38,12 +38,12 @@
                 </a>
             </li>
             <li>
-                <a href="../customers/customer.php" title="Log out">
+                <a href="../customers/customer.php" title="Customers">
                     <img src="../icons/customer.png" alt="Customer" id="sidebar-icon" style="width: 29px; height: 29px;">
                 </a>
             </li>
             <li>
-                <a href="../user_accounts/user-accounts.php" title="Log out">
+                <a href="../user_accounts/user-accounts.php" title="User Accounts">
                     <img src="../icons/user-settings.png" alt="User-Settings" id="sidebar-icon" style="width: 30px; height: 30px;">
                 </a>
             </li>
