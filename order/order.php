@@ -55,8 +55,9 @@
         </ul>
     </div>
     
-    <main class="container">
-        <h1>Order Section</h1>
+<main class="container">
+    <h1>Order Section</h1>
+    <div class="table-container">
         <table class="order-table">
             <thead>
                 <tr>
@@ -69,7 +70,10 @@
                 <!-- Orders will be dynamically inserted here -->
             </tbody>
         </table>
-    </main>
+    </div>
+</main>
+
+
 
     <!-- Order View Modal -->
     <div id="orderModal" class="modal">
