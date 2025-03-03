@@ -55,14 +55,16 @@
         </ul>
     </div>
     
-<main class="container">
+    <main class="container">
     <h1>Order Section</h1>
+
     <div class="table-container">
         <table class="order-table">
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Order</th>
+                    <th>Total Price</th>
                     <th>Status</th>
                     <th>Actions</th>
                 </tr>
@@ -73,6 +75,7 @@
         </table>
     </div>
 </main>
+
 
 
 
