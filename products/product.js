@@ -44,12 +44,12 @@ $(document).ready(function () {
                 imagePath = product.image;
             } else {
                 // If image URL is relative, prefix it with the base path
-                imagePath = `http://localhost/WEB-SM/${imagePath}`;
+                imagePath = `http://localhost/SM/${imagePath}`;
             }
     
             // If the image path is still empty or invalid, use a fallback default image
             if (!imagePath || imagePath.trim() === "" || imagePath.endsWith('/')) {
-                imagePath = "http://localhost/WEB-SM/images/default.jpg"; // Fallback image
+                imagePath = "http://localhost/SM/images/default.jpg"; // Fallback image
             } else {
                 console.log(`Using image path: ${imagePath}`);
             }
