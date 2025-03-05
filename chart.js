@@ -1,14 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("Page loaded, fetching chart data...");
+    console.log("Fetching most sold products...");
 
     fetch('order/orderapi.php?action=most_sold_product')
         .then(response => response.json())
         .then(data => {
             console.log("API Response:", data); // ✅ Debugging
 
-            // Check if data is valid
-            if (data && data.product_name && data.total_sold) {
-                console.log("Most sold product:", data.product_name, "Sold:", data.total_sold);
+            if (Array.isArray(data) && data.length > 0) {
+                const productNames = data.map(item => item.product_name);
+                const totalSold = data.map(item => item.total_sold);
 
                 const ctx = document.getElementById('mostSoldChart')?.getContext('2d');
                 if (!ctx) {
@@ -19,12 +19,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: [data.product_name],
+                        labels: productNames,
                         datasets: [{
-                            label: 'Most Sold Product',
-                            data: [data.total_sold],
-                            backgroundColor: 'rgba(255, 159, 64, 0.5)',
-                            borderColor: 'rgba(255, 159, 64, 1)',
+                            label: 'Top 5 Most Sold Products',
+                            data: totalSold,
+                            backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
                             borderWidth: 1
                         }]
                     },
@@ -40,5 +40,5 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("No valid sales data received.");
             }
         })
-        .catch(error => console.error("Error fetching most sold product:", error));
+        .catch(error => console.error("Error fetching most sold products:", error));
 });

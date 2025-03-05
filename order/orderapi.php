@@ -106,9 +106,12 @@ elseif ($action === "most_selling_product") {
 elseif ($action === "most_sold_product") {
     try {
         $stmt = $conn->prepare("
-            SELECT product_name, COUNT(*) AS total_sold
+            SELECT 
+                TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(product_list.product_name, ':', 1), ',', -1)) AS product_name,
+                COUNT(*) AS total_sold
             FROM (
-                SELECT TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(od.order_details, ',', n.n), ',', -1)) AS product_name
+                SELECT 
+                    TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(od.order_details, ',', n.n), ',', -1)) AS product_name
                 FROM orders od
                 JOIN (
                     SELECT 1 AS n UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 
@@ -117,16 +120,17 @@ elseif ($action === "most_sold_product") {
             ) product_list
             GROUP BY product_name
             ORDER BY total_sold DESC
-            LIMIT 1;
+            LIMIT 5;
         ");
         $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        echo json_encode($result);
+        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        echo json_encode($products);
+        exit();
     } catch (PDOException $e) {
         echo json_encode(["success" => false, "error" => $e->getMessage()]);
     }
 }
-
 
 
 else {

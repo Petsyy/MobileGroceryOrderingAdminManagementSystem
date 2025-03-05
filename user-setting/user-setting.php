@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EZ Mart</title>
-    
-    <!-- Link to external CSS files -->
+    <title>Profile Settings</title>
+    <link rel="stylesheet" href="user.css">
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="buttons/button.css">
     <link rel="stylesheet" href="user-profile/user.css">
@@ -15,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <!-- Header -->
+
 <header class="header">
     <div class="logo-container">
         <img src="./images/ez-mart.svg" alt="EZ Mart Logo" class="ez_logo" id="ezLogo" style="width: 50px; height: auto;">
@@ -57,39 +56,66 @@
     </div>
 </header>
 
-    <!-- Main Content -->
-    <main class="container">
-        <h1 id="dashBoard">Dashboard</h1>
-
-        <!-- Counter Container -->
-        <div class="counter-container">
-            <!-- Total Products Count -->
-            <div class="product-counter">
-                <label>Total Products:</label>
-                <span id="totalProductCount">0</span>
+    <div class="user-form-container">
+        <div class="user-form">
+            <div class="user-profile-section">
+                <div class="user-profile">
+                    <img src="../images/user_profile.png" alt="User Profile" id="userProfile">
+                </div>
+                <div class="user-upload">
+                    <button class="upload-btn-upload">Upload New</button>
+                    <button class="upload-btn-delete">Delete Avatar</button>
+                </div>
             </div>
 
-            <!-- Order Counter -->
-            <div class="order-counter">
-                <label>Total Orders:</label>
-                <span id="totalOrderCount">0</span>
-            </div>
+            <h2>Profile Settings</h2>
 
-            <!-- Total Customer Counter -->
-            <div class="total-customer">
-                <label>Total Customers:</label>
-                <span id="totalRecentCount">0</span>
-            </div>
+            <form action="user_settings.php" method="post" class="user-details">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="Fname">First Name:</label>
+                        <input type="text" id="Fname" name="first_name" placeholder="First Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Lname">Last Name:</label>
+                        <input type="text" id="Lname" name="last_name" placeholder="Last Name" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="number">Mobile Number:</label>
+                        <input type="number" id="number" name="mobile_number" placeholder="+63XXXXXXXXX" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group gender-section">
+                        <label>Gender:</label>
+                        <div class="gender-options">
+                            <label for="male">
+                                <input type="radio" id="male" name="gender" value="male" required> Male
+                            </label>
+                            <label for="female">
+                                <input type="radio" id="female" name="gender" value="female" required> Female
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="save-button-container">
+                        <button type="submit">Save Changes</button>
+                    </div>
+                </div>
+            </form>
         </div>
+    </div>
 
-        <!-- Product List -->
-        <div id="productList" class="product-list">
-            <!-- Product items will be dynamically added here -->
-        </div>
-    </main>
-
-    <!-- Sidebar -->
-    <div id="sidebar" class="sidebar">
+ <!-- Sidebar -->
+ <div id="sidebar" class="sidebar">
         <ul>
             <li>
                 <a href="./index.php" title="Home">
@@ -124,17 +150,11 @@
         </ul>
     </div>
 
-    <!-- Chart Container -->
-    <div class="chart-container" style="height: 400px; width: 400px;">
-    <canvas id="mostSoldChart" width="400" height="200"></canvas>
-    </div>
-
-    <!-- Include external JavaScript files -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="chart.js"></script>
     <script src="buttons/button.js"></script>
     <script src="index.js"></script>
     <script src="user-profile/user.js"></script>
     <script src="bell.js"></script>
+
 </body>
 </html>
