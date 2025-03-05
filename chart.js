@@ -1,45 +1,44 @@
-const myChart = new Chart(ctxOrders, {
-    type: 'pie',
-    data: {
-        labels: ['Total Products', 'Total Orders'],
-        datasets: [{
-            label: 'Total Products and Orders',
-            data: [0, 0],
-            backgroundColor: ['rgba(75, 192, 192, 0.5)', 'rgba(255, 99, 132, 0.5)'],
-            borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: false,  // Disable automatic resizing
-        maintainAspectRatio: false, // Allow custom sizing
-        plugins: {
-            title: {
-                display: true,
-                text: 'Total Products and Orders',
-                font: { size: 20 } // Increase font size
-            }
-        }
-    }
-});
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("Page loaded, fetching chart data...");
 
-const customerChart = new Chart(ctxCustomers, {
-    type: 'bar',
-    data: {
-        labels: [],
-        datasets: [{
-            label: 'Orders per Customer',
-            data: [],
-            backgroundColor: 'rgba(54, 162, 235, 0.5)',
-            borderColor: 'rgba(54, 162, 235, 1)',
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: false, 
-        maintainAspectRatio: false,
-        scales: { 
-            y: { beginAtZero: true, stepSize: 1 }
-        }
-    }
+    fetch('order/orderapi.php?action=most_sold_product')
+        .then(response => response.json())
+        .then(data => {
+            console.log("API Response:", data); // ✅ Debugging
+
+            // Check if data is valid
+            if (data && data.product_name && data.total_sold) {
+                console.log("Most sold product:", data.product_name, "Sold:", data.total_sold);
+
+                const ctx = document.getElementById('mostSoldChart')?.getContext('2d');
+                if (!ctx) {
+                    console.error("Canvas element not found!");
+                    return;
+                }
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: [data.product_name],
+                        datasets: [{
+                            label: 'Most Sold Product',
+                            data: [data.total_sold],
+                            backgroundColor: 'rgba(255, 159, 64, 0.5)',
+                            borderColor: 'rgba(255, 159, 64, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: { beginAtZero: true, stepSize: 1 }
+                        }
+                    }
+                });
+            } else {
+                console.error("No valid sales data received.");
+            }
+        })
+        .catch(error => console.error("Error fetching most sold product:", error));
 });

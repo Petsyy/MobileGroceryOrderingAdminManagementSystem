@@ -126,8 +126,7 @@
 
     <!-- Chart Container -->
     <div class="chart-container" style="height: 400px; width: 400px;">
-        <canvas id="myChart" class="chart"></canvas>
-        <canvas id="customerChart" class="chart"></canvas>
+    <canvas id="mostSoldChart" width="400" height="200"></canvas>
     </div>
 
     <!-- Include external JavaScript files -->

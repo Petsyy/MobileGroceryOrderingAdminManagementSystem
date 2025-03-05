@@ -144,6 +144,12 @@ button:hover {
     margin-left: 300px;
 }
 
+canvas {
+    width: 300px;
+    height: 300px;
+}
+
+
 /* Hover effect */
 #sidebar img:hover {
     transform: scale(1.1);
