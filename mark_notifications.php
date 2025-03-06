@@ -1,5 +1,5 @@
 <?php
-require 'order/db.php'; // Ensure this path is correct
+require_once 'config/db.php'; // Ensure this path is correct
 
 header('Content-Type: application/json');
 error_reporting(E_ALL);

@@ -7,11 +7,13 @@ body {
 
 /* Header */
 .header {
+    background-color: rgba(17, 14, 225, 1);
     display: flex;
+    justify-content: space-between; /* This will push the left and right elements apart */
     align-items: center;
-    padding: 10px 20px;
-    background-color: #0030FF;
-    border-bottom: 2px solid #ddd;
+    padding: 15px;
+    height: 60px;
+    margin-left: 80px;
 }
 
 .logo-container {
@@ -25,9 +27,9 @@ body {
 }
 
 .logo-text {
-    font-size: 24px;
+    color: white;
+    font-size: 30px;
     font-weight: bold;
-    color: #0066FF;
     margin-left: 10px;
 }
 
@@ -85,14 +87,14 @@ h1 {
 
 /* Table Container - Enables Scroll for Table Body */
 .table-container {
+    justify-content: center;
     width: 100%;
     max-height: 400px; /* Adjust height as needed */
     overflow-y: auto;
     overflow-x: hidden;
     border-radius: 8px;
-    border: 2px solid #ddd;
-    background-color: white;
     position: relative;
+    margin-left: 50px;
 }
 
 /* Hide scrollbar for WebKit browsers (Chrome, Safari) */
@@ -110,7 +112,7 @@ h1 {
 
 /* Table Styling */
 .order-table {
-    width: 100%;
+    width: 70%;
     border-collapse: collapse;
     background-color: white;
 }

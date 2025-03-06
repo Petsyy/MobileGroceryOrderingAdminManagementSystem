@@ -8,7 +8,6 @@
     <!-- Link to external CSS files -->
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="buttons/button.css">
-    <link rel="stylesheet" href="user-profile/user.css">
     
     <!-- Include jQuery from CDN -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -48,9 +47,20 @@
             <!-- User Dropdown Menu -->
             <div class="user-dropdown hidden" id="userDropdown">
                 <ul>
-                    <li><a href="#"><i class="fa-solid fa-user"></i> Edit Profile</a></li>
-                    <li><a href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
-                    <li><a href="login/login.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+                    <li>
+                        <a href="./user-profile/user_settings.php">
+                        <i class="fa-solid fa-user"></i> Edit Profile</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa-solid fa-gear">
+                        </i> Settings</a>
+                    </li>
+
+                    <li>
+                        <a href="login/login.php">
+                        <i class="fa-solid fa-right-from-bracket">
+                    </i> Logout</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -61,26 +71,35 @@
     <main class="container">
         <h1 id="dashBoard">Dashboard</h1>
 
-        <!-- Counter Container -->
-        <div class="counter-container">
-            <!-- Total Products Count -->
-            <div class="product-counter">
+            <!-- Counter Container -->
+            <div class="counter-container">
+                <!-- Total Products Count -->
+                <div class="counter-box">
                 <label>Total Products:</label>
-                <span id="totalProductCount">0</span>
-            </div>
+                    <div class="counter-icon">
+                        <img src="./icons/product-icon-counter.png" alt="Product Icon">
+                        <span id="totalProductCount">0</span>
+                    </div>
+                </div>
 
-            <!-- Order Counter -->
-            <div class="order-counter">
+                <!-- Order Counter -->
+                <div class="counter-box">
                 <label>Total Orders:</label>
-                <span id="totalOrderCount">0</span>
-            </div>
+                    <div class="counter-icon">
+                        <img src="./icons/order-icon-counter.png" alt="Order Icon">
+                        <span id="totalOrderCount">0</span>
+                    </div>
+                </div>
 
-            <!-- Total Customer Counter -->
-            <div class="total-customer">
-                <label>Total Customers:</label>
-                <span id="totalRecentCount">0</span>
+                <!-- Total Customer Counter -->
+                <div class="counter-box">
+                    <label>Total Customers:</label>
+                    <div class="counter-icon">
+                        <img src="./icons/customer-icon-counter.png" alt="Customer Icon">
+                        <span id="totalCustomerCount">0</span>
+                    </div>
+                </div>
             </div>
-        </div>
 
         <!-- Product List -->
         <div id="productList" class="product-list">

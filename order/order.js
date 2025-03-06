@@ -1,9 +1,5 @@
 $(document).ready(function () {
-    fetchOrders(); // Fetch orders when page loads
-    checkNewOrders(); // Check for new orders
-
-    // Check for new orders every 10 seconds
-    setInterval(checkNewOrders, 10000);
+    fetchOrders();
 
     // Event delegation for dynamically created buttons
     $(document).on("click", ".view-btn", function () {
@@ -14,12 +10,12 @@ $(document).ready(function () {
     });
 
     $(document).on("click", ".confirm-btn", function () {
-        let id = $(this).attr("data-id");
+        let id = $(this).attr("data-id"); // Get order ID
         confirmOrder(id, this);
     });
 
     $(document).on("click", ".delete-btn", function () {
-        let id = $(this).attr("data-id");
+        let id = $(this).attr("data-id"); // Get order ID
         if (id) {
             deleteOrder(id, this);
         } else {
@@ -27,62 +23,94 @@ $(document).ready(function () {
         }
     });
 
+    // Close modal when clicking outside the modal content
+    $(document).on("click", "#orderModal", function (e) {
+        if ($(e.target).hasClass("modal")) {
+            closeModal();
+        }
+    });
+
+    // Close modal on ESC key press
+    $(document).on("keydown", function (e) {
+        if (e.key === "Escape") {
+            closeModal();
+        }
+    });
+
     // Ensure modal is hidden initially
     $("#orderModal").hide();
 });
 
+// Fetch Orders from API
 function fetchOrders() {
-    $.ajax({
-        url: "orderapi.php",
-        type: "GET",
-        data: { action: "fetch" },
-        dataType: "json",
-        success: function (response) {
-            console.log(response); // ✅ Check if data is received
+    $.getJSON("orderapi.php?action=fetch", function (data) {
+        let tableBody = $(".order-table tbody");
+        tableBody.empty(); // Clear existing rows
 
-            let tableBody = $("#orderTableBody");
-            tableBody.empty(); // Clear previous data
-
-            if (response.length === 0) {
-                tableBody.append("<tr><td colspan='5'>No orders found</td></tr>");
-                return;
-            }
-
-            response.forEach(order => {
-                let row = `
-                    <tr>
-                        <td>${order.customer_name}</td>
-                        <td>${order.order_details}</td>
-                        <td>${order.order_total_price}</td>
-                        <td>${order.status}</td>
-                        <td>
-                            <button class="confirm-btn" data-id="${order.order_id}">Confirm</button>
-                            <button class="delete-btn" data-id="${order.order_id}">Delete</button>
-                        </td>
-                    </tr>
-                `;
-                tableBody.append(row);
-            });
-        },
-        error: function (xhr, status, error) {
-            console.error("Error fetching orders:", error);
-        }
+        data.forEach(order => {
+            let row = `<tr>
+                <td>${order.customer_name}</td>
+                <td>${order.order_details}</td>
+                <td>${order.status}</td>
+                <td>
+                    <button class="view-btn">View</button>
+                    <button class="confirm-btn" data-id="${order.order_id}">Confirm</button>
+                    <button class="delete-btn" data-id="${order.order_id}">Delete</button>
+                </td>
+            </tr>`;
+            tableBody.append(row);
+        });
+    }).fail(function (xhr, status, error) {
+        console.error("Error fetching orders:", status, error);
     });
 }
 
+// View Order Modal
+function viewOrder(name, order) {
+    $("#orderDetails").text(`${name} ordered: ${order}`);
+    $("#orderModal").fadeIn(200); // Use fadeIn for smooth appearance
+}
 
-console.log(response);
+// Close Modal
+function closeModal() {
+    $("#orderModal").fadeOut(200); // Use fadeOut for smooth disappearance
+}
 
-// Function to check for new orders
-function checkNewOrders() {
-    $.getJSON("orderapi.php?action=check_new_orders", function (data) {
-        let newOrders = data?.new_orders || 0; // Fallback to 0 if undefined
-        if (newOrders > 0) {
-            $("#notification").text(`📢 ${newOrders} new orders!`).show();
+// Confirm Order (Remove Row on Success)
+function confirmOrder(id, button) {
+    console.log("Confirming Order ID:", id); // Debugging log
+
+    $.post("orderapi.php", { action: "confirm", id: id }, function (response) {
+        console.log("Response from Server:", response); // Debugging log
+
+        if (response.success) {
+            $(button).closest("tr").fadeOut(300, function () {
+                $(this).remove();
+            });
         } else {
-            $("#notification").hide();
+            alert("Error confirming order.");
         }
-    }).fail(function (xhr, status, error) {
-        console.error("Error checking new orders:", status, error);
+    }, "json").fail(function (xhr, status, error) {
+        console.error("AJAX Error:", status, error);
     });
+}
+
+function deleteOrder(id, button) {
+    console.log("Deleting Order ID:", id); // Debugging log
+
+    if (confirm("Are you sure you want to delete this order?")) {
+        $.post("orderapi.php", { action: "delete", id: id }, function (response) {
+            console.log("Response from Server:", response); // Debugging log
+
+            if (response.success) {
+                $(button).closest("tr").fadeOut(300, function () {
+                    $(this).remove();
+                });
+            } else {
+                alert("Error deleting order: " + response.error);
+            }
+        }, "json").fail(function (xhr, status, error) {
+            console.error("AJAX Error:", status, error);
+        });
+    }
 }

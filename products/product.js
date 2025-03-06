@@ -15,41 +15,51 @@ $(document).ready(function () {
             const data = JSON.parse(text);
             console.log("Fetched data:", data);
     
+            // Check if the response contains the 'products' key and it's an array
             if (!data.success || !Array.isArray(data.products)) {
                 throw new Error("Invalid data format: Expected 'products' array");
             }
     
-            products = data.products;
-            renderProducts(products);
+            products = data.products; // Update the global products array with the 'products' key
+            renderProducts(products); // Render all products
         } catch (error) {
             console.error("Error fetching products:", error);
         }
     }
 
+    // Render products in the productList
     function renderProducts(productsToRender) {
         if (!Array.isArray(productsToRender)) {
             console.error("Error: products is not an array", productsToRender);
             return;
         }
 
-        $('#productList').empty();
+        $('#productList').empty(); // Clear existing products
 
         productsToRender.forEach(product => {
             let imagePath = product.image.trim();
 
-            if (!imagePath || imagePath.trim() === "" || imagePath.endsWith('/')) {
-                imagePath = "http://localhost/SM/images/default.jpg";
-            } else if (!imagePath.startsWith('http')) {
-                imagePath = `http://localhost/SM/${imagePath}`;
+            if (imagePath.startsWith('http')) {
+                // If image URL is already absolute (full URL), use it as is
+                imagePath = product.image;
+            } else {
+                // If image URL is relative, prefix it with the base path
+                imagePath = `http://localhost/WEB-SM/${imagePath}`;
             }
     
+            // If the image path is still empty or invalid, use a fallback default image
+            if (!imagePath || imagePath.trim() === "" || imagePath.endsWith('/')) {
+                imagePath = "http://localhost/WEB-SM/images/default.jpg"; // Fallback image
+            } else {
+                console.log(`Using image path: ${imagePath}`);
+            }
+
             const productContainer = $(`
                 <div class="product-container" data-id="${product.id}">
                     <img src="${imagePath}" alt="${product.name}">
                     <h3>${product.name}</h3>
                     <p class="price">Price: $${product.price}</p>
                     <p>Stock: ${product.stock}</p>
-                    <p>Category: ${product.category || 'N/A'}</p>
                     <button class="edit-btn" data-id="${product.id}">Edit</button>
                     <button class="delete-btn" data-id="${product.id}">Delete</button>
                 </div>
@@ -61,34 +71,40 @@ $(document).ready(function () {
         console.log("Rendered products:", productsToRender);
     }
 
+    // Handle category filter change
     $('#categoryFilter').change(function () {
         const selectedCategory = $(this).val();
         if (selectedCategory === "All") {
-            renderProducts(products);
+            renderProducts(products); // Render all products
         } else {
             const filteredProducts = products.filter(product => product.category === selectedCategory);
-            renderProducts(filteredProducts);
+            renderProducts(filteredProducts); // Render filtered products
         }
     });
 
+    // Handle "Edit" button click
     $('#productList').on('click', '.edit-btn', function () {
         const productId = $(this).data('id');
         const product = products.find(p => p.id == productId);
 
         if (!product) return;
 
+        // Populate edit form
         $('#editProductId').val(product.id);
         $('#editPrice').val(product.price);
         $('#editStock').val(product.stock);
         $('#editCategory').val(product.category);
 
+        // Show the modal
         $('#editModal').fadeIn();
     });
 
+    // Close Edit Modal
     $('#closeModal').click(function () {
         $('#editModal').fadeOut();
     });
 
+    // Handle form submission for editing
     $('#editForm').submit(function (event) {
         event.preventDefault();
 
@@ -111,7 +127,7 @@ $(document).ready(function () {
                 console.log(response);
                 alert("Product updated successfully!");
                 $('#editModal').fadeOut();
-                fetchProducts();
+                fetchProducts(); // Refresh the product list
             },
             error: function (error) {
                 console.error("Error updating product:", error);
@@ -119,6 +135,7 @@ $(document).ready(function () {
         });
     });
 
+    // Handle "Delete" button click
     $('#productList').on('click', '.delete-btn', function () {
         const productId = $(this).data('id');
 
@@ -134,16 +151,12 @@ $(document).ready(function () {
             success: function (response) {
                 console.log(response);
                 alert("Product deleted successfully!");
-                fetchProducts();
+                fetchProducts(); // Refresh product list
             },
             error: function (error) {
                 console.error("Error deleting product:", error);
             }
         });
-    });
-
-    $("#menuIcon").click(function () {
-        $("#sidebar").toggleClass("active");
     });
 
     // Open "Add Product" Modal
@@ -156,8 +169,8 @@ $(document).ready(function () {
         $('#addProductModal').fadeOut();
     });
 
-    // Ensure add product form submission works
-    $('#productForm').submit(function (event) {
+    // Handle "Add Product" form submission
+    $('#productForm').off('submit').on('submit', function (event) {
         event.preventDefault();
 
         const productName = $('#name').val().trim();
@@ -185,9 +198,9 @@ $(document).ready(function () {
             success: function (response) {
                 console.log(response);
                 alert("Product added successfully!");
-                $('#productForm')[0].reset();
+                $('#productForm')[0].reset(); // Reset form
                 $('#addProductModal').fadeOut();
-                fetchProducts();
+                fetchProducts(); // Refresh the product list
             },
             error: function (error) {
                 console.error("Error adding product:", error);

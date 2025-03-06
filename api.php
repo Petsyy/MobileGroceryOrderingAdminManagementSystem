@@ -1,8 +1,5 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "inventory_db";
+require_once 'config/db.php';
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
