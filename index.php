@@ -57,7 +57,7 @@
                     </li>
 
                     <li>
-                        <a href="login/login.php">
+                        <a href="auth/login.php">
                         <i class="fa-solid fa-right-from-bracket">
                     </i> Logout</a>
                     </li>

@@ -1,5 +1,5 @@
 <?php
-require '../order/db.php'; // Ensure the correct path to db.php
+require '../config/db.php'; // Ensure the correct path to db.php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);

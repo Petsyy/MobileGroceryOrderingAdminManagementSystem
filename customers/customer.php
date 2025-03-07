@@ -45,7 +45,7 @@
                 </a>
             </li>
             <li>
-                <a href="../login/login.php" title="Log out">
+                <a href="../login/login.html" title="Log out">
                     <img src="../icons/logout.png" alt="Log out" id="sidebar-icon" style="width: 26px; height: 26px;">
                 </a>
             </li>

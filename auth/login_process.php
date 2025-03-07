@@ -1,6 +1,6 @@
 <?php
 session_start();
-require '../order/db.php'; // Ensure correct path
+require '../config/db.php'; // Ensure correct path
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($user && password_verify($password, $user['password'])) {
         $_SESSION['username'] = $username;
-        header("Location: /SM/index.php");
+        header("Location: /WEB-SM/index.php");
         exit();
     } else {
         $_SESSION['error'] = "Invalid username or password.";

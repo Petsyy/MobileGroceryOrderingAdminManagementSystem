@@ -49,7 +49,7 @@
                 <ul>
                     <li><a href="#"><i class="fa-solid fa-user"></i> Edit Profile</a></li>
                     <li><a href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
-                    <li><a href="login/login.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+                    <li><a href="login/login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -143,7 +143,7 @@
                 </a>
             </li>
             <li>
-                <a href="./login/login.php" title="Log out">
+                <a href="./login/login.html" title="Log out">
                     <img src="./icons/logout.png" alt="Log out" id="sidebar-icon" style="width: 26px; height: 26px;">
                 </a>
             </li>
