@@ -1,9 +1,9 @@
 <?php
-session_start(); // Required to access session variables
+session_start();
 
 // Check if an error exists in the session
 $error = isset($_SESSION['error']) ? $_SESSION['error'] : "";
-unset($_SESSION['error']); // Clear the error message after displaying it
+unset($_SESSION['error']);
 ?>
 
 <!DOCTYPE html>
