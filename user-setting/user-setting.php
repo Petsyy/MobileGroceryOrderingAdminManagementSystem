@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Settings</title>
-    <link rel="stylesheet" href="user.css">
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="buttons/button.css">
-    <link rel="stylesheet" href="user-profile/user.css">
+    <link rel="stylesheet" href="../assets/css/user.css">
+    <link rel="stylesheet" href="../assets/css/index.css">
+    <link rel="stylesheet" href="../assets/css/sidebar.css">
+    <link rel="stylesheet" href="../assets/css/user.css">
     
     <!-- Include jQuery from CDN -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -17,7 +17,7 @@
 
 <header class="header">
     <div class="logo-container">
-        <img src="./images/ez-mart.svg" alt="EZ Mart Logo" class="ez_logo" id="ezLogo" style="width: 50px; height: auto;">
+        <img src="../assets/images/ez-mart.svg" alt="EZ Mart Logo" class="ez_logo" id="ezLogo" style="width: 50px; height: auto;">
         <span class="logo-text">Mart</span>
     </div>
 
@@ -25,7 +25,7 @@
     <div class="user-notification-container">
         <!-- Notification Bell -->
         <div class="notification-container">
-            <img src="icons/bell.svg" alt="Notifications" class="bell" id="bell">
+            <img src="./assets/icons/bell.svg" alt="Notifications" class="bell" id="bell">
             
             <!-- Notification Center -->
             <div id="notification-center">
@@ -41,7 +41,7 @@
 
         <!-- User Profile Section -->
         <div class="user-container" id="userContainer">
-            <img src="./images/user_profile.png" alt="User Profile" class="user-profile" id="userProfile">
+            <img src="../assets/images/user_profile.png" alt="User Profile" class="user-profile" id="userProfile">
             <i class="fa-solid fa-caret-down dropdown-icon" id="dropdownIcon"></i>
 
             <!-- User Dropdown Menu -->
@@ -60,7 +60,7 @@
         <div class="user-form">
             <div class="user-profile-section">
                 <div class="user-profile">
-                    <img src="../images/user_profile.png" alt="User Profile" id="userProfile">
+                    <img src="../assets/images/user_profile.png" alt="User Profile" id="userProfile">
                 </div>
                 <div class="user-upload">
                     <button class="upload-btn-upload">Upload New</button>
@@ -119,42 +119,40 @@
         <ul>
             <li>
                 <a href="./index.html" title="Home">
-                    <img src="./icons/home-icon.png" alt="Home" id="sidebar-icon" style="width: 27px; height: 27px;">
+                    <img src="./assets/icons/home-icon.png" alt="Home" id="sidebar-icon" style="width: 27px; height: 27px;">
                 </a>
             </li>
             <li>
                 <a href="./products/product.html" title="Products">
-                    <img src="./icons/product.png" alt="Products" id="sidebar-icon" style="width: 24px; height: 24px;">
+                    <img src="./assets/icons/product.png" alt="Products" id="sidebar-icon" style="width: 24px; height: 24px;">
                 </a>
             </li>
             <li>
                 <a href="./order/order.html" title="Orders">
-                    <img src="./icons/order.png" alt="Orders" id="sidebar-icon" style="width: 27px; height: 27px;">
+                    <img src="./assets/icons/order.png" alt="Orders" id="sidebar-icon" style="width: 27px; height: 27px;">
                 </a>
             </li>
             <li>
                 <a href="./customers/customer.html" title="Customers">
-                    <img src="./icons/customer.png" alt="Customer" id="sidebar-icon" style="width: 29px; height: 29px;">
+                    <img src="./assets/icons/customer.png" alt="Customer" id="sidebar-icon" style="width: 29px; height: 29px;">
                 </a>
             </li>
             <li>
                 <a href="./user-setting/user-setting.php" title="User Setting">
-                    <img src="./icons/user-settings.png" alt="User-Settings" id="sidebar-icon" style="width: 30px; height: 30px;">
+                    <img src="./assets/icons/user-settings.png" alt="User-Settings" id="sidebar-icon" style="width: 30px; height: 30px;">
                 </a>
             </li>
             <li>
                 <a href="./login/login.html" title="Log out">
-                    <img src="./icons/logout.png" alt="Log out" id="sidebar-icon" style="width: 26px; height: 26px;">
+                    <img src="./assets/icons/logout.png" alt="Log out" id="sidebar-icon" style="width: 26px; height: 26px;">
                 </a>
             </li>
         </ul>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="buttons/button.js"></script>
-    <script src="index.js"></script>
-    <script src="user-profile/user.js"></script>
-    <script src="bell.js"></script>
-
+    <script src="../js/index.js"></script>
+    <script src="../js/user.js"></script>
+    <script src="../js/bell.js"></script>
 </body>
 </html>

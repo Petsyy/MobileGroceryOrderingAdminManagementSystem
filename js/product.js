@@ -49,7 +49,7 @@ $(document).ready(function () {
     
             // If the image path is still empty or invalid, use a fallback default image
             if (!imagePath || imagePath.trim() === "" || imagePath.endsWith('/')) {
-                imagePath = "http://localhost/WEB-SM/images/default.jpg"; // Fallback image
+                imagePath = "http://localhost/WEB-SM/assets/images/default.jpg"; // Fallback image
             } else {
                 console.log(`Using image path: ${imagePath}`);
             }
