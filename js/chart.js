@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Fetch data in parallel and update charts
     Promise.all([
-        fetchData('productapi.php?action=getTotalProducts', 'totalProducts', 0, myChart),
+        fetchData('/WEB-SM/api/productapi.php?action=getTotalProducts', 'totalProducts', 0, myChart),
         fetchData('/WEB-SM/api/orderapi.php?action=getTotalOrders', 'total_orders', 1, myChart),
         fetchData('/WEB-SM/api/orderapi.php?action=customerOrderStats', null, null, customerChart)        
     ]).then(() => {
