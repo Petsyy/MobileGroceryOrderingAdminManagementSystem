@@ -48,8 +48,8 @@
             <!-- User Dropdown Menu -->
             <div class="user-dropdown hidden" id="userDropdown">
                 <ul>
-                    <li><a href="#"><i class="fa-solid fa-user"></i> Edit Profile</a></li>
-                    <li><a href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
+                    <li><a href="#"><i class="fa-solid fa-user"></i> User Setting</a></li>
+                    <li><a href="#"><i class="fa-solid fa-gear"></i> Forgot Password</a></li>
                     <li><a href="login/login.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
                 </ul>
             </div>
