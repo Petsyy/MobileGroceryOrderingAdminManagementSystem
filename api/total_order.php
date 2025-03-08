@@ -6,7 +6,7 @@ header('Content-Type: application/json');
 
 try {
     // Execute query to count total orders
-    $stmt = $conn->query("SELECT     COUNT(*) AS total FROM orders");
+    $stmt = $conn->query("SELECT COUNT(*) AS total FROM orders");
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
     // Ensure a valid response

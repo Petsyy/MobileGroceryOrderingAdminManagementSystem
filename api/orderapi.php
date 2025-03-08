@@ -5,7 +5,7 @@ header('Content-Type: application/json');
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$action = $_POST['action'] ?? $_GET['action'] ?? '';
+$action = $_REQUEST['action'] ?? '';
 
 if ($action === "fetch") {
     try {

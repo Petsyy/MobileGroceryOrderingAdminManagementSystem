@@ -1,6 +1,6 @@
 $(document).ready(function () {
     function fetchTotalProducts() {
-        fetch('order/total_product.php') // Ensure this path is correct
+        fetch('api/total_product.php') // Ensure this path is correct
             .then(response => response.json())
             .then(data => {
                 console.log("Fetched total products:", data); // Debugging log
@@ -14,7 +14,7 @@ $(document).ready(function () {
     }
 
     function fetchTotalOrder() {
-        fetch('order/total_order.php') 
+        fetch('api/total_order.php') // Ensure this path is correct
             .then(response => response.json())
             .then(data => {
                 console.log("Fetched total orders:", data); 
