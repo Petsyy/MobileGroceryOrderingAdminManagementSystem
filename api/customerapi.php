@@ -1,32 +1,15 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "inventory_db";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die(json_encode(["error" => "Connection failed: " . $conn->connect_error]));
-}
+require_once "../config/db.php"; 
 
 header('Content-Type: application/json');
 
 // Fetch all customers (GET)
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $sql = "SELECT * FROM customers";
-    $result = $conn->query($sql);
-    $customers = [];
-
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $customers[] = $row;
-        }
-    }
+    $stmt = $conn->query($sql);
+    $customers = $stmt->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($customers);
-    $conn->close();
     exit;
 }
 
@@ -38,20 +21,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'add') {
 
     if (empty($name) || empty($product) || !is_numeric($total_price)) {
         echo json_encode(["error" => "Invalid input data"]);
-        $conn->close();
         exit;
     }
 
-    $stmt = $conn->prepare("INSERT INTO customers (name, product, total_price) VALUES (?, ?, ?)");
-    $stmt->bind_param("ssd", $name, $product, $total_price);
+    $sql = "INSERT INTO customers (name, product, total_price) VALUES (:name, :product, :total_price)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':product', $product);
+    $stmt->bindParam(':total_price', $total_price);
 
     if ($stmt->execute()) {
         echo json_encode(["success" => true, "message" => "Customer added successfully"]);
     } else {
-        echo json_encode(["error" => "Error adding customer: " . $stmt->error]);
+        echo json_encode(["error" => "Error adding customer"]);
     }
-    $stmt->close();
-    $conn->close();
     exit;
 }
 
@@ -63,20 +46,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'update') {
 
     if (!is_numeric($id) || empty($product) || !is_numeric($total_price)) {
         echo json_encode(["error" => "Invalid input data"]);
-        $conn->close();
         exit;
     }
 
-    $stmt = $conn->prepare("UPDATE customers SET product=?, total_price=? WHERE id=?");
-    $stmt->bind_param("sdi", $product, $total_price, $id);
+    $sql = "UPDATE customers SET product=:product, total_price=:total_price WHERE id=:id";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':product', $product);
+    $stmt->bindParam(':total_price', $total_price);
+    $stmt->bindParam(':id', $id);
 
     if ($stmt->execute()) {
         echo json_encode(["success" => true, "message" => "Customer updated successfully"]);
     } else {
-        echo json_encode(["error" => "Error updating customer: " . $stmt->error]);
+        echo json_encode(["error" => "Error updating customer"]);
     }
-    $stmt->close();
-    $conn->close();
     exit;
 }
 
@@ -86,23 +69,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'delete') {
 
     if (!is_numeric($id)) {
         echo json_encode(["error" => "Invalid customer ID"]);
-        $conn->close();
         exit;
     }
 
-    $stmt = $conn->prepare("DELETE FROM customers WHERE id=?");
-    $stmt->bind_param("i", $id);
+    $sql = "DELETE FROM customers WHERE id=:id";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':id', $id);
 
     if ($stmt->execute()) {
         echo json_encode(["success" => true, "message" => "Customer deleted successfully"]);
     } else {
-        echo json_encode(["error" => "Error deleting customer: " . $stmt->error]);
+        echo json_encode(["error" => "Error deleting customer"]);
     }
-    $stmt->close();
-    $conn->close();
     exit;
 }
 
 // Close the connection at the end
-$conn->close();
+$conn = null;
 ?>

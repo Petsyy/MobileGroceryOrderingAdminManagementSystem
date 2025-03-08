@@ -19,7 +19,7 @@ $(document).ready(function() {
         let product = $('#product').val();
         let total_price = $('#total_price').val();
 
-        $.post('customerapi.php', {
+        $.post('../../api/customerapi.php', {
             action: 'add',
             name: name,
             product: product,
@@ -42,7 +42,7 @@ $(document).ready(function() {
 
 // Fetch customers function
 function fetchCustomers() {
-    $.get('customerapi.php', function(response) {
+    $.get('../../api/customerapi.php', function(response) {
         displayCustomers(response);
     }, 'json');
 }
@@ -69,7 +69,7 @@ function displayCustomers(customers) {
 
 // Filter customers function
 function filterCustomers(searchTerm) {
-    $.get('customerapi.php', function(response) {
+    $.get('../../api/customerapi.php', function(response) {
         let filteredCustomers = response.filter(function(customer) {
             return customer.name.toLowerCase().includes(searchTerm);
         });
@@ -80,7 +80,7 @@ function filterCustomers(searchTerm) {
 // Delete customer function
 function deleteCustomer(id) {
     if (confirm('Are you sure you want to delete this customer?')) {
-        $.post('customerapi.php', { action: 'delete', id: id }, function(response) {
+        $.post('../../api/customerapi.php', { action: 'delete', id: id }, function(response) {
             alert(response.message);
             if (response.success) {
                 fetchCustomers();
