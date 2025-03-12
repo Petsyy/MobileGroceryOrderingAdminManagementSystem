@@ -1,121 +1,100 @@
 <?php
 require_once __DIR__ . '/../config/db.php';
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die(json_encode(["success" => false, "error" => "Connection failed: " . $conn->connect_error]));
-}
-
 header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
 
-// 📌 Fetch total number of products
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'getTotalProducts') {
-    $sql = "SELECT COUNT(*) AS totalProducts FROM products";
-    $result = $conn->query($sql);
+$server_url = "http://192.168.100.15/WEB-SM/";
 
-    if ($row = $result->fetch_assoc()) {
-        echo json_encode(["success" => true, "totalProducts" => (int)$row['totalProducts']]);
-    } else {
-        echo json_encode(["success" => false, "error" => "Failed to fetch total products"]);
-    }
-
-    $conn->close();
+$conn = new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) {
+    http_response_code(500);
+    echo json_encode(["success" => false, "error" => "Database connection failed"]);
     exit;
 }
 
-// 📌 Fetch all products
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && !isset($_GET['action'])) {
-    $sql = "SELECT * FROM products";
-    $result = $conn->query($sql);
-    $products = [];
+// Handle OPTIONS preflight request for CORS
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
 
-    while ($row = $result->fetch_assoc()) {
-        $products[] = $row;
-    }
+// Fetch products
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $stmt = $conn->prepare("SELECT id, name, price, stock, image, category FROM products");
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $products = $result->fetch_all(MYSQLI_ASSOC);
+    $stmt->close();
 
     echo json_encode(["success" => true, "products" => $products]);
-    $conn->close();
     exit;
 }
 
-// 📌 Handle adding a product
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'add') {
-    $name = $_POST['name'] ?? '';
-    $price = $_POST['price'] ?? '';
-    $stock = $_POST['stock'] ?? '';
-    $image = $_POST['image'] ?? '';
-    $category = $_POST['category'] ?? '';
+// Handle POST (Add/Update/Delete)
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $data = json_decode(file_get_contents("php://input"), true);
+    $action = $data['action'] ?? '';
 
-    if (empty($name) || !is_numeric($price) || !is_numeric($stock) || empty($image) || empty($category)) {
-        echo json_encode(["success" => false, "error" => "Invalid input data"]);
+    // Add product
+    if ($action === 'add') {
+        if (isset($data['name'], $data['price'], $data['stock'], $data['image'], $data['category'])) {
+            $stmt = $conn->prepare("INSERT INTO products (name, price, stock, image, category) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("sdiss", $data['name'], $data['price'], $data['stock'], $data['image'], $data['category']);
+            if ($stmt->execute()) {
+                echo json_encode(["success" => true]);
+            } else {
+                echo json_encode(["success" => false, "error" => $stmt->error]);
+            }
+            $stmt->close();
+        } else {
+            echo json_encode(["success" => false, "error" => "Missing required fields"]);
+        }
         exit;
     }
 
-    $stmt = $conn->prepare("INSERT INTO products (name, price, stock, image, category) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("sdiss", $name, $price, $stock, $image, $category);
-
-    if ($stmt->execute()) {
-        echo json_encode(["success" => true, "message" => "Product added successfully"]);
-    } else {
-        echo json_encode(["success" => false, "error" => "Error adding product: " . $stmt->error]);
-    }
-
-    $stmt->close();
-    $conn->close();
-    exit;
-}
-
-// 📌 Handle updating a product
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'update') {
-    $id = $_POST['id'] ?? '';
-    $price = $_POST['price'] ?? '';
-    $stock = $_POST['stock'] ?? '';
-    $category = $_POST['category'] ?? '';
-
-    if (!is_numeric($id) || !is_numeric($price) || !is_numeric($stock) || empty($category)) {
-        echo json_encode(["success" => false, "error" => "Invalid input data"]);
+    // Update product
+    if ($action === 'update') {
+        if (isset($data['id'], $data['price'], $data['stock'], $data['category'])) {
+            $stmt = $conn->prepare("UPDATE products SET price = ?, stock = ?, category = ? WHERE id = ?");
+            $stmt->bind_param("dssi", $data['price'], $data['stock'], $data['category'], $data['id']);
+            if ($stmt->execute()) {
+                echo json_encode(["success" => true]);
+            } else {
+                echo json_encode(["success" => false, "error" => $stmt->error]);
+            }
+            $stmt->close();
+        } else {
+            echo json_encode(["success" => false, "error" => "Missing required fields for update"]);
+        }
         exit;
     }
 
-    $stmt = $conn->prepare("UPDATE products SET price=?, stock=?, category=? WHERE id=?");
-    $stmt->bind_param("disi", $price, $stock, $category, $id);
-
-    if ($stmt->execute()) {
-        echo json_encode(["success" => true, "message" => "Product updated successfully"]);
-    } else {
-        echo json_encode(["success" => false, "error" => "Error updating product: " . $stmt->error]);
-    }
-
-    $stmt->close();
-    $conn->close();
-    exit;
-}
-
-// 📌 Handle deleting a product
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete') {
-    $id = $_POST['id'] ?? '';
-
-    if (!is_numeric($id)) {
-        echo json_encode(["success" => false, "error" => "Invalid product ID"]);
+    // Delete product
+    if ($action === 'delete') {
+        if (isset($data['id'])) {
+            $stmt = $conn->prepare("DELETE FROM products WHERE id = ?");
+            $stmt->bind_param("i", $data['id']);
+            if ($stmt->execute()) {
+                echo json_encode(["success" => true]);
+            } else {
+                echo json_encode(["success" => false, "error" => $stmt->error]);
+            }
+            $stmt->close();
+        } else {
+            echo json_encode(["success" => false, "error" => "Missing product ID"]);
+        }
         exit;
     }
 
-    $stmt = $conn->prepare("DELETE FROM products WHERE id=?");
-    $stmt->bind_param("i", $id);
-
-    if ($stmt->execute()) {
-        echo json_encode(["success" => true, "message" => "Product deleted successfully"]);
-    } else {
-        echo json_encode(["success" => false, "error" => "Error deleting product: " . $stmt->error]);
-    }
-
-    $stmt->close();
-    $conn->close();
+    // Invalid action
+    echo json_encode(["success" => false, "error" => "Invalid action"]);
     exit;
 }
 
-// 📌 Default response for invalid actions
+// Invalid request method
+http_response_code(400);
 echo json_encode(["success" => false, "error" => "Invalid request"]);
-$conn->close();
 ?>
