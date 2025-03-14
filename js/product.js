@@ -5,7 +5,7 @@ $(document).ready(function () {
     async function fetchProducts() {
         try {
             console.log("Fetching products...");
-            const response = await fetch('../../api/productapi.php');
+            const response = await fetch('../../api/fetch_products.php');
             if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
             const data = await response.json();
@@ -80,7 +80,7 @@ $(document).ready(function () {
         const updatedCategory = $('#editCategory').val();
 
         $.ajax({
-            url: '../../api/productapi.php',
+            url: '../../api/fetch_products.php',
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({
@@ -108,7 +108,7 @@ $(document).ready(function () {
         if (!confirm("Are you sure you want to delete this product?")) return;
 
         $.ajax({
-            url: '../../api/productapi.php',
+            url: '../../api/fetch_products.php',
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ action: 'delete', id: productId }),
@@ -152,7 +152,7 @@ $(document).ready(function () {
 
         // AJAX call to add product
         $.ajax({
-            url: '../../api/productapi.php',
+            url: '../../api/fetch_products.php',
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({

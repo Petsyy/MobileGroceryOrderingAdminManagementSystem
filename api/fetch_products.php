@@ -21,9 +21,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-// Fetch products
+// ✅ FETCH products with optional category filter
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $stmt = $conn->prepare("SELECT id, name, price, stock, image, category FROM products");
+    $category = isset($_GET['category']) ? $conn->real_escape_string($_GET['category']) : null;
+
+    if ($category) {
+        // If category is provided, filter products by category
+        $stmt = $conn->prepare("SELECT id, name, price, stock, image, category FROM products WHERE category = ?");
+        $stmt->bind_param("s", $category);
+    } else {
+        // If no category is provided, return all products
+        $stmt = $conn->prepare("SELECT id, name, price, stock, image, category FROM products");
+    }
+
     $stmt->execute();
     $result = $stmt->get_result();
     $products = $result->fetch_all(MYSQLI_ASSOC);
@@ -33,12 +43,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     exit;
 }
 
-// Handle POST (Add/Update/Delete)
+// ✅ HANDLE POST (Add/Update/Delete product)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents("php://input"), true);
     $action = $data['action'] ?? '';
 
-    // Add product
+    // ✅ Add product
     if ($action === 'add') {
         if (isset($data['name'], $data['price'], $data['stock'], $data['image'], $data['category'])) {
             $stmt = $conn->prepare("INSERT INTO products (name, price, stock, image, category) VALUES (?, ?, ?, ?, ?)");
@@ -55,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Update product
+    // ✅ Update product
     if ($action === 'update') {
         if (isset($data['id'], $data['price'], $data['stock'], $data['category'])) {
             $stmt = $conn->prepare("UPDATE products SET price = ?, stock = ?, category = ? WHERE id = ?");
@@ -72,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Delete product
+    // ✅ Delete product
     if ($action === 'delete') {
         if (isset($data['id'])) {
             $stmt = $conn->prepare("DELETE FROM products WHERE id = ?");
@@ -89,12 +99,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Invalid action
+    // ❌ Invalid action
     echo json_encode(["success" => false, "error" => "Invalid action"]);
     exit;
 }
 
-// Invalid request method
+// ❌ Invalid request method
 http_response_code(400);
 echo json_encode(["success" => false, "error" => "Invalid request"]);
 ?>
