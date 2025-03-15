@@ -2,7 +2,7 @@
 $servername = "localhost"; 
 $username = "root"; 
 $password = ""; 
-$dbname = "inventory_db"; 
+$dbname = "ez_mart"; 
 
 try {
     // Fix: Change $host to $servername
