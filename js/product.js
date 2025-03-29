@@ -1,6 +1,8 @@
 $(document).ready(function () {
     let products = [];
+    let products = [];
 
+    // Fetch Products
     // Fetch Products
     async function fetchProducts() {
         try {
@@ -9,11 +11,17 @@ $(document).ready(function () {
             if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
             const data = await response.json();
+
+            const data = await response.json();
             console.log("Fetched data:", data);
+
 
             if (!data.success || !Array.isArray(data.products)) {
                 throw new Error("Invalid data format: Expected 'products' array");
             }
+
+            products = data.products;
+            renderProducts(products);
 
             products = data.products;
             renderProducts(products);
@@ -23,7 +31,9 @@ $(document).ready(function () {
     }
 
     // Render Products
+    // Render Products
     function renderProducts(productsToRender) {
+        $('#productList').empty();
         $('#productList').empty();
 
         productsToRender.forEach(product => {
@@ -41,6 +51,9 @@ $(document).ready(function () {
                     <p>Price: ₱${price}</p>
                     <p>Stock: ${stock}</p>
                     <p>Category: ${product.category}</p>
+                    <p>Price: ₱${price}</p>
+                    <p>Stock: ${stock}</p>
+                    <p>Category: ${product.category}</p>
                     <button class="edit-btn" data-id="${product.id}">Edit</button>
                     <button class="delete-btn" data-id="${product.id}">Delete</button>
                 </div>
@@ -49,11 +62,14 @@ $(document).ready(function () {
     }
 
     // Filter Products by Category
+    // Filter Products by Category
     $('#categoryFilter').change(function () {
         const selectedCategory = $(this).val();
         renderProducts(selectedCategory === "All" ? products : products.filter(p => p.category === selectedCategory));
+        renderProducts(selectedCategory === "All" ? products : products.filter(p => p.category === selectedCategory));
     });
 
+    // Handle Edit Product Modal Show
     // Handle Edit Product Modal Show
     $('#productList').on('click', '.edit-btn', function () {
         const productId = $(this).data('id');
@@ -69,12 +85,17 @@ $(document).ready(function () {
 
     // Close Edit Product Modal
     $('#closeModal').click(() => $('#editModal').fadeOut());
+    // Close Edit Product Modal
+    $('#closeModal').click(() => $('#editModal').fadeOut());
 
+    // Handle Edit Product Form Submit
     // Handle Edit Product Form Submit
     $('#editForm').submit(function (event) {
         event.preventDefault();
 
         const productId = $('#editProductId').val();
+        const updatedPrice = parseFloat($('#editPrice').val());
+        const updatedStock = parseInt($('#editStock').val());
         const updatedPrice = parseFloat($('#editPrice').val());
         const updatedStock = parseInt($('#editStock').val());
         const updatedCategory = $('#editCategory').val();
@@ -84,6 +105,8 @@ $(document).ready(function () {
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({
+            contentType: 'application/json',
+            data: JSON.stringify({
                 action: 'update',
                 id: productId,
                 price: updatedPrice,
@@ -91,10 +114,16 @@ $(document).ready(function () {
                 category: updatedCategory
             }),
             success: function () {
+            }),
+            success: function () {
                 alert("Product updated successfully!");
                 $('#editModal').fadeOut();
                 fetchProducts();
+                fetchProducts();
             },
+            error: function (xhr) {
+                console.error("Error updating product:", xhr.responseText);
+                alert("Failed to update product.");
             error: function (xhr) {
                 console.error("Error updating product:", xhr.responseText);
                 alert("Failed to update product.");
@@ -102,6 +131,7 @@ $(document).ready(function () {
         });
     });
 
+    // Handle Delete Product
     // Handle Delete Product
     $('#productList').on('click', '.delete-btn', function () {
         const productId = $(this).data('id');
@@ -179,3 +209,4 @@ $(document).ready(function () {
     // Initial fetch of products
     fetchProducts();
 });
+

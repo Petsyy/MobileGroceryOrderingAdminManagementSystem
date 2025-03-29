@@ -3,10 +3,8 @@ require_once __DIR__ . '/../config/db.php';
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Methods: GET, POST, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
-
-$server_url = "http://192.168.1.9/WEB-SM/";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
@@ -21,76 +19,117 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-// Fetch products
+// Fetch Products
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $stmt = $conn->prepare("SELECT id, name, price, stock, image, category FROM products");
+    if (!$stmt) {
+        http_response_code(500);
+        echo json_encode(["success" => false, "error" => "Database query failed"]);
+        exit;
+    }
+
     $stmt->execute();
     $result = $stmt->get_result();
-    $products = $result->fetch_all(MYSQLI_ASSOC);
+    $products = $result->num_rows > 0 ? $result->fetch_all(MYSQLI_ASSOC) : [];
+
     $stmt->close();
+    $conn->close();
 
     echo json_encode(["success" => true, "products" => $products]);
     exit;
 }
 
-// Handle POST (Add/Update/Delete)
+// Handle Stock Updates
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents("php://input"), true);
     $action = $data['action'] ?? '';
 
-    // Add product
-    if ($action === 'add') {
-        if (isset($data['name'], $data['price'], $data['stock'], $data['image'], $data['category'])) {
-            $stmt = $conn->prepare("INSERT INTO products (name, price, stock, image, category) VALUES (?, ?, ?, ?, ?)");
-            $stmt->bind_param("sdiss", $data['name'], $data['price'], $data['stock'], $data['image'], $data['category']);
-            if ($stmt->execute()) {
-                echo json_encode(["success" => true]);
-            } else {
-                echo json_encode(["success" => false, "error" => $stmt->error]);
-            }
-            $stmt->close();
-        } else {
-            echo json_encode(["success" => false, "error" => "Missing required fields"]);
-        }
+    if (!isset($data['products']) || !is_array($data['products'])) {
+        echo json_encode(["success" => false, "error" => "Invalid or missing product data"]);
         exit;
     }
 
-    // Update product
-    if ($action === 'update') {
-        if (isset($data['id'], $data['price'], $data['stock'], $data['category'])) {
-            $stmt = $conn->prepare("UPDATE products SET price = ?, stock = ?, category = ? WHERE id = ?");
-            $stmt->bind_param("dssi", $data['price'], $data['stock'], $data['category'], $data['id']);
-            if ($stmt->execute()) {
-                echo json_encode(["success" => true]);
+    $response = [];
+    $success = true;
+
+    foreach ($data['products'] as $product) {
+        $product_id = $product['product_id'] ?? null;
+        $quantity = $product['quantity'] ?? null;
+
+        if (!$product_id || !$quantity || $quantity <= 0) {
+            $response[] = [
+                "product_id" => $product_id,
+                "status" => "Invalid product data"
+            ];
+            $success = false;
+            continue;
+        }
+
+        // Check stock availability
+        $checkStmt = $conn->prepare("SELECT stock FROM products WHERE id = ?");
+        $checkStmt->bind_param("i", $product_id);
+        $checkStmt->execute();
+        $result = $checkStmt->get_result();
+        $row = $result->fetch_assoc();
+        $checkStmt->close();
+
+        if (!$row) {
+            $response[] = [
+                "product_id" => $product_id,
+                "status" => "Product not found"
+            ];
+            $success = false;
+            continue;
+        }
+
+        $current_stock = $row['stock'];
+
+        if ($action === 'reduce_stock') {
+            if ($current_stock >= $quantity) {
+                $stmt = $conn->prepare("UPDATE products SET stock = stock - ? WHERE id = ?");
+                $stmt->bind_param("ii", $quantity, $product_id);
+                if ($stmt->execute()) {
+                    $response[] = [
+                        "product_id" => $product_id,
+                        "status" => "Stock reduced",
+                        "reduced_quantity" => $quantity
+                    ];
+                } else {
+                    $response[] = [
+                        "product_id" => $product_id,
+                        "status" => "Stock reduction failed"
+                    ];
+                    $success = false;
+                }
+                $stmt->close();
             } else {
-                echo json_encode(["success" => false, "error" => $stmt->error]);
+                $response[] = [
+                    "product_id" => $product_id,
+                    "status" => "Insufficient stock"
+                ];
+                $success = false;
+            }
+        } elseif ($action === 'restore_stock') {
+            $stmt = $conn->prepare("UPDATE products SET stock = stock + ? WHERE id = ?");
+            $stmt->bind_param("ii", $quantity, $product_id);
+            if ($stmt->execute()) {
+                $response[] = [
+                    "product_id" => $product_id,
+                    "status" => "Stock restored",
+                    "restored_quantity" => $quantity
+                ];
+            } else {
+                $response[] = [
+                    "product_id" => $product_id,
+                    "status" => "Failed to restore stock"
+                ];
+                $success = false;
             }
             $stmt->close();
-        } else {
-            echo json_encode(["success" => false, "error" => "Missing required fields for update"]);
         }
-        exit;
     }
 
-    // Delete product
-    if ($action === 'delete') {
-        if (isset($data['id'])) {
-            $stmt = $conn->prepare("DELETE FROM products WHERE id = ?");
-            $stmt->bind_param("i", $data['id']);
-            if ($stmt->execute()) {
-                echo json_encode(["success" => true]);
-            } else {
-                echo json_encode(["success" => false, "error" => $stmt->error]);
-            }
-            $stmt->close();
-        } else {
-            echo json_encode(["success" => false, "error" => "Missing product ID"]);
-        }
-        exit;
-    }
-
-    // Invalid action
-    echo json_encode(["success" => false, "error" => "Invalid action"]);
+    echo json_encode(["success" => $success, "message" => "Stock update completed", "details" => $response]);
     exit;
 }
 
