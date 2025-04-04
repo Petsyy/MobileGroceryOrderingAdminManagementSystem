@@ -4,16 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customers - EZ Mart</title>
-    <link rel="stylesheet" href="../user-setting/userr.css">
+
+
+    <link rel="stylesheet" href="../user-profile/user.css">
     <link rel="stylesheet" href="../buttons/button.css">
+
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="customer.js"></script>
 </head>
 <body>
-    <header class="header">
-        <img src="../images/ez-mart.svg" alt="EZ Mart Logo" class="ez_logo" id="ezLogo" style="width: 50px;">
+<header class="header">
+    <div class="logo-container">
+        <img src="./images/ez-mart.svg" alt="EZ Mart Logo" class="ez_logo" id="ezLogo" style="width: 50px; height: auto;">
         <span class="logo-text">Mart</span>
-    </header>
+    </div>
+
+    <!-- User Profile and Notification Section -->
+    <div class="user-notification-container">
+        <!-- Notification Bell -->
+        <div class="notification-container">
+            <img src="icons/bell.svg" alt="Notifications" class="bell" id="bell">
+            
+            <!-- Notification Center -->
+            <div id="notification-center">
+                <h2>Notifications</h2>
+                <div id="notification-container">
+                    <ul id="notification-list">
+                        <li>No new notifications</li>
+                    </ul>
+                    <button id="mark-all-read">Mark All as Read</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Profile Section -->
+        <div class="user-container" id="userContainer">
+            <img src="./images/user_profile.png" alt="User Profile" class="user-profile" id="userProfile">
+            <i class="fa-solid fa-caret-down dropdown-icon" id="dropdownIcon"></i>
+
+            <!-- User Dropdown Menu -->
+            <div class="user-dropdown hidden" id="userDropdown">
+                <ul>
+                    <li><a href="#"><i class="fa-solid fa-user"></i> User Setting</a></li>
+                    <li><a href="login/forgot.p"><i class="fa-solid fa-gear"></i> Forgot Password</a></li>
+                    <li><a href="login/login.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
 
     <!-- Sidebar -->
     <div id="sidebar" class="sidebar">
