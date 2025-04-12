@@ -4,7 +4,6 @@ require_once "../config/db.php";
 
 header('Content-Type: application/json');
 
-// Fetch all customers (GET)
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $sql = "SELECT * FROM customers";
     $stmt = $conn->query($sql);
