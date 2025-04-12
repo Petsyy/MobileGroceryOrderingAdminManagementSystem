@@ -6,7 +6,9 @@ $(document).ready(function () {
         let row = $(this).closest("tr");
         let name = row.find("td:nth-child(1)").text().trim();
         let order = row.find("td:nth-child(2)").text().trim();
-        viewOrder(name, order);
+        let totalPrice = row.find("td:nth-child(3)").text().trim();
+        let status = row.find("td:nth-child(4)").text().trim();
+        viewOrder(name, order, totalPrice, status);
     });
 
     $(document).on("click", ".confirm-btn", function () {
@@ -21,6 +23,11 @@ $(document).ready(function () {
         } else {
             console.error("Order ID is undefined.");
         }
+    });
+
+    $(document).on("click", ".ready-btn", function () {
+        let id = $(this).attr("data-id");
+        readyToPickup(id, this);
     });
 
     // Close modal when clicking outside the modal content
@@ -43,64 +50,193 @@ $(document).ready(function () {
 
 // Fetch Orders from API
 function fetchOrders() {
-    $.getJSON("/WEB-SM/api/orderapi.php?action=fetch", function (data) {
+    $.getJSON("/EZ-WEB/api/orderapi.php?action=fetch", function (data) {
+        console.log("API Response:", data);
+
         let tableBody = $(".order-table tbody");
-        tableBody.empty(); // Clear existing rows
-    
+        tableBody.empty();
+
+        if (data.success === false) {
+            tableBody.append('<tr><td colspan="5">No orders found.</td></tr>');
+            return;
+        }
+
+        if (!Array.isArray(data)) {
+            console.error("Unexpected API response format:", data);
+            return;
+        }
+
         data.forEach(order => {
+            const totalPrice = parseFloat(order.order_total_price || 0);
+            const formattedPrice = isNaN(totalPrice) ? '₱0.00' : '₱' + totalPrice.toFixed(2);
+            
+            // Create action buttons based on status
+            let actionButtons = '';
+            if (order.status === 'Pending') {
+                actionButtons = `
+                    <button class="view-btn" data-id="${order.order_id}">View</button>
+                    <button class="confirm-btn" data-id="${order.order_id}">Confirm</button>
+                    <button class="delete-btn" data-id="${order.order_id}">Delete</button>
+                `;
+            } else if (order.status === 'Paid') {
+                actionButtons = `
+                    <button class="view-btn" data-id="${order.order_id}">View</button>
+                    <button class="ready-btn" data-id="${order.order_id}">Ready to Pick Up</button>
+                `;
+            } else if (order.status === 'Ready to Pick Up') {
+                actionButtons = `
+                    <button class="view-btn" data-id="${order.order_id}">View</button>
+                    <span class="ready-text">Ready</span>
+                `;
+            } else {
+                actionButtons = `<button class="view-btn" data-id="${order.order_id}">View</button>`;
+            }
+            
             let row = `<tr>
                 <td>${order.customer_name}</td>
                 <td>${order.order_details}</td>
-                <td>${order.status}</td>
-                <td>
-                    <button class="view-btn">View</button>
-                    <button class="confirm-btn" data-id="${order.order_id}">Confirm</button>
-                    <button class="delete-btn" data-id="${order.order_id}">Delete</button>
+                <td>${formattedPrice}</td>
+                <td class="status-${order.status.toLowerCase().replace(/ /g, '-')}">${order.status}</td>
+                <td class="action-buttons">
+                    ${actionButtons}
                 </td>
             </tr>`;
             tableBody.append(row);
         });
     }).fail(function (xhr, status, error) {
         console.error("Error fetching orders:", status, error);
-    });    
+    });
+}
+
+function readyToPickup(id, button) {
+    const $btn = $(button);
+    $btn.prop('disabled', true).text('Processing...');
+
+    $.ajax({
+        url: '/EZ-WEB/api/orderapi.php',
+        type: 'POST',
+        data: { action: 'readyToPickup', id: id },
+        dataType: 'json'
+    })
+    .done(function(response) {
+        if (response.success) {
+            // Update UI
+            const $row = $btn.closest('tr');
+            $row.find('td:nth-child(4)')
+                .removeClass()
+                .addClass('status-ready-to-pick-up')
+                .text('Ready to Pick Up');
+
+            $row.find('.action-buttons').html(`
+                <button class="view-btn" data-id="${id}">View</button>
+                <span class="ready-text">Ready</span>
+            `);
+
+            // Show appropriate message
+            if (response.token_invalid) {
+                alert('Status updated, but customer notification failed (app not installed)');
+            } else if (response.notification_sent) {
+                alert('Order ready! Customer notified.');
+            } else {
+                alert('Order status updated');
+            }
+        } else {
+            alert('Error: ' + (response.error || 'Request failed'));
+            $btn.prop('disabled', false).text('Ready to Pick Up');
+        }
+    })
+    .fail(function(xhr) {
+        alert('Server error. Please try again.');
+        $btn.prop('disabled', false).text('Ready to Pick Up');
+    });
+}
+
+function showAlert(type, message) {
+    // Replace with your preferred notification system
+    alert(`${type.toUpperCase()}: ${message}`);
 }
 
 // View Order Modal
-function viewOrder(name, order) {
-    $("#orderDetails").text(`${name} ordered: ${order}`);
-    $("#orderModal").fadeIn(200); // Use fadeIn for smooth appearance
+function viewOrder(name, order, totalPrice, status) {
+    // Create HTML content for the modal
+    let detailsHTML = `
+        <div class="order-details-container">
+            <div class="detail-row">
+                <span class="detail-label">Customer Name:</span>
+                <span class="detail-value">${name}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Order Items:</span>
+                <span class="detail-value">${order}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Total Price:</span>
+                <span class="detail-value">${totalPrice}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Status:</span>
+                <span class="detail-value status-${status.toLowerCase()}">${status}</span>
+            </div>
+        </div>
+    `;
+    
+    $("#orderDetails").html(detailsHTML);
+    $("#orderModal").fadeIn(200);
 }
 
 // Close Modal
 function closeModal() {
-    $("#orderModal").fadeOut(200); // Use fadeOut for smooth disappearance
+    $("#orderModal").fadeOut(200);
 }
 
 // Confirm Order (Remove Row on Success)
 function confirmOrder(id, button) {
-    console.log("Confirming Order ID:", id); // Debugging log
+    const $btn = $(button);
+    $btn.prop('disabled', true).text('Processing...');
 
-    $.post("/WEB-SM/api/orderapi.php", { action: "confirm", id: id }, function (response) {
-        console.log("Response from Server:", response); // Debugging log
-
+    $.ajax({
+        url: '/EZ-WEB/api/orderapi.php',
+        type: 'POST',
+        data: { 
+            action: 'confirm', 
+            id: id 
+        },
+        dataType: 'json'
+    })
+    .done(function(response) {
+        console.log("Confirmation Response:", response);
+        
         if (response.success) {
-            $(button).closest("tr").fadeOut(300, function () {
+            // Remove the row or update status visually
+            $(button).closest('tr').fadeOut(300, function() {
                 $(this).remove();
             });
+            
+            // Show appropriate message
+            if (response.token_invalid) {
+                alert('Order confirmed, but customer notification failed (app not installed)');
+            } else if (response.notification_sent) {
+                alert('Order confirmed and customer notified!');
+            } else {
+                alert('Order confirmed successfully');
+            }
         } else {
-            alert("Error confirming order.");
+            alert('Error: ' + (response.error || 'Failed to confirm order'));
+            $btn.prop('disabled', false).text('Confirm');
         }
-    }, "json").fail(function (xhr, status, error) {
-        console.error("AJAX Error:", status, error);
+    })
+    .fail(function(xhr) {
+        alert('Server error. Please try again.');
+        $btn.prop('disabled', false).text('Confirm');
     });
 }
 
 function deleteOrder(id, button) {
-    console.log("Deleting Order ID:", id); // Debugging log
+    console.log("Deleting Order ID:", id);
 
     if (confirm("Are you sure you want to delete this order?")) {
-        $.post("/WEB-SM/api/orderapi.php", { action: "delete", id: id }, function (response) {
-            console.log("Response from Server:", response); // Debugging log
+        $.post("/EZ-WEB/api/orderapi.php", { action: "delete", id: id }, function (response) {
+            console.log("Response from Server:", response);
 
             if (response.success) {
                 $(button).closest("tr").fadeOut(300, function () {

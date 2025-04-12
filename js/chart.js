@@ -1,26 +1,42 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Get the canvas elements
-    const ordersCanvas = document.getElementById('myChart');
+    const salesCanvas = document.getElementById('myChart');
     const customersCanvas = document.getElementById('customerChart');
 
-    if (!ordersCanvas || !customersCanvas) {
+    if (!salesCanvas || !customersCanvas) {
         console.error('One or more chart elements are missing in the HTML.');
-        return; // Exit if elements are missing
+        return;
     }
 
-    const ctxOrders = ordersCanvas.getContext('2d');
+    const ctxSales = salesCanvas.getContext('2d');
     const ctxCustomers = customersCanvas.getContext('2d');
 
-    // Initialize the Pie Chart for Total Products and Total Orders
-    const myChart = new Chart(ctxOrders, {
+    // Initialize the Pie Chart for Sales by Category
+    const salesChart = new Chart(ctxSales, {
         type: 'pie',
         data: {
-            labels: ['Total Products', 'Total Orders'],
+            labels: [], // Will be populated with categories
             datasets: [{
-                label: 'Total Products and Orders',
-                data: [0, 0], // Default values
-                backgroundColor: ['rgba(75, 192, 192, 0.5)', 'rgba(255, 99, 132, 0.5)'],
-                borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+                label: 'Sales by Category',
+                data: [], // Will be populated with sales data
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.7)',
+                    'rgba(54, 162, 235, 0.7)',
+                    'rgba(255, 206, 86, 0.7)',
+                    'rgba(75, 192, 192, 0.7)',
+                    'rgba(153, 102, 255, 0.7)',
+                    'rgba(255, 159, 64, 0.7)',
+                    'rgba(199, 199, 199, 0.7)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(199, 199, 199, 1)'
+                ],
                 borderWidth: 1
             }]
         },
@@ -29,14 +45,21 @@ document.addEventListener("DOMContentLoaded", function () {
             plugins: {
                 title: {
                     display: true,
-                    text: 'Total Products and Orders',
+                    text: 'Sales by Category',
                     font: { size: 16 }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.label}: ${context.raw} items`;
+                        }
+                    }
                 }
             }
         }
     });
 
-    // Initialize the Orders Per Customer Chart (Bar Chart)
+    // Initialize the Orders Per Customer Chart (Bar Chart) - UNCHANGED
     const customerChart = new Chart(ctxCustomers, {
         type: 'bar',
         data: {
@@ -51,61 +74,80 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         options: {
             responsive: true,
-            scales: { y: { beginAtZero: true, stepSize: 1 } }
+            scales: { 
+                y: { 
+                    beginAtZero: true, 
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.raw} orders`;
+                        }
+                    }
+                }
+            }
         }
     });
 
     // Fetch data in parallel and update charts
     Promise.all([
-        fetchData('/WEB-SM/api/fetch_products.php?action=getTotalProducts', 'totalProducts', 0, myChart),
-        fetchData('/WEB-SM/api/orderapi.php?action=getTotalOrders', 'total_orders', 1, myChart),
-        fetchData('/WEB-SM/api/orderapi.php?action=customerOrderStats', null, null, customerChart)        
-    ]).then(() => {
-        myChart.update();
-        customerChart.update();
-    }).catch(error => console.error("Error updating charts:", error));
+        fetchSalesByCategory('/EZ-WEB/api/orderapi.php?action=getSalesByCategory', salesChart),
+        fetchCustomerStats('/EZ-WEB/api/orderapi.php?action=customerOrderStats', customerChart)
+    ]).catch(error => console.error("Error updating charts:", error));
 });
 
-function fetchData(url, key, index, chart) {
+// Function to fetch sales by category
+function fetchSalesByCategory(url, chart) {
     return fetch(url)
         .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
             return response.json();
         })
         .then(data => {
-            console.log(`Fetched data from ${url}:`, data); // Debugging
-
-            if (typeof data !== 'object') {
-                console.error(`Invalid JSON response from ${url}:`, data);
-                return;
-            }
-
-            // Handling "customerOrderStats" (bar chart)
-            if (!key && chart.config.type === 'bar') {
-                if (Array.isArray(data.labels) && Array.isArray(data.values)) {
-                    chart.data.labels = data.labels;
-                    chart.data.datasets[0].data = data.values;
-                    chart.update();
-                } else {
-                    console.error(`Invalid format for customer order stats from ${url}:`, data);
-                }
-                return;
-            }
-
-            // Handling "getTotalOrders" and "getTotalProducts" (pie chart)
-            if (key && data.hasOwnProperty(key)) {
-                let value = Number(data[key]); // Ensure it's a number
-                if (!isNaN(value)) {
-                    chart.data.datasets[0].data[index] = value;
-                    chart.update();
-                } else {
-                    console.error(`Invalid number format for ${key} from ${url}:`, data[key]);
-                }
+            if (data.success && data.categories && data.sales) {
+                chart.data.labels = data.categories;
+                chart.data.datasets[0].data = data.sales;
+                chart.update();
             } else {
-                console.error(`Invalid response format from ${url}. Response received:`, JSON.stringify(data));
+                console.error('Invalid sales by category data:', data);
             }
         })
-        .catch(error => console.error(`Error fetching data from ${url}:`, error));
+        .catch(error => {
+            console.error('Error fetching sales by category:', error);
+            // Set some default data if the fetch fails
+            chart.data.labels = ['No Data'];
+            chart.data.datasets[0].data = [1];
+            chart.update();
+        });
 }
+
+// Function to fetch customer stats (unchanged except for error handling)
+function fetchCustomerStats(url, chart) {
+    return fetch(url)
+        .then(response => {
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+            return response.json();
+        })
+        .then(data => {
+            if (data.labels && data.values) {
+                chart.data.labels = data.labels;
+                chart.data.datasets[0].data = data.values;
+                chart.update();
+            } else {
+                console.error('Invalid customer order stats data:', data);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching customer stats:', error);
+            // Set some default data if the fetch fails
+            chart.data.labels = ['No Data'];
+            chart.data.datasets[0].data = [0];
+            chart.update();
+        });
+}
+

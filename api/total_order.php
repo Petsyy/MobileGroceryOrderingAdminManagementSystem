@@ -1,5 +1,5 @@
 <?php
-require_once '../config/db.php'; // Ensure the correct path to your db.php file
+require_once '../config/db.php';
 
 // Set content type to JSON
 header('Content-Type: application/json');

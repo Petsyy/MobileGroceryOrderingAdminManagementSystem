@@ -1,8 +1,6 @@
 $(document).ready(function () {
     let products = [];
-    let products = [];
 
-    // Fetch Products
     // Fetch Products
     async function fetchProducts() {
         try {
@@ -11,17 +9,11 @@ $(document).ready(function () {
             if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
             const data = await response.json();
-
-            const data = await response.json();
             console.log("Fetched data:", data);
-
 
             if (!data.success || !Array.isArray(data.products)) {
                 throw new Error("Invalid data format: Expected 'products' array");
             }
-
-            products = data.products;
-            renderProducts(products);
 
             products = data.products;
             renderProducts(products);
@@ -31,26 +23,21 @@ $(document).ready(function () {
     }
 
     // Render Products
-    // Render Products
     function renderProducts(productsToRender) {
-        $('#productList').empty();
         $('#productList').empty();
 
         productsToRender.forEach(product => {
-            const imagePath = product.image.trim().startsWith('http')
-                ? product.image.trim()
-                : `http://192.168.1.9/WEB-SM/assets/images/${product.image.trim() || 'default.jpg'}`;
+            let imagePath = product.image && product.image.trim()
+                ? `../../${product.image.trim()}`
+                : `assets/images/default.jpg`;
 
             const price = parseFloat(product.price).toFixed(2);
-            const stock = parseInt(product.stock);
+            const stock = parseInt(product.stock, 10);
 
             $('#productList').append(`
                 <div class="product-container" data-id="${product.id}">
                     <img src="${imagePath}" alt="${product.name}">
                     <h3>${product.name}</h3>
-                    <p>Price: ₱${price}</p>
-                    <p>Stock: ${stock}</p>
-                    <p>Category: ${product.category}</p>
                     <p>Price: ₱${price}</p>
                     <p>Stock: ${stock}</p>
                     <p>Category: ${product.category}</p>
@@ -62,14 +49,11 @@ $(document).ready(function () {
     }
 
     // Filter Products by Category
-    // Filter Products by Category
     $('#categoryFilter').change(function () {
         const selectedCategory = $(this).val();
         renderProducts(selectedCategory === "All" ? products : products.filter(p => p.category === selectedCategory));
-        renderProducts(selectedCategory === "All" ? products : products.filter(p => p.category === selectedCategory));
     });
 
-    // Handle Edit Product Modal Show
     // Handle Edit Product Modal Show
     $('#productList').on('click', '.edit-btn', function () {
         const productId = $(this).data('id');
@@ -85,17 +69,12 @@ $(document).ready(function () {
 
     // Close Edit Product Modal
     $('#closeModal').click(() => $('#editModal').fadeOut());
-    // Close Edit Product Modal
-    $('#closeModal').click(() => $('#editModal').fadeOut());
 
-    // Handle Edit Product Form Submit
     // Handle Edit Product Form Submit
     $('#editForm').submit(function (event) {
         event.preventDefault();
 
         const productId = $('#editProductId').val();
-        const updatedPrice = parseFloat($('#editPrice').val());
-        const updatedStock = parseInt($('#editStock').val());
         const updatedPrice = parseFloat($('#editPrice').val());
         const updatedStock = parseInt($('#editStock').val());
         const updatedCategory = $('#editCategory').val();
@@ -105,8 +84,6 @@ $(document).ready(function () {
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({
-            contentType: 'application/json',
-            data: JSON.stringify({
                 action: 'update',
                 id: productId,
                 price: updatedPrice,
@@ -114,16 +91,10 @@ $(document).ready(function () {
                 category: updatedCategory
             }),
             success: function () {
-            }),
-            success: function () {
                 alert("Product updated successfully!");
                 $('#editModal').fadeOut();
                 fetchProducts();
-                fetchProducts();
             },
-            error: function (xhr) {
-                console.error("Error updating product:", xhr.responseText);
-                alert("Failed to update product.");
             error: function (xhr) {
                 console.error("Error updating product:", xhr.responseText);
                 alert("Failed to update product.");
@@ -132,81 +103,71 @@ $(document).ready(function () {
     });
 
     // Handle Delete Product
-    // Handle Delete Product
     $('#productList').on('click', '.delete-btn', function () {
         const productId = $(this).data('id');
+
         if (!confirm("Are you sure you want to delete this product?")) return;
 
         $.ajax({
-            url: '../../api/productapi.php',
-            method: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({ action: 'delete', id: productId }),
-            success: function () {
-                alert("Product deleted successfully!");
-                fetchProducts();
+            url: `../../api/productapi.php?id=${productId}`,
+            method: 'DELETE',
+            success: function (response) {
+                console.log("Delete response:", response);
+                if (response.success) {
+                    alert("Product deleted successfully!");
+                    fetchProducts();
+                } else {
+                    alert("Error: " + (response.error || "Failed to delete product."));
+                }
             },
             error: function (xhr) {
                 console.error("Error deleting product:", xhr.responseText);
-                alert("Failed to delete product.");
+                alert("Failed to delete product. Please try again.");
+            }
+        });
+    });
+
+    // Handle Add Product Form Submission
+    $('#productForm').submit(function (event) {
+        event.preventDefault();
+
+        let formData = new FormData(this);
+
+        $.ajax({
+            url: '../../api/add_products.php',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                console.log("Response:", response);
+
+                if (response.success) {
+                    alert("Product added successfully!");
+                    $('#addProductModal').fadeOut();
+                    fetchProducts();
+                    $('#productForm')[0].reset();
+                } else {
+                    alert("Error: " + (response.error || "Failed to add product."));
+                }
+            },
+            error: function (xhr) {
+                console.error("Error adding product:", xhr.responseText);
+                alert("Failed to add product. Please try again.");
             }
         });
     });
 
     // Show Add Product Modal
     $('#addProductBtn').click(function () {
-        $('#addProductModal').fadeIn(); // Show modal
+        $('#addProductModal').fadeIn();
     });
 
     // Close Add Product Modal
     $('#closeAddProductModal').click(function () {
-        $('#addProductModal').fadeOut(); // Hide modal
-    });
-
-    // Handle Add Product Form Submit ✅✅✅ (Fixed Here)
-    $('#productForm').submit(function (event) {
-        event.preventDefault(); // Prevent default form submission
-
-        // Get form values
-        const name = $('#name').val().trim();
-        const price = parseFloat($('#price').val());
-        const stock = parseInt($('#stock').val());
-        const image = $('#image').val().trim();
-        const category = $('#category').val();
-
-        // Basic validation
-        if (!name || isNaN(price) || isNaN(stock) || !category) {
-            alert("Please fill in all fields correctly.");
-            return;
-        }
-
-        // AJAX call to add product
-        $.ajax({
-            url: '../../api/productapi.php',
-            method: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({
-                action: 'add',
-                name: name,
-                price: price,
-                stock: stock,
-                image: image,
-                category: category
-            }),
-            success: function (response) {
-                alert("Product added successfully!");
-                $('#addProductModal').fadeOut(); // Close modal
-                $('#productForm')[0].reset(); // Reset form
-                fetchProducts(); // Refresh product list
-            },
-            error: function (xhr) {
-                console.error("Error adding product:", xhr.responseText);
-                alert("Failed to add product.");
-            }
-        });
+        $('#addProductModal').fadeOut();
     });
 
     // Initial fetch of products
     fetchProducts();
 });
-

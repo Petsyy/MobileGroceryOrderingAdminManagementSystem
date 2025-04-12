@@ -36,8 +36,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $stmt->bind_param("s", $searchTerm);
     $stmt->execute();
     $result = $stmt->get_result();
-    $products = $result->fetch_all(MYSQLI_ASSOC);
+    $products = [];
+
+    while ($row = $result->fetch_assoc()) {
+        // Append full image URL
+        $row['image'] = !empty($row['image']) ? $server_url . $row['image'] : null;
+        $products[] = $row;
+    }
     $stmt->close();
+    $conn->close();
 
     echo json_encode(["success" => true, "products" => $products]);
     exit;

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test PayMongo Payment</title>
+</head>
+<body>
+    <h2>PayMongo Payment Test</h2>
+    <form id="paymentForm">
+        <label>Customer Name:</label>
+        <input type="text" id="customer_name" value="John Doe" required><br><br>
+
+        <label>User ID:</label>
+        <input type="number" id="user_id" value="1001" required><br><br>
+
+        <label>Order ID:</label>
+        <input type="number" id="order_id" value="1" required><br><br>
+
+        <label>Payment Method:</label>
+        <select id="payment_method">
+            <option value="full">Full Payment</option>
+            <option value="partial">Partial Payment</option>
+        </select><br><br>
+
+        <label>Total Price:</label>
+        <input type="number" id="total_price" value="5000" required><br><br>
+
+        <button type="submit">Pay Now</button>
+    </form>
+
+    <h3>Response:</h3>
+    <pre id="response"></pre>
+
+    <script>
+        document.getElementById("paymentForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Get form values
+            let data = {
+                customer_name: document.getElementById("customer_name").value,
+                user_id: document.getElementById("user_id").value,
+                order_id: document.getElementById("order_id").value,
+                payment_method: document.getElementById("payment_method").value,
+                fcm_token: "test_token",
+                total_price: parseFloat(document.getElementById("total_price").value)
+            };
+
+            // Send AJAX request to PHP script
+            fetch("http://192.168.100.15/EZ-WEB/api/paymongo_status.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById("response").textContent = JSON.stringify(result, null, 2);
+                if (result.success) {
+                    window.open(result.checkoutUrl, "_blank"); // Open PayMongo checkout page
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    </script>
+</body>
+</html>

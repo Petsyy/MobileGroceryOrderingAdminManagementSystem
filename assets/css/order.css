@@ -1,24 +1,49 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f5f5f5;
+/* ===== General Styles ===== */
+:root {
+    --primary-color: #0066FF;
+    --secondary-color: #0030FF;
+    --accent-color: #FF5722;
+    --text-color: #333;
+    --light-text: #64748b;
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --border-color: #e2e8f0;
+    --success-color: #4ade80;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
 }
 
-/* Header */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-left: 80px;
+}
+
+/* ===== Header ===== */
 .header {
     background-color: rgba(17, 14, 225, 1);
     display: flex;
-    justify-content: space-between; /* This will push the left and right elements apart */
+    justify-content: space-between;
     align-items: center;
-    padding: 15px;
-    height: 60px;
-    margin-left: 80px;
+    padding: 15px 30px;
+    height: 70px;
+    position: fixed;
+    top: 0;
+    left: 80px;
+    right: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .logo-container {
     display: flex;
     align-items: center;
+    gap: 10px;
 }
 
 .ez_logo {
@@ -28,165 +53,152 @@ body {
 
 .logo-text {
     color: white;
-    font-size: 30px;
+    font-size: 24px;
     font-weight: bold;
-    margin-left: 10px;
 }
 
-/* Sidebar */
-.sidebar {
-    width: 80px;
-    height: 100vh;
-    background-color: #333;
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.sidebar li {
-    margin: 20px 0;
-}
-
-.sidebar a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-}
-
-.sidebar-icon {
-    width: 28px;
-    height: 28px;
-    transition: transform 0.2s;
-}
-
-.sidebar-icon:hover {
-    transform: scale(1.1);
-}
-
-/* Main Content */
+/* ===== Main Content ===== */
 .container {
-    margin-left: 100px;
-    padding: 20px;
+    margin-top: 70px;
+    padding: 30px;
+    flex: 1;
 }
 
 h1 {
-    color: #0066FF;
+    color: var(--primary-color);
     margin-bottom: 20px;
+    font-size: 28px;
 }
 
-/* Table Container - Enables Scroll for Table Body */
+/* ===== Table Section ===== */
 .table-container {
-    justify-content: center;
-    width: 100%;
-    max-height: 400px; /* Adjust height as needed */
-    overflow-y: auto;
-    overflow-x: hidden;
-    border-radius: 8px;
-    position: relative;
-    margin-left: 50px;
+    background: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    padding: 18px;
+    overflow-x: auto;
 }
 
-/* Hide scrollbar for WebKit browsers (Chrome, Safari) */
-.table-container::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-    display: none;
+
+.table-container:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
 }
 
-/* Hide scrollbar for Firefox */
-.table-container {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-/* Table Styling */
 .order-table {
-    width: 70%;
+    width: 100%;
     border-collapse: collapse;
-    background-color: white;
+    min-width: 800px;
 }
 
-/* Sticky Header */
+/* Table Header */
 .order-table thead {
     position: sticky;
     top: 0;
-    background-color: #0066FF;
+    background-color: var(--primary-color);
     color: white;
-    z-index: 10;
 }
 
-/* Table Header Cells */
 .order-table th {
-    padding: 12px;
-    border: 1px solid #ddd;
+    padding: 12px 15px;
     text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-/* Table Body Cells */
+/* Table Body */
 .order-table td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: left;
-}
-
-/* Hover Effect on Rows */
-.order-table tbody tr:hover {
-    background-color: #f1f1f1;
-}
-
-
-/* Buttons */
-.view-btn, .confirm-btn, .delete-btn {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-color);
     font-size: 14px;
 }
 
+.order-table tr:last-child td {
+    border-bottom: none;
+}
+
+.order-table tr:hover {
+    background-color: rgba(0, 102, 255, 0.03);
+    cursor: pointer;
+}
+
+/* Status Badges */
+.status-pending {
+    color: var(--warning-color);
+    font-weight: 600;
+}
+.status-completed {
+    color: var(--success-color);
+    font-weight: 600;
+}
+.status-cancelled {
+    color: var(--danger-color);
+    font-weight: 600;
+}
+
+.status-ready-to-pick-up {
+    color: #ff9800;
+    font-weight: bold;
+}
+.ready-text {
+    color: #4caf50;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-top: 8px;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.view-btn, .confirm-btn, .delete-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
 .view-btn {
-    background-color: #f0ad4e;
+    background-color: var(--warning-color);
     color: white;
 }
 
 .view-btn:hover {
-    background-color: #ec971f;
-    transform: scale(1.05);
+    background-color: #e59409;
+    transform: translateY(-2px);
 }
 
 .confirm-btn {
-    background-color: #5cb85c;
+    background-color: var(--success-color);
     color: white;
 }
 
 .confirm-btn:hover {
-    background-color: #4cae4c;
-    transform: scale(1.05);
+    background-color: #3dcb70;
+    transform: translateY(-2px);
 }
 
 .delete-btn {
-    background-color: #d9534f;
+    background-color: var(--danger-color);
     color: white;
 }
 
 .delete-btn:hover {
-    background-color: #c9302c;
-    transform: scale(1.05);
+    background-color: #dc3545;
+    transform: translateY(-2px);
 }
 
-/* Modal */
+/* Modal Styles */
 .modal {
     display: none;
     position: fixed;
@@ -196,53 +208,87 @@ h1 {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    overflow: auto;
 }
 
 .modal-content {
     background-color: white;
-    color: black;
-    padding: 20px;
-    border-radius: 8px;
-    width: 350px;
+    margin: 18% auto; /* This centers the modal vertically */
+    padding: 25px;
+    border-radius: 10px;
+    width: 450px;
     max-width: 90%;
-    text-align: left;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    position: relative;
     animation: fadeIn 0.3s ease-in-out;
 }
 
-.close {
-    float: right;
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
-    color: #333;
-}
-
-.close:hover {
-    color: black;
-}
-
-.modal h2 {
-    margin-top: 0;
-    font-size: 20px;
-}
-
-.modal p {
-    font-size: 16px;
-    margin: 10px 0;
-}
-
-/* Animations */
+/* Animation */
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: scale(0.9);
+        transform: translateY(-20px);
     }
     to {
         opacity: 1;
-        transform: scale(1);
+        transform: translateY(0);
+    }
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--light-text);
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close:hover {
+    color: var(--text-color);
+}
+
+.modal h2 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal p {
+    margin: 10px 0;
+    color: var(--text-color);
+    line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .table-container {
+        padding: 15px;
+    }
+    
+    .order-table {
+        min-width: 600px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-left: 0;
+    }
+    
+    .header {
+        left: 0;
+    }
+    
+    .container {
+        padding: 20px 15px;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
     }
 }

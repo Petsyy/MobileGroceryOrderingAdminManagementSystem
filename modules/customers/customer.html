@@ -40,7 +40,7 @@
                 </a>
             </li>
             <li>
-                <a href="../modules/users/user-accounts.html" title="User Accounts">
+                <a href="../modules/users/admin-accounts.html" title="User Accounts">
                     <img src="../../assets/icons/user-settings.png" alt="User-Settings" id="sidebar-icon" style="width: 30px; height: 30px;">
                 </a>
             </li>
@@ -52,44 +52,161 @@
         </ul>
     </div>
 
-    <div class="main-content">
-    <div class="header-action">
+<!-- Customers Section -->
+    <main>
         <h1>Customers</h1>
-        <div class="action-container">
-            <input type="text" id="searchCustomer" placeholder="Search by customer name..." class="search-input">
-            <button id="addCustomerBtn" class="button-primary">Add Customer</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>Total Orders</th>
+                    <th>Amount</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="customerList">
+                <!-- Customer data will be inserted here dynamically -->
+            </tbody>
+        </table>
+        
+        <!-- Previous Orders Modal -->
+        <div id="previousOrdersModal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close" id="closeModal">&times;</span>
+                <h2>Previous Orders</h2>
+                <div id="previousOrdersContainer"></div>
+            </div>
         </div>
-    </div>
-    <div id="customerList" class="customer-list"></div>
-</div>
-
-
-    <!-- Modal for Adding Customer -->
-    <div id="addCustomerModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-                <h2>Add New Customer</h2>
-            <form id="addCustomerForm">
-                <!-- Customer Name Field -->
-                <div class="form-group">
-                    <label for="name">Customer Name:</label>
-                    <input type="text" id="name" placeholder="Enter customer name" required>
-                </div>
-
-                <!-- Product Field -->
-                <div class="form-group">
-                    <label for="product">Product:</label>
-                    <input type="text" id="product" placeholder="Enter product name" required>
-                </div>
-
-                <!-- Total Price Field -->
-                <div class="form-group">
-                    <label for="total_price">Total Price:</label>
-                    <input type="number" id="total_price" placeholder="Enter total price" required>
-                </div>
-                <button type="submit" class="button-primary">Add Customer</button>
-            </form>
-        </div>
-    </div>
+    </main>
 </body>
+
+<style>
+    /* Fixed Modal Styling - Centered */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        backdrop-filter: blur(5px);
+        animation: fadeIn 0.3s ease;
+        overflow: hidden;
+    }
+    
+    .modal-content {
+        background-color: #fff;
+        margin: 2% auto;
+        padding: 25px;
+        width: 90%; /* Slightly wider for better content fit */
+        max-width: 1000px; /* Increased max-width */
+        border-radius: 12px;
+        box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+        max-height: 85vh;
+        overflow-y: auto;
+        position: relative;
+        animation: slideDown 0.3s ease;
+        left: 0;
+        right: 0;
+    }
+
+    .modal-header {
+        padding-right: 40px; /* Make space for close button */
+        position: relative;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 20px;
+    }
+    
+    .modal-header h2 {
+        margin: 0;
+        color: #2c3e50;
+        font-size: 1.4rem;
+        padding-right: 10px; /* Prevent text overlap */
+    }
+
+    .close {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        font-size: 28px;
+        font-weight: bold;
+        color: #aaa;
+        cursor: pointer;
+        transition: color 0.2s;
+        z-index: 1; /* Ensure it stays above other content */
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+    }
+
+    .close:hover {
+        color: #333;
+        background-color: #f5f5f5;
+        border-radius: 50%;
+    }
+
+    /* Table container adjustments */
+    .table-container {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .orders-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0 auto; /* Center table */
+    }
+
+    /* Column width adjustments */
+    .orders-table th:nth-child(1),
+    .orders-table td:nth-child(1) {
+        width: 10%;
+    }
+    
+    .orders-table th:nth-child(2),
+    .orders-table td:nth-child(2) {
+        width: 20%;
+    }
+    
+    .orders-table th:nth-child(3),
+    .orders-table td:nth-child(3) {
+        width: 15%;
+    }
+    
+    .orders-table th:nth-child(4),
+    .orders-table td:nth-child(4) {
+        width: 15%;
+    }
+    
+    .orders-table th:nth-child(5),
+    .orders-table td:nth-child(5) {
+        width: 40%;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .modal-content {
+            width: 95%;
+            padding: 15px;
+            margin: 2% auto;
+        }
+        
+        .orders-table {
+            font-size: 0.8rem;
+        }
+        
+        .orders-table th, 
+        .orders-table td {
+            padding: 8px 10px;
+        }
+    }
+</style>
+
+    <script src="../../js/customer.js"></script>
 </html>
