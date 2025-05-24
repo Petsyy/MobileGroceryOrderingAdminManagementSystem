@@ -1,7 +1,7 @@
 <?php
 require './get_fcm_token.php';
 
-$deviceToken = "cpL43TGnQe-0DaWmDEXVhd:APA91bHbgXD4O1gab4d_u2jxy4XkPcsxzw572SZ5nh-ulFG7UbO_uM9Jas0sONWC-ICFwqtanrdlTBIrrV0Z9CgN_BBK6p88_6OTgk6F0M5cuMBXjsEreYY";
+$deviceToken = "";
 $fcmUrl = "https://fcm.googleapis.com/v1/projects/ezmart-f178a/messages:send";
 
 $accessToken = getOAuthToken();

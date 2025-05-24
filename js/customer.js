@@ -14,7 +14,7 @@ $(document).ready(function() {
                     displayOrders(response);
                 } else {
                     console.error('Invalid API response:', response);
-                    $('#customerList').html('<tr><td colspan="4">Error loading orders</td></tr>');
+                    $('#customerList').html('<tr><td colspan="4">No customers found</td></tr>');
                 }
             },
             error: function(xhr, status, error) {

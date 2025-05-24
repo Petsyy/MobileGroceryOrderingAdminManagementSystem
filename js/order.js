@@ -63,6 +63,7 @@ function fetchOrders() {
 
         if (!Array.isArray(data)) {
             console.error("Unexpected API response format:", data);
+            tableBody.append('<tr><td colspan="5">No orders found.</td></tr>');
             return;
         }
 
