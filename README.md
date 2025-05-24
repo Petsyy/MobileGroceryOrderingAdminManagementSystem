@@ -1,7 +1,8 @@
-Built using Vanilla PHP, Javascript
+# EZ Mart Ordering System
 
+EZ Mart is a versatile ordering system designed to streamline grocery shopping for users and simplify order management for administrators. The system consists of a mobile application where users can browse, select, and submit grocery orders effortlessly. The submitted orders are then transmitted to a web-based admin panel, enabling administrators to efficiently manage and process orders in real time.
 
-# Features
+## Features
 
 ### User Mobile Application
 - Browse a wide selection of grocery items with images, descriptions, and prices.
