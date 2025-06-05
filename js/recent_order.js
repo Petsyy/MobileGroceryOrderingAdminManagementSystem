@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const row = document.createElement('tr');
             row.style.cursor = 'pointer';
             row.addEventListener('click', () => {
-                window.location.href = `./modules/orders/order.html?id=${order.id}`;
+                window.location.href = `./modules/orders/order.php?id=${order.id}`;
             });
     
             // Format the date

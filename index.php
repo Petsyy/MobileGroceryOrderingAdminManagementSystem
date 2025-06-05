@@ -149,17 +149,17 @@ $display_name = current(explode(' ', $username));
                 </a>
             </li>
             <li>
-                <a href="./modules/products/product.html" title="Products">
+                <a href="./modules/products/product.php" title="Products">
                     <img src="./assets/icons/product.png" alt="Products" id="sidebar-icon" style="width: 24px; height: 24px;">
                 </a>
             </li>
             <li>
-                <a href="./modules/orders/order.html" title="Orders">
+                <a href="./modules/orders/order.php" title="Orders">
                     <img src="./assets/icons/order.png" alt="Orders" id="sidebar-icon" style="width: 27px; height: 27px;">
                 </a>
             </li>
             <li>
-                <a href="./modules/customers/customer.html" title="Customers">
+                <a href="./modules/customers/customer.php" title="Customers">
                     <img src="./assets/icons/customer.png" alt="Customer" id="sidebar-icon" style="width: 29px; height: 29px;">
                 </a>
             </li>

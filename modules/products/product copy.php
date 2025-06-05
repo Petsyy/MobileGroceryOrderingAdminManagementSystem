@@ -55,22 +55,22 @@
                 </a>
             </li>
             <li>
-                <a href="../modules/products/product.html" title="Products">
+                <a href="../modules/products/product.php" title="Products">
                     <img src="../../assets/icons/product.png" alt="Products" id="sidebar-icon" style="width: 24px; height: 24px;">
                 </a>
             </li>
             <li>
-                <a href="../modules/order/order.html" title="Orders">
+                <a href="../modules/order/order.php" title="Orders">
                     <img src="../../assets/icons/order.png" alt="Orders" id="sidebar-icon" style="width: 27px; height: 27px;">
                 </a>
             </li>
             <li>
-                <a href="../modules/customers/customer.html" title="Customers">
+                <a href="../modules/customers/customer.php" title="Customers">
                     <img src="../../assets/icons/customer.png" alt="Customer" id="sidebar-icon" style="width: 29px; height: 29px;">
                 </a>
             </li>
             <li>
-                <a href="../modules/users/admin-accounts.html" title="User Accounts">
+                <a href="../modules/users/user-accounts.html" title="User Accounts">
                     <img src="../../assets/icons/user-settings.png" alt="User-Settings" id="sidebar-icon" style="width: 30px; height: 30px;">
                 </a>
             </li>
@@ -87,26 +87,26 @@
         <div class="modal-content">
             <span id="closeAddProductModal" class="close">&times;</span>
             <h2>Add Product</h2>
-            <form id="productForm" action="../../api/add_products.php" method="post" enctype="multipart/form-data">
+            <form id="productForm">
                 <div class="form-group">
                     <label for="name">Product Name</label>
-                    <input type="text" id="name" name="name" placeholder="Enter product name" required>
+                    <input type="text" id="name" placeholder="Enter product name" required>
                 </div>
                 <div class="form-group">
                     <label for="price">Price</label>
-                    <input type="number" id="price" name="price" placeholder="Enter price" required>
+                    <input type="number" id="price" placeholder="Enter price" required>
                 </div>
                 <div class="form-group">
                     <label for="stock">Stock</label>
-                    <input type="number" id="stock" name="stock" placeholder="Enter stock" required>
+                    <input type="number" id="stock" placeholder="Enter stock" required>
                 </div>
                 <div class="form-group">
-                    <label for="image">Image</label>
-                    <input type="file" id="image" name="image" accept="image/*" required>
+                    <label for="image">Image URL</label>
+                    <input type="text" id="image" placeholder="Enter image URL" required>
                 </div>
                 <div class="form-group">
                     <label for="category">Category</label>
-                    <select id="category" name="category" required>
+                    <select id="category" required>
                         <option value="All">All</option>
                         <option value="Unbeatable Prices">Unbeatable Prices</option>
                         <option value="Featured Products">Featured Products</option>
@@ -115,13 +115,13 @@
                         <option value="Pantry">Pantry</option>
                         <option value="Fresh Produce">Fresh Produce</option>
                         <option value="Meats and Seafoods">Meats and Seafoods</option>
-                        <option value="Household Essentials">Household Essentials</option>
                         <option value="Beverages">Beverages</option>
                         <option value="Dairy and Pastry">Dairy and Pastry</option>
+                        <option value="Household Essentials">Household Essentials</option>
                     </select>
                 </div>
                 <button type="submit" class="submit-btn">Add Product</button>
-            </form>            
+            </form>
         </div>
     </div>
 
@@ -131,6 +131,10 @@
             <h2>Edit Product</h2>
             <form id="editForm">
                 <input type="hidden" id="editProductId">
+                <div class="form-group">
+                    <label for="editName">Name</label>
+                    <input type="text" id="editName" placeholder="Edit Name" required>
+                </div>
                 <div class="form-group">
                     <label for="editPrice">Price</label>
                     <input type="number" id="editPrice" placeholder="Enter price" required>
