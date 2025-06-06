@@ -50,7 +50,7 @@ $(document).ready(function () {
 
 // Fetch Orders from API
 function fetchOrders() {
-    $.getJSON("/EZ-WEB/api/orderapi.php?action=fetch", function (data) {
+    $.getJSON("/EZMartOrderingSystem/api/orderapi.php?action=fetch", function (data) {
         console.log("API Response:", data);
 
         let tableBody = $(".order-table tbody");
@@ -114,7 +114,7 @@ function readyToPickup(id, button) {
     $btn.prop('disabled', true).text('Processing...');
 
     $.ajax({
-        url: '/EZ-WEB/api/orderapi.php',
+        url: '/EZMartOrderingSystem/api/orderapi.php',
         type: 'POST',
         data: { action: 'readyToPickup', id: id },
         dataType: 'json'
@@ -196,7 +196,7 @@ function confirmOrder(id, button) {
     $btn.prop('disabled', true).text('Processing...');
 
     $.ajax({
-        url: '/EZ-WEB/api/orderapi.php',
+        url: '/EZMartOrderingSystem/api/orderapi.php',
         type: 'POST',
         data: { 
             action: 'confirm', 
@@ -236,7 +236,7 @@ function deleteOrder(id, button) {
     console.log("Deleting Order ID:", id);
 
     if (confirm("Are you sure you want to delete this order?")) {
-        $.post("/EZ-WEB/api/orderapi.php", { action: "delete", id: id }, function (response) {
+        $.post("/EZMartOrderingSystem/api/orderapi.php", { action: "delete", id: id }, function (response) {
             console.log("Response from Server:", response);
 
             if (response.success) {

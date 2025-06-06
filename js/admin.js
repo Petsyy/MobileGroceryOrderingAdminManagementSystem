@@ -1,7 +1,7 @@
 $(document).ready(function () {
     function loadUsers() {
         $.ajax({
-            url: "http://localhost/EZ-WEB/api/admin.php", // Updated path
+            url: "http://localhost/EZMartOrderingSystem/api/admin.php", // Updated path
             method: "GET",
             dataType: "json",
             success: function (response) {
@@ -46,7 +46,7 @@ $(document).ready(function () {
     $(document).on('click', '.view-btn', function() {
         const adminId = $(this).data('id');
         $.ajax({
-            url: "http://localhost/EZ-WEB/get_admin.php", // Updated path
+            url: "http://localhost/EZMartOrderingSystem/get_admin.php", // Updated path
             method: "GET",
             data: { id: adminId },
             dataType: "json",
@@ -101,7 +101,7 @@ $(document).ready(function () {
         
         const adminId = $(this).data('id');
         $.ajax({
-            url: "http://localhost/EZ-WEB/delete-admin.php", // Updated path
+            url: "http://localhost/EZMartOrderingSystem/delete-admin.php", // Updated path
             method: "POST",
             data: { id: adminId },
             dataType: "json",
@@ -141,7 +141,7 @@ $(document).ready(function () {
         let formData = $(this).serialize();
 
         $.ajax({
-            url: "http://localhost/EZ-WEB/delete-admin.php", // Updated path
+            url: "http://localhost/EZMartOrderingSystem/delete-admin.php", // Updated path
             method: "POST",
             data: formData,
             dataType: "json",

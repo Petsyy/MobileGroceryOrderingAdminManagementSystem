@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Function to fetch and display recent orders
     function loadRecentOrders() {
-        fetch('/EZ-WEB/api/orderapi.php?action=getRecentOrders&limit=5')
+        fetch('/EZMartOrderingSystem/api/orderapi.php?action=getRecentOrders&limit=5')
             .then(response => {
                 if (!response.ok) throw new Error('Network response was not ok');
                 return response.json();

@@ -96,8 +96,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Fetch data in parallel and update charts
     Promise.all([
-        fetchSalesByCategory('/EZ-WEB/api/orderapi.php?action=getSalesByCategory', salesChart),
-        fetchCustomerStats('/EZ-WEB/api/orderapi.php?action=customerOrderStats', customerChart)
+        fetchSalesByCategory('/EZMartOrderingSystem/api/orderapi.php?action=getSalesByCategory', salesChart),
+        fetchCustomerStats('/EZMartOrderingSystem/api/orderapi.php?action=customerOrderStats', customerChart)
     ]).catch(error => console.error("Error updating charts:", error));
 });
 

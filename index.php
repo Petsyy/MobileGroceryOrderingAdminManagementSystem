@@ -10,7 +10,7 @@ header("X-Frame-Options: DENY");
 
 // Validate admin session
 if (empty($_SESSION['admin_id']) || empty($_SESSION['admin_username'])) {
-    header("Location: /EZ-WEB/auth/admin_login.php");
+    header("Location: /EZMartOrderingSystem/auth/admin_login.php");
     exit();
 }
 
@@ -23,6 +23,16 @@ $user_role = !empty($_SESSION['admin_role'])
     
 // Get first name for display
 $display_name = current(explode(' ', $username));
+
+$page = $_GET['page'] ?? 'dashboard';
+
+$validPages = [
+    'dashboard' => 'index.php',
+    'products' => 'modules/products/product.php',
+    'orders' => 'modules/orders/order.php',
+    'customer' => 'modules/customers/customer.php'
+];
+
 ?>
 
 <!DOCTYPE html>

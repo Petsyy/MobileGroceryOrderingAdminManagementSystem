@@ -1,7 +1,7 @@
 <?php
 
 // PayMongo API Configuration
-$server_url = "http://192.168.100.15/EZ-WEB";
+$server_url = "http://192.168.100.15/EZMartOrderingSystem";
 $paymongoApiUrl = "https://api.paymongo.com/v1/checkout_sessions";
 $paymongoApiKey = "sk_test_EbvCZMXi6ARpJuYgK4Z8ZgNh";
 

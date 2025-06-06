@@ -16,41 +16,42 @@
         <span class="logo-text">Mart</span>
     </header>
 
-    <!-- Sidebar -->
-    <div id="sidebar" class="sidebar">
-        <ul>
-            <li>
-                <a href="../index.php" title="Home">
-                    <img src="../../assets/icons/home-icon.png" alt="Home" id="sidebar-icon" style="width: 27px; height: 27px;">
-                </a>
-            </li>
-            <li>
-                <a href="../modules/products/product.php" title="Products">
-                    <img src="../../assets/icons/product.png" alt="Products" id="sidebar-icon" style="width: 24px; height: 24px;">
-                </a>
-            </li>
-            <li>
-                <a href="../modules/orders/order.php" title="Orders">
-                    <img src="../../assets/icons/order.png" alt="Orders" id="sidebar-icon" style="width: 27px; height: 27px;">
-                </a>
-            </li>
-            <li>
-                <a href="../modules/customers/customer.php" title="Customers">
-                    <img src="../../assets/icons/customer.png" alt="Customer" id="sidebar-icon" style="width: 29px; height: 29px;">
-                </a>
-            </li>
-            <li>
-                <a href="../modules/users/admin-accounts.php" title="User Accounts">
-                    <img src="../../assets/icons/user-settings.png" alt="User-Settings" id="sidebar-icon" style="width: 30px; height: 30px;">
-                </a>
-            </li>
-            <li>
-                <a href="../login/login.html" title="Log out">
-                    <img src="../../assets/icons/logout.png" alt="Log out" id="sidebar-icon" style="width: 26px; height: 26px;">
-                </a>
-            </li>
-        </ul>
-    </div>
+            <!-- Sidebar -->
+        <div id="sidebar" class="sidebar">
+            <ul>
+                <li>
+                    <a href="../index" title="Home">
+                        <img src="../../assets/icons/home-icon.png" alt="Home" id="sidebar-icon" style="width: 27px; height: 27px;">
+                    </a>
+                </li>
+                <li>
+                    <a href="../modules/products/product" title="Products">
+                        <img src="../../assets/icons/product.png" alt="Products" id="sidebar-icon" style="width: 24px; height: 24px;">
+                    </a>
+                </li>
+                <li>
+                    <a href="../modules/orders/order" title="Orders">
+                        <img src="../../assets/icons/order.png" alt="Orders" id="sidebar-icon" style="width: 27px; height: 27px;">
+                    </a>
+                </li>
+                <li>
+                    <a href="../modules/customers/customer" title="Customers">
+                        <img src="../../assets/icons/customer.png" alt="Customer" id="sidebar-icon" style="width: 29px; height: 29px;">
+                    </a>
+                </li>
+                <li>
+                    <a href="../modules/admins/admin-accounts" title="User Accounts">
+                        <img src="../../assets/icons/user-settings.png" alt="User-Settings" id="sidebar-icon" style="width: 30px; height: 30px;">
+                    </a>
+                </li>
+                <li>
+                    <a href="../login/login.php" title="Log out">
+                        <img src="../../assets/icons/logout.png" alt="Log out" id="sidebar-icon" style="width: 26px; height: 26px;">
+                    </a>
+                </li>
+            </ul>
+        </div>
+
 
 <!-- Customers Section -->
     <main>

@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    fetch("http://localhost/EZ-WEB/get_total_customers.php")
+    fetch("http://localhost/EZMartOrderingSystem/get_total_customers.php")
     .then(response => response.json())
     .then(data => {
         console.log("Fetched total unique customers:", data); // Debugging

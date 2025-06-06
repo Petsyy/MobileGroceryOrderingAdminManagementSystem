@@ -28,7 +28,7 @@
             payButton.innerText = "Processing...";
 
             // Fetch API Request
-            fetch("http://localhost/EZ-WEB/api/paymongo_status.php", {
+            fetch("http://localhost/EZMartOrderingSystem/api/paymongo_status.php", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

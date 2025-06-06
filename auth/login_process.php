@@ -1,7 +1,7 @@
 <?php
 session_start();
 require '../config/db.php';
-header("Location: http://localhost/EZ-WEB/index.php");
+header("Location: http://localhost/EZMartOrderingSystem/index.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($admin && password_verify($password, $admin['password'])) {
         $_SESSION['admin_id'] = $admin['id'];
         $_SESSION['admin_username'] = $admin['username'];
-        header("Location: http://localhost/EZ-WEB/index.php");
+        header("Location: http://localhost/EZMartOrderingSystem/index.php");
         exit();
     } else {
         $_SESSION['error'] = "Invalid admin credentials.";
