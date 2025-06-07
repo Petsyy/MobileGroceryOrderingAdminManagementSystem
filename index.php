@@ -195,6 +195,7 @@ $validPages = [
     <script src="./js/index.js"></script>
     <script src="./js/user.js"></script>
     <script src="./js/notification.js"></script>
+    <script src="./js/counter.js"></script>
     
 </body>
 </html>

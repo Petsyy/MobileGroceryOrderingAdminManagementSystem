@@ -87,5 +87,4 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Auto-refresh every 30 seconds
     setInterval(loadRecentOrders, 30000);
-    
 });
