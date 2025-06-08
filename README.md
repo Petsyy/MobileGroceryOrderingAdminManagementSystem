@@ -19,4 +19,4 @@ EZ Mart is a versatile ordering system designed to streamline grocery shopping f
 - Secure admin authentication.
 
 ### Techstack
-- HTML, CSS, JAVASCRIPT, PHP
+- HTML, CSS, JAVASCRIPT, PHP, KOTLIN
