@@ -1,27 +1,23 @@
 <?php
-// Strict session handling
+
 declare(strict_types=1);
 session_start();
 
-// Security headers
 header("Cache-Control: no-cache, must-revalidate");
 header("X-Content-Type-Options: nosniff");
 header("X-Frame-Options: DENY");
 
-// Validate admin session
 if (empty($_SESSION['admin_id']) || empty($_SESSION['admin_username'])) {
     header("Location: /EZMartOrderingSystem/auth/admin_login.php");
     exit();
 }
 
-// Secure session variables
 $user_id = (int)$_SESSION['admin_id'];
 $username = htmlspecialchars(trim($_SESSION['admin_username']), ENT_QUOTES, 'UTF-8');
 $user_role = !empty($_SESSION['admin_role']) 
     ? htmlspecialchars(ucfirst(strtolower(trim($_SESSION['admin_role']))), ENT_QUOTES, 'UTF-8')
     : 'Administrator';
     
-// Get first name for display
 $display_name = current(explode(' ', $username));
 
 $page = $_GET['page'] ?? 'dashboard';
@@ -32,7 +28,6 @@ $validPages = [
     'orders' => 'modules/orders/order.php',
     'customer' => 'modules/customers/customer.php'
 ];
-
 ?>
 
 <!DOCTYPE html>
@@ -108,7 +103,6 @@ $validPages = [
             </div>
         </div>
 
-        <!-- Dashboard Content Grid -->
 <!-- Dashboard Content Grid -->
 <div class="dashboard-grid">
     <!-- Recent Orders Section -->
@@ -150,7 +144,6 @@ $validPages = [
 </div>
     </main>
 
-    <!-- Sidebar -->
     <div id="sidebar" class="sidebar">
         <ul>
             <li>
@@ -186,7 +179,6 @@ $validPages = [
         </ul>
     </div>
 
-    <!-- Include external JavaScript files -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="./js/chart.js"></script>
     <script src="./js/get_total_admin.js"></script>
