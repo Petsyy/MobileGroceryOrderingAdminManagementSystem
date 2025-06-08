@@ -17,3 +17,6 @@ EZ Mart is a versatile ordering system designed to streamline grocery shopping f
 - Manage product inventory and details.
 - Access reports and analytics for sales and orders.
 - Secure admin authentication.
+
+### Techstack
+- HTML, CSS, JAVASCRIPT, PHP
