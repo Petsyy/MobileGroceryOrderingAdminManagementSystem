@@ -9,8 +9,12 @@
 
 .users-table {
     width: 100%;
-    border-collapse: collapse;
     font-size: 14px;
+    padding: 20px;
+}
+
+#admin{
+    font-size: 28px;
 }
 
 .users-table thead {
@@ -23,6 +27,7 @@
     font-weight: 600;
     color: white;
     border-bottom: 2px solid #e9ecef;
+    text-transform: uppercase;
 }
 
 .users-table td {

@@ -20,7 +20,7 @@
 
     <main class="container">
         <div class="user-accounts-header">
-            <h1>Admin Section</h1>
+            <h1 id="admin">Admin Section</h1>
         </div>
 
         <div class="user-accounts-container">
@@ -30,7 +30,7 @@
                 <table class="users-table">
                     <thead>
                         <tr>
-                            <th>User</th>
+                            <th>Users</th>
                             <th>Email</th>
                             <th>Role</th>
                             <th>Status</th>
