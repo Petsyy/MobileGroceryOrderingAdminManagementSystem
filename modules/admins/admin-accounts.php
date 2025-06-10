@@ -24,8 +24,7 @@
         </div>
 
         <div class="user-accounts-container">
-        
-
+            
             <div class="users-table-container">
                 <table class="users-table">
                     <thead>

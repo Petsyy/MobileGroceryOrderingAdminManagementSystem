@@ -23,8 +23,8 @@ $(document).ready(function () {
                         <tr>
                             <td>${admin.username}</td>
                             <td>${admin.email}</td>
-                            <td>${admin.role}</td>
-                            <td>${admin.status}</td>
+                            <td class="admin-role" data-status="${admin.role.toLowerCase()}">${admin.role}</td>
+                            <td class="admin-status" data-status="${admin.status.toLowerCase()}">${admin.status}</td>
                             <td>
                                 <button class="edit-btn view-btn" data-id="${admin.id}">View</button>
                                 <button class="delete-btn" data-id="${admin.id}">Delete</button>
