@@ -202,35 +202,20 @@
 
 .admin-details strong {
     display: inline-block;
-    width: 120px;
 }
 
 .admin-role {
+    text-align: center;
     font-weight: 600;
     color: #4e73df;
     background-color: #f0f4ff;
-    padding: 4px 10px;
     border-radius: 12px;
-    display: inline-block;
-    text-transform: capitalize;
 }
 
-.admin-status[data-status="active"] {
+.admin-status{
+    text-align: center;
     font-weight: 600;
     color: #1cc88a;
     background-color: #e6f7f0;
-    padding: 4px 10px;
     border-radius: 12px;
-    display: inline-block;
-    text-transform: capitalize;
-}
-
-.admin-status[data-status="inactive"] {
-    font-weight: 600;
-    color: #e74a3b;
-    background-color: #fdf3f2;
-    padding: 4px 10px;
-    border-radius: 12px;
-    display: inline-block;
-    text-transform: capitalize;
 }
