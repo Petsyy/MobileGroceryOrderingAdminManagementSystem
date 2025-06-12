@@ -62,8 +62,8 @@ $(document).ready(function () {
                                 <div class="admin-details">
                                     <p><strong>Username:</strong> ${admin.username}</p>
                                     <p><strong>Email:</strong> ${admin.email}</p>
-                                    <p><strong>Role:</strong> ${admin.role}</p>
-                                    <p><strong>Status:</strong> ${admin.status}</p>
+                                    <p><strong>Role:</strong> <span class="admin-role">${admin.role}</span></p>
+                                    <p><strong>Status:</strong> <span class="admin-status">${admin.status}</span></p>
                                     <p><strong>Created At:</strong> ${admin.created_at}</p>
                                 </div>
                             </div>
