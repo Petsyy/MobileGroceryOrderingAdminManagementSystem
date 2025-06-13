@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Check if user exists
-    $sql = "SELECT * FROM users WHERE username = :username";
+    $sql = "SELECT * FROM admins WHERE username = :username";
     $stmt = $conn->prepare($sql);
     $stmt->bindValue(':username', $username, PDO::PARAM_STR);
     $stmt->execute();
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hashed_password = password_hash($new_password, PASSWORD_BCRYPT);
 
     // Update password in the database
-    $update_sql = "UPDATE users SET password = :password WHERE username = :username";
+    $update_sql = "UPDATE admins SET password = :password WHERE username = :username";
     $update_stmt = $conn->prepare($update_sql);
     $update_stmt->bindValue(':password', $hashed_password, PDO::PARAM_STR);
     $update_stmt->bindValue(':username', $username, PDO::PARAM_STR);
