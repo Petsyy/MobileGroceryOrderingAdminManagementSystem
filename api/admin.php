@@ -1,13 +1,13 @@
 <?php
 require_once __DIR__ . '/../config/db.php';
 
+header("Content-Type: application/json");
+
 session_start();
 if (!isset($_SESSION['admin_id'])) {
     echo json_encode(["success" => false, "error" => "Unauthorized access"]);
     exit();
 }
-
-header("Content-Type: application/json");
 
 $response = ["success" => false, "admins" => [], "error" => ""];
 

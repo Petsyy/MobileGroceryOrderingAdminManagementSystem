@@ -83,6 +83,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'delete') {
     exit;
 }
 
-// Close the connection at the end
 $conn = null;
 ?>
