@@ -1,25 +1,29 @@
 $(document).ready(function () {
-    function loadUsers() {
-        $.ajax({
-            url: "http://localhost/EZMartOrderingSystem/api/admin.php", // Updated path
-            method: "GET",
-            dataType: "json",
-            success: function (response) {
-                let tableBody = $("#usersTableBody");
-                tableBody.empty();
+  function loadUsers() {
+    $.ajax({
+      url: "http://localhost/EZMartOrderingSystem/api/admin.php", // Updated path
+      method: "GET",
+      dataType: "json",
+      success: function (response) {
+        let tableBody = $("#usersTableBody");
+        tableBody.empty();
 
-                if (!response.success) {
-                    tableBody.append("<tr><td colspan='5' class='error'>" + response.error + "</td></tr>");
-                    return;
-                }
+        if (!response.success) {
+          tableBody.append(
+            "<tr><td colspan='5' class='error'>" + response.error + "</td></tr>"
+          );
+          return;
+        }
 
-                if (response.admins.length === 0) {
-                    tableBody.append("<tr><td colspan='5' class='no-data'>No admin accounts found</td></tr>");
-                    return;
-                }
+        if (response.admins.length === 0) {
+          tableBody.append(
+            "<tr><td colspan='5' class='no-data'>No admin accounts found</td></tr>"
+          );
+          return;
+        }
 
-                response.admins.forEach(admin => {
-                    let userRow = `
+        response.admins.forEach((admin) => {
+          let userRow = `
                         <tr>
                             <td>${admin.username}</td>
                             <td>${admin.email}</td>
@@ -31,30 +35,32 @@ $(document).ready(function () {
                             </td>
                         </tr>
                     `;
-                    tableBody.append(userRow);
-                });
-            },
-            error: function () {
-                $("#usersTableBody").append("<tr><td colspan='5' class='error'>Failed to load user data.</td></tr>");
-            }
+          tableBody.append(userRow);
         });
-    }
+      },
+      error: function () {
+        $("#usersTableBody").append(
+          "<tr><td colspan='5' class='error'>Failed to load user data.</td></tr>"
+        );
+      },
+    });
+  }
 
-    loadUsers();
+  loadUsers();
 
-    // View Admin Details
-    $(document).on('click', '.view-btn', function() {
-        const adminId = $(this).data('id');
-        $.ajax({
-            url: "http://localhost/EZMartOrderingSystem/get_admin.php", // Updated path
-            method: "GET",
-            data: { id: adminId },
-            dataType: "json",
-            success: function(response) {
-                if (response.success) {
-                    // Create and show modal with admin details
-                    const admin = response.admin;
-                    const modalHtml = `
+  // View Admin Details
+  $(document).on("click", ".view-btn", function () {
+    const adminId = $(this).data("id");
+    $.ajax({
+      url: "http://localhost/EZMartOrderingSystem/get_admin.php", // Updated path
+      method: "GET",
+      data: { id: adminId },
+      dataType: "json",
+      success: function (response) {
+        if (response.success) {
+          // Create and show modal with admin details
+          const admin = response.admin;
+          const modalHtml = `
                         <div id="adminDetailsModal" class="modal">
                             <div class="modal-content">
                                 <span class="close-btn">&times;</span>
@@ -69,95 +75,95 @@ $(document).ready(function () {
                             </div>
                         </div>
                     `;
-                    
-                    $('body').append(modalHtml);
-                    $('#adminDetailsModal').show();
-                    
-                    // Close modal
-                    $('.close-btn').on('click', function() {
-                        $('#adminDetailsModal').remove();
-                    });
-                    
-                    $(window).on('click', function(e) {
-                        if ($(e.target).is('#adminDetailsModal')) {
-                            $('#adminDetailsModal').remove();
-                        }
-                    });
-                } else {
-                    alert("Error: " + response.error);
-                }
-            },
-            error: function() {
-                alert("Failed to load admin details.");
-            }
-        });
-    });
 
-    // Delete Admin
-    $(document).on('click', '.delete-btn', function() {
-        if (!confirm("Are you sure you want to delete this admin?")) {
-            return;
+          $("body").append(modalHtml);
+          $("#adminDetailsModal").show();
+
+          // Close modal
+          $(".close-btn").on("click", function () {
+            $("#adminDetailsModal").remove();
+          });
+
+          $(window).on("click", function (e) {
+            if ($(e.target).is("#adminDetailsModal")) {
+              $("#adminDetailsModal").remove();
+            }
+          });
+        } else {
+          alert("Error: " + response.error);
         }
-        
-        const adminId = $(this).data('id');
-        $.ajax({
-            url: "http://localhost/EZMartOrderingSystem/delete-admin.php", // Updated path
-            method: "POST",
-            data: { id: adminId },
-            dataType: "json",
-            success: function(response) {
-                if (response.success) {
-                    alert("Admin deleted successfully!");
-                    loadUsers();
-                } else {
-                    alert("Error: " + response.error);
-                }
-            },
-            error: function() {
-                alert("Failed to delete admin.");
-            }
-        });
+      },
+      error: function () {
+        alert("Failed to load admin details.");
+      },
     });
+  });
 
-    // Modal Logic for Add Admin
-    const modal = $("#addAdminModal");
-    $("#addUserBtn").on("click", function() {
-        modal.show();
-    });
+  // Delete Admin
+  $(document).on("click", ".delete-btn", function () {
+    if (!confirm("Are you sure you want to delete this admin?")) {
+      return;
+    }
 
-    $(".close-btn").on("click", function() {
-        modal.hide();
-    });
-
-    $(window).on("click", function(e) {
-        if ($(e.target).is(modal)) {
-            modal.hide();
+    const adminId = $(this).data("id");
+    $.ajax({
+      url: "http://localhost/EZMartOrderingSystem/delete-admin.php", // Updated path
+      method: "POST",
+      data: { id: adminId },
+      dataType: "json",
+      success: function (response) {
+        if (response.success) {
+          alert("Admin deleted successfully!");
+          loadUsers();
+        } else {
+          alert("Error: " + response.error);
         }
+      },
+      error: function () {
+        alert("Failed to delete admin.");
+      },
     });
+  });
 
-    // Handle Form Submission
-    $("#addAdminForm").submit(function(e) {
-        e.preventDefault();
-        let formData = $(this).serialize();
+  // Modal Logic for Add Admin
+  const modal = $("#addAdminModal");
+  $("#addUserBtn").on("click", function () {
+    modal.show();
+  });
 
-        $.ajax({
-            url: "http://localhost/EZMartOrderingSystem/delete-admin.php", // Updated path
-            method: "POST",
-            data: formData,
-            dataType: "json",
-            success: function(response) {
-                if (response.success) {
-                    alert("Admin added successfully!");
-                    modal.hide();
-                    $("#addAdminForm")[0].reset();
-                    loadUsers();
-                } else {
-                    alert("Error: " + response.error);
-                }
-            },
-            error: function() {
-                alert("Failed to add admin.");
-            }
-        });
+  $(".close-btn").on("click", function () {
+    modal.hide();
+  });
+
+  $(window).on("click", function (e) {
+    if ($(e.target).is(modal)) {
+      modal.hide();
+    }
+  });
+
+  // Handle Form Submission
+  $("#addAdminForm").submit(function (e) {
+    e.preventDefault();
+    let formData = $(this).serialize();
+
+    $.ajax({
+      url: "http://localhost/EZMartOrderingSystem/delete-admin.php", // Updated path
+      method: "POST",
+      data: formData,
+      dataType: "json",
+      success: function (response) {
+        if (response.success) {
+          alert("Admin added successfully!");
+          modal.hide();
+          $("#addAdminForm")[0].reset();
+          loadUsers();
+        } else {
+          alert("Error: " + response.error);
+        }
+      },
+      error: function () {
+        alert("Failed to add admin.");
+      },
     });
+  });
 });

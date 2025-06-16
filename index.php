@@ -14,10 +14,10 @@ if (empty($_SESSION['admin_id']) || empty($_SESSION['admin_username'])) {
 
 $user_id = (int)$_SESSION['admin_id'];
 $username = htmlspecialchars(trim($_SESSION['admin_username']), ENT_QUOTES, 'UTF-8');
-$user_role = !empty($_SESSION['admin_role']) 
+$user_role = !empty($_SESSION['admin_role'])
     ? htmlspecialchars(ucfirst(strtolower(trim($_SESSION['admin_role']))), ENT_QUOTES, 'UTF-8')
     : 'Administrator';
-    
+
 $display_name = current(explode(' ', $username));
 
 $page = $_GET['page'] ?? 'dashboard';
@@ -32,17 +32,19 @@ $validPages = [
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EZ Mart</title>
-    
+
     <link rel="stylesheet" href="./assets/css/index.css">
     <link rel="stylesheet" href="./assets/css/sidebar.css">
-    
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body>
     <!-- Header -->
     <header class="header">
@@ -51,13 +53,13 @@ $validPages = [
             <span class="logo-text">Mart</span>
         </div>
 
-            <!-- User Profile Section -->
-            <div class="user-container" id="userContainer">
-                <div class="user-profile-info">
-                    <div class="user-greeting">Hello, <span class="user-display-name"><?php echo $display_name; ?></span></div>
-                    <div class="user-role-badge"><?php echo $user_role; ?></div>
-                </div>
+        <!-- User Profile Section -->
+        <div class="user-container" id="userContainer">
+            <div class="user-profile-info">
+                <div class="user-greeting">Hello, <span class="user-display-name"><?php echo $display_name; ?></span></div>
+                <div class="user-role-badge"><?php echo $user_role; ?></div>
             </div>
+        </div>
         </div>
     </header>
 
@@ -103,45 +105,45 @@ $validPages = [
             </div>
         </div>
 
-<!-- Dashboard Content Grid -->
-<div class="dashboard-grid">
-    <!-- Recent Orders Section -->
-    <div class="dashboard-section recent-orders-section">
-        <h2>Recent Orders</h2>
-        <div class="recent-orders-container">
-            <table class="recent-orders-table">
-                <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Customer</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody id="recent-orders-body">
-                    <!-- Orders will be loaded here via JavaScript -->
-                    <tr>
-                        <td colspan="5" style="text-align: center;">Loading orders...</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+        <!-- Dashboard Content Grid -->
+        <div class="dashboard-grid">
+            <!-- Recent Orders Section -->
+            <div class="dashboard-section recent-orders-section">
+                <h2>Recent Orders</h2>
+                <div class="recent-orders-container">
+                    <table class="recent-orders-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-orders-body">
+                            <!-- Orders will be loaded here via JavaScript -->
+                            <tr>
+                                <td colspan="5" style="text-align: center;">Loading orders...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-    <!-- Charts Container -->
-    <div class="charts-container">
-        <!-- Sales Chart -->
-        <div class="chart-wrapper">
-            <canvas id="myChart" class="chart"></canvas>
+            <!-- Charts Container -->
+            <div class="charts-container">
+                <!-- Sales Chart -->
+                <div class="chart-wrapper">
+                    <canvas id="myChart" class="chart"></canvas>
+                </div>
+
+                <!-- Customer Chart -->
+                <div class="chart-wrapper">
+                    <canvas id="customerChart" class="chart"></canvas>
+                </div>
+            </div>
         </div>
-        
-        <!-- Customer Chart -->
-        <div class="chart-wrapper">
-            <canvas id="customerChart" class="chart"></canvas>
-        </div>
-    </div>
-</div>
     </main>
 
     <div id="sidebar" class="sidebar">
@@ -188,6 +190,7 @@ $validPages = [
     <script src="./js/user.js"></script>
     <script src="./js/notification.js"></script>
     <script src="./js/counter.js"></script>
-    
+
 </body>
+
 </html>

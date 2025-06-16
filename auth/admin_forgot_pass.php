@@ -9,16 +9,25 @@ unset($_SESSION['success']);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Forgot Password</title>
     <link rel="stylesheet" href="../assets/css/login.css">
     <style>
-        .error { color: red; margin-bottom: 15px; }
-        .success { color: green; margin-bottom: 15px; }
+        .error {
+            color: red;
+            margin-bottom: 15px;
+        }
+
+        .success {
+            color: green;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
+
 <body>
     <div class="login-container">
         <fieldset>
@@ -36,4 +45,5 @@ unset($_SESSION['success']);
         </fieldset>
     </div>
 </body>
+
 </html>

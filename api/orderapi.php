@@ -64,28 +64,29 @@ switch ($action) {
     case "fetchPreviousOrders":
         fetchPreviousOrders($conn);
         break;
-        
-    
+
+
     case "readyToPickup":
         readyToPickup($conn);
         break;
-        
+
     default:
         echo json_encode(["success" => false, "error" => "Invalid action"]);
         break;
 }
 
-function sendPushNotification($fcmToken, $title, $body, $conn = null, $order_id = null) {
+function sendPushNotification($fcmToken, $title, $body, $conn = null, $order_id = null)
+{
     try {
         // Verify the token path
         $tokenPath = __DIR__ . '/../get_fcm_token.php';
         if (!file_exists($tokenPath)) {
             throw new Exception("FCM token handler not found at: $tokenPath");
         }
-        
+
         require_once $tokenPath;
         $accessToken = getOAuthToken();
-        
+
         if (strpos($accessToken, "Error") !== false) {
             throw new Exception($accessToken);
         }
@@ -154,7 +155,6 @@ function sendPushNotification($fcmToken, $title, $body, $conn = null, $order_id 
             "http_code" => $httpCode,
             "response" => $responseData
         ];
-
     } catch (Exception $e) {
         error_log("Notification Error: " . $e->getMessage());
         return [
@@ -165,11 +165,12 @@ function sendPushNotification($fcmToken, $title, $body, $conn = null, $order_id 
 }
 
 // Fetch all orders
-function fetchOrders($conn) {
+function fetchOrders($conn)
+{
     try {
         // Clear any accidental output
         if (ob_get_length()) ob_clean();
-        
+
         $stmt = $conn->prepare("SELECT o.id AS order_id, o.customer_name, o.order_details, 
                                o.total_price AS order_total_price, o.status, 
                                o.created_at AS order_created_at 
@@ -183,21 +184,20 @@ function fetchOrders($conn) {
                                    ELSE 4 
                                  END,
                                o.created_at DESC");
-        
+
         if (!$stmt->execute()) {
             throw new Exception("Database query failed");
         }
-        
+
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         // Clear buffer before output
         ob_clean();
         echo json_encode($results ?: ["error" => "No orders found"]);
-        
     } catch (Exception $e) {
         // Log the error instead of displaying it
         error_log("fetchOrders error: " . $e->getMessage());
-        
+
         // Return clean JSON error
         ob_clean();
         http_response_code(500);
@@ -207,12 +207,13 @@ function fetchOrders($conn) {
 
 
 // Confirm an order
-function confirmOrder($conn) {
+function confirmOrder($conn)
+{
     header('Content-Type: application/json');
-    
+
     try {
         $id = $_POST['id'] ?? null;
-        
+
         if (!$id || !is_numeric($id)) {
             throw new Exception("Invalid order ID");
         }
@@ -256,7 +257,6 @@ function confirmOrder($conn) {
             'notification_sent' => ($notificationResult['success'] ?? false),
             'token_invalid' => $tokenInvalid
         ]);
-
     } catch (Exception $e) {
         http_response_code(500);
         echo json_encode([
@@ -268,7 +268,8 @@ function confirmOrder($conn) {
 
 
 // Delete an order
-function deleteOrder($conn) {
+function deleteOrder($conn)
+{
     $id = $_POST['id'] ?? '';
     if (!is_numeric($id)) {
         echo json_encode(["success" => false, "error" => "Invalid or missing order ID"]);
@@ -284,11 +285,12 @@ function deleteOrder($conn) {
 }
 
 // Get order statistics (status-wise)
-function getOrderStats($conn) {
+function getOrderStats($conn)
+{
     try {
         $stmt = $conn->prepare("SELECT status, COUNT(*) AS count FROM orders GROUP BY status");
         $stmt->execute();
-        
+
         $data = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $data[] = $row;
@@ -300,7 +302,8 @@ function getOrderStats($conn) {
     }
 }
 // Fetch all products
-function fetchProducts($conn) {
+function fetchProducts($conn)
+{
     try {
         // Prepare the query to fetch product details
         $stmt = $conn->prepare("SELECT id, product_name, product_description, price, stock FROM products ORDER BY product_name ASC");
@@ -316,7 +319,8 @@ function fetchProducts($conn) {
 
 
 // Get customer-wise order statistics
-function customerOrderStats($conn) {
+function customerOrderStats($conn)
+{
     try {
         $stmt = $conn->prepare("SELECT customer_name, COUNT(*) AS total_orders FROM orders GROUP BY customer_name ORDER BY total_orders DESC");
         $stmt->execute();
@@ -334,7 +338,8 @@ function customerOrderStats($conn) {
 }
 
 // Get total orders count
-function getTotalOrders($conn) {
+function getTotalOrders($conn)
+{
     try {
         $stmt = $conn->prepare("SELECT COUNT(*) AS total_orders FROM orders");
         $stmt->execute();
@@ -346,7 +351,8 @@ function getTotalOrders($conn) {
 }
 
 // Get total products count
-function getTotalProducts($conn) {
+function getTotalProducts($conn)
+{
     try {
         $stmt = $conn->prepare("SELECT COUNT(*) AS total_products FROM products");
         $stmt->execute();
@@ -358,7 +364,8 @@ function getTotalProducts($conn) {
 }
 
 // Place a new order
-function placeOrder($conn) {
+function placeOrder($conn)
+{
     $customer_name = $_POST['customer_name'] ?? '';
     $order_details = $_POST['order_details'] ?? '';
     $total_price = $_POST['total_price'] ?? 0;
@@ -386,7 +393,7 @@ function placeOrder($conn) {
         $conn->commit();
 
         echo json_encode([
-            "success" => true, 
+            "success" => true,
             "order_id" => $order_id,
             "message" => "Order placed successfully"
         ]);
@@ -394,7 +401,7 @@ function placeOrder($conn) {
         // Rollback on error
         $conn->rollBack();
         echo json_encode([
-            "success" => false, 
+            "success" => false,
             "error" => $e->getMessage(),
             "details" => "Failed to place order and create notification"
         ]);
@@ -402,7 +409,8 @@ function placeOrder($conn) {
 }
 
 // Fetch a single order's details
-function fetchSingleOrder($conn) {
+function fetchSingleOrder($conn)
+{
     $id = $_GET['id'] ?? '';
     if (!is_numeric($id)) {
         echo json_encode(["success" => false, "error" => "Invalid or missing order ID"]);
@@ -427,7 +435,8 @@ function fetchSingleOrder($conn) {
 }
 
 // Update an existing order
-function updateOrder($conn) {
+function updateOrder($conn)
+{
     $id = $_POST['id'] ?? '';
     $customer_name = $_POST['customer_name'] ?? '';
     $order_details = $_POST['order_details'] ?? '';
@@ -448,24 +457,25 @@ function updateOrder($conn) {
 }
 
 // Add this new function to your orderapi.php
-function getSalesByCategory($conn) {
+function getSalesByCategory($conn)
+{
     try {
         $query = "SELECT p.category, SUM(oi.quantity) as total_sales 
                   FROM order_items oi 
                   JOIN products p ON oi.product_id = p.id 
                   GROUP BY p.category";
-        
+
         $stmt = $conn->prepare($query);
         $stmt->execute();
-        
+
         $categories = [];
         $sales = [];
-        
+
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $categories[] = $row['category'];
             $sales[] = (int)$row['total_sales'];
         }
-        
+
         echo json_encode([
             'success' => true,
             'categories' => $categories,
@@ -479,20 +489,21 @@ function getSalesByCategory($conn) {
     }
 }
 
-function getRecentOrders($conn) {
+function getRecentOrders($conn)
+{
     try {
         $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 5;
         $limit = max(1, min($limit, 20)); // Ensure limit is between 1-20
-        
+
         $stmt = $conn->prepare("SELECT id, customer_name, total_price, status, created_at 
                               FROM orders 
                               ORDER BY created_at DESC 
                               LIMIT :limit");
         $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
         $stmt->execute();
-        
+
         $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         echo json_encode([
             'success' => true,
             'orders' => $orders
@@ -506,7 +517,8 @@ function getRecentOrders($conn) {
 }
 
 // Get total customers count
-function getTotalCustomers($conn) {
+function getTotalCustomers($conn)
+{
     try {
         $stmt = $conn->prepare("SELECT COUNT(*) AS total_customers FROM customers");
         $stmt->execute();
@@ -517,12 +529,13 @@ function getTotalCustomers($conn) {
     }
 }
 
-function readyToPickup($conn) {
+function readyToPickup($conn)
+{
     header('Content-Type: application/json');
-    
+
     try {
         $id = $_POST['id'] ?? null;
-        
+
         // Validate input
         if (!$id || !is_numeric($id)) {
             throw new Exception("Invalid order ID");
@@ -567,7 +580,6 @@ function readyToPickup($conn) {
             'notification_sent' => ($notificationResult['success'] ?? false),
             'token_invalid' => $tokenInvalid
         ]);
-
     } catch (Exception $e) {
         http_response_code(500);
         echo json_encode([
@@ -580,7 +592,8 @@ function readyToPickup($conn) {
 
 // Fetch previous orders for a customer
 
-function fetchPreviousOrders($conn) {
+function fetchPreviousOrders($conn)
+{
     $customer_name = $_GET['customer_name'] ?? null;
 
     if (!$customer_name) {
@@ -605,7 +618,3 @@ function fetchPreviousOrders($conn) {
         ]);
     }
 }
-
-
-?>
-

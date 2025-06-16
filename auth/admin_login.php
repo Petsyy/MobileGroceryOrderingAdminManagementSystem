@@ -11,6 +11,7 @@ unset($_SESSION['success']);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,7 +28,7 @@ unset($_SESSION['success']);
             margin: 0;
         }
 
-        .logo-bg{
+        .logo-bg {
             background: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -136,7 +137,7 @@ unset($_SESSION['success']);
         .error {
             color: #ff4d4d;
             font-size: 14px;
-            display: block;   
+            display: block;
             margin-top: 5px;
         }
 
@@ -161,10 +162,18 @@ unset($_SESSION['success']);
             margin-top: 15px;
         }
 
-        .error { color: red; margin-bottom: 15px; }
-        .success { color: green; margin-bottom: 15px; }
+        .error {
+            color: red;
+            margin-bottom: 15px;
+        }
+
+        .success {
+            color: green;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
+
 <body>
     <div class="login-container">
         <div class="login-content">
@@ -198,7 +207,7 @@ unset($_SESSION['success']);
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value.trim();
-            
+
             if (username === '' || password === '') {
                 e.preventDefault();
                 alert('Please fill in all fields');
@@ -208,4 +217,5 @@ unset($_SESSION['success']);
         });
     </script>
 </body>
+
 </html>

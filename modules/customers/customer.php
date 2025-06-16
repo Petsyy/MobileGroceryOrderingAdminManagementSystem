@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,50 +11,51 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../../js/customer.js"></script>
 </head>
+
 <body>
     <header class="header">
         <img src="../../assets/images/ez-mart.svg" alt="EZ Mart Logo" class="ez_logo" id="ezLogo" style="width: 50px;">
         <span class="logo-text">Mart</span>
     </header>
 
-            <!-- Sidebar -->
-        <div id="sidebar" class="sidebar">
-            <ul>
-                <li>
-                    <a href="../index" title="Home">
-                        <img src="../../assets/icons/home-icon.png" alt="Home" id="sidebar-icon" style="width: 27px; height: 27px;">
-                    </a>
-                </li>
-                <li>
-                    <a href="../modules/products/product" title="Products">
-                        <img src="../../assets/icons/product.png" alt="Products" id="sidebar-icon" style="width: 24px; height: 24px;">
-                    </a>
-                </li>
-                <li>
-                    <a href="../modules/orders/order" title="Orders">
-                        <img src="../../assets/icons/order.png" alt="Orders" id="sidebar-icon" style="width: 27px; height: 27px;">
-                    </a>
-                </li>
-                <li>
-                    <a href="../modules/customers/customer" title="Customers">
-                        <img src="../../assets/icons/customer.png" alt="Customer" id="sidebar-icon" style="width: 29px; height: 29px;">
-                    </a>
-                </li>
-                <li>
-                    <a href="../modules/admins/admin-accounts" title="User Accounts">
-                        <img src="../../assets/icons/user-settings.png" alt="User-Settings" id="sidebar-icon" style="width: 30px; height: 30px;">
-                    </a>
-                </li>
-                <li>
-                    <a href="../login/login.php" title="Log out">
-                        <img src="../../assets/icons/logout.png" alt="Log out" id="sidebar-icon" style="width: 26px; height: 26px;">
-                    </a>
-                </li>
-            </ul>
-        </div>
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <ul>
+            <li>
+                <a href="../index" title="Home">
+                    <img src="../../assets/icons/home-icon.png" alt="Home" id="sidebar-icon" style="width: 27px; height: 27px;">
+                </a>
+            </li>
+            <li>
+                <a href="../modules/products/product" title="Products">
+                    <img src="../../assets/icons/product.png" alt="Products" id="sidebar-icon" style="width: 24px; height: 24px;">
+                </a>
+            </li>
+            <li>
+                <a href="../modules/orders/order" title="Orders">
+                    <img src="../../assets/icons/order.png" alt="Orders" id="sidebar-icon" style="width: 27px; height: 27px;">
+                </a>
+            </li>
+            <li>
+                <a href="../modules/customers/customer" title="Customers">
+                    <img src="../../assets/icons/customer.png" alt="Customer" id="sidebar-icon" style="width: 29px; height: 29px;">
+                </a>
+            </li>
+            <li>
+                <a href="../modules/admins/admin-accounts" title="User Accounts">
+                    <img src="../../assets/icons/user-settings.png" alt="User-Settings" id="sidebar-icon" style="width: 30px; height: 30px;">
+                </a>
+            </li>
+            <li>
+                <a href="../login/login.php" title="Log out">
+                    <img src="../../assets/icons/logout.png" alt="Log out" id="sidebar-icon" style="width: 26px; height: 26px;">
+                </a>
+            </li>
+        </ul>
+    </div>
 
 
-<!-- Customers Section -->
+    <!-- Customers Section -->
     <main>
         <h1>Customers</h1>
         <table>
@@ -69,7 +71,7 @@
                 <!-- Customer data will be inserted here dynamically -->
             </tbody>
         </table>
-        
+
         <!-- Previous Orders Modal -->
         <div id="previousOrdersModal" class="modal" style="display:none;">
             <div class="modal-content">
@@ -91,20 +93,22 @@
         top: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0,0,0,0.5);
+        background-color: rgba(0, 0, 0, 0.5);
         backdrop-filter: blur(5px);
         animation: fadeIn 0.3s ease;
         overflow: hidden;
     }
-    
+
     .modal-content {
         background-color: #fff;
         margin: 2% auto;
         padding: 25px;
-        width: 90%; /* Slightly wider for better content fit */
-        max-width: 1000px; /* Increased max-width */
+        width: 90%;
+        /* Slightly wider for better content fit */
+        max-width: 1000px;
+        /* Increased max-width */
         border-radius: 12px;
-        box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+        box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
         max-height: 85vh;
         overflow-y: auto;
         position: relative;
@@ -114,18 +118,20 @@
     }
 
     .modal-header {
-        padding-right: 40px; /* Make space for close button */
+        padding-right: 40px;
+        /* Make space for close button */
         position: relative;
         padding-bottom: 15px;
         border-bottom: 1px solid #eee;
         margin-bottom: 20px;
     }
-    
+
     .modal-header h2 {
         margin: 0;
         color: #2c3e50;
         font-size: 1.4rem;
-        padding-right: 10px; /* Prevent text overlap */
+        padding-right: 10px;
+        /* Prevent text overlap */
     }
 
     .close {
@@ -137,7 +143,8 @@
         color: #aaa;
         cursor: pointer;
         transition: color 0.2s;
-        z-index: 1; /* Ensure it stays above other content */
+        z-index: 1;
+        /* Ensure it stays above other content */
         width: 30px;
         height: 30px;
         display: flex;
@@ -161,7 +168,8 @@
     .orders-table {
         width: 100%;
         border-collapse: collapse;
-        margin: 0 auto; /* Center table */
+        margin: 0 auto;
+        /* Center table */
     }
 
     /* Column width adjustments */
@@ -169,22 +177,22 @@
     .orders-table td:nth-child(1) {
         width: 10%;
     }
-    
+
     .orders-table th:nth-child(2),
     .orders-table td:nth-child(2) {
         width: 20%;
     }
-    
+
     .orders-table th:nth-child(3),
     .orders-table td:nth-child(3) {
         width: 15%;
     }
-    
+
     .orders-table th:nth-child(4),
     .orders-table td:nth-child(4) {
         width: 15%;
     }
-    
+
     .orders-table th:nth-child(5),
     .orders-table td:nth-child(5) {
         width: 40%;
@@ -197,17 +205,18 @@
             padding: 15px;
             margin: 2% auto;
         }
-        
+
         .orders-table {
             font-size: 0.8rem;
         }
-        
-        .orders-table th, 
+
+        .orders-table th,
         .orders-table td {
             padding: 8px 10px;
         }
     }
 </style>
 
-    <script src="../../js/customer.js"></script>
+<script src="../../js/customer.js"></script>
+
 </html>

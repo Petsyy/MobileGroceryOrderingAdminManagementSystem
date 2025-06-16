@@ -15,16 +15,14 @@ if ($conn->connect_error) {
     exit;
 }
 
-// Handle OPTIONS preflight request for CORS
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit;
 }
 
-// ✅ FETCH products with optional category filter
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $category = isset($_GET['category']) ? trim($_GET['category']) : null;
-    
+
     if ($category) {
         $stmt = $conn->prepare("SELECT id, name, price, stock, CONCAT(?, image) AS image, category FROM products WHERE LOWER(category) = LOWER(?) ORDER BY name ASC");
         $stmt->bind_param("ss", $server_url, $category);
@@ -44,7 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     exit;
 }
 
-// ✅ HANDLE POST (Add/Update/Delete product)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents("php://input"), true);
     $action = $data['action'] ?? '';
@@ -91,4 +88,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 http_response_code(400);
 echo json_encode(["success" => false, "error" => "Invalid request"]);
-?>
