@@ -23,35 +23,34 @@ unset($_SESSION['success']);
 </head>
 <body>
     <div class="login-container">
-        <fieldset>
-            <legend>Log Into Dashboard </legend>
-            <?php if (!empty($error)) echo "<p class='error'>$error</p>"; ?>
-            <?php if (!empty($success)) echo "<p class='success'>$success</p>"; ?>
-            <form action="login_process.php" method="post" id="loginForm">
-                <div class="input-group">
-                    <label for="username">Username</label>
-                    <input type="text" placeholder="Enter Username" name="username" id="username" required>
+        <div class="login-content">
+            <div class="logo-side">
+                <div class="logo-bg">
+                    <img src="../assets/images/ez-mart.svg" alt="EZ Mart Logo">
                 </div>
-                <div class="input-group">
-                    <label for="password">Password</label>
-                    <input type="password" placeholder="Enter Password" name="password" id="password" required>
-                </div>
-                <div class="forgot-password">
-                    <a href="admin_forgot_pass.php">Forgot Password?</a>
-                </div>
-                <button type="submit">Login</button>
-            </form>
-        </fieldset>
+            </div>
+            <div class="form-side">
+                <fieldset>
+                    <h2>Log Into Dashboard</h2>
+                    <?php if (!empty($error)) echo "<p class='error'>$error</p>"; ?>
+                    <?php if (!empty($success)) echo "<p class='success'>$success</p>"; ?>
+                    <form action="login_process.php" method="post" id="loginForm">
+                        <div class="input-group">
+                            <label for="username">Username</label>
+                            <input type="text" placeholder="Enter Username" name="username" id="username" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="password">Password</label>
+                            <input type="password" placeholder="Enter Password" name="password" id="password" required>
+                        </div>
+                        <div class="forgot-password">
+                            <a href="admin_forgot_pass.php">Forgot Password?</a>
+                        </div>
+                        <button type="submit">Login</button>
+                    </form>
+                </fieldset>
+            </div>
         </div>
-    <div class="bilog1"></div>
-    <div class="bilog2"></div>
-    <div class="bilog3"></div>
-    <div class="bilog4"></div> 
-    <div class="bilog5"></div>
-    <div class="bilog6"></div>
-    <div class="bilog7"></div>
-    </div>
-
     </div>
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(e) {
@@ -63,7 +62,6 @@ unset($_SESSION['success']);
                 alert('Please fill in all fields');
                 return false;
             }
-            
             return true;
         });
     </script>
