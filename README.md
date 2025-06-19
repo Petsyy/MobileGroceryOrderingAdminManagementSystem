@@ -4,13 +4,6 @@ EZ Mart is a versatile ordering system designed to streamline grocery shopping f
 
 ## Features
 
-### User Mobile Application
-- Browse a wide selection of grocery items with images, descriptions, and prices.
-- Add items to a cart and update quantities.
-- Review and submit orders with ease.
-- Secure user authentication and profile management.
-- Responsive and user-friendly mobile interface.
-
 ### Admin Web Panel
 - View and manage incoming orders in real time.
 - Update order statuses (e.g., pending, processing, completed).
