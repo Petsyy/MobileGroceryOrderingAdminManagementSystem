@@ -35,14 +35,6 @@ unset($_SESSION['error']);
             </form>
         </fieldset>
     </div>
-    <div class="bilog1"></div>
-    <div class="bilog2"></div>
-    <div class="bilog3"></div>
-    <div class="bilog4"></div> 
-    <div class="bilog5"></div>
-    <div class="bilog6"></div>
-    <div class="bilog7"></div>
-    </div>
     <script src="../js/login.js"></script>
 </body>
 </html>
