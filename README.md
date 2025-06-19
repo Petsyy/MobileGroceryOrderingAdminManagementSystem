@@ -1,10 +1,7 @@
 # EZ Mart Ordering System
 
 **EZ Mart** is a versatile ordering system designed to streamline grocery shopping for users and simplify order management for administrators.  
-It consists of:
-
-- A **mobile application** where users can browse, select, and submit grocery orders.
-- A **web-based admin panel** that allows administrators to manage and process orders in real time.
+It features a **web-based admin panel** that allows admin to manage and process orders in real time.
 
 ---
 
