@@ -2,14 +2,18 @@
 
 EZ Mart is a versatile ordering system designed to streamline grocery shopping for users and simplify order management for administrators. The system consists of a mobile application where users can browse, select, and submit grocery orders effortlessly. The submitted orders are then transmitted to a web-based admin panel, enabling administrators to efficiently manage and process orders in real time.
 
-## Features
+##🛠️ Techstack
+
+- HTML, CSS, JAVASCRIPT, PHP
+
+##⚡Features
 
 ### Admin Web Panel
-- View and manage incoming orders in real time.
-- Update order statuses (e.g., pending, processing, completed).
-- Manage product inventory and details.
-- Access reports and analytics for sales and orders.
-- Secure admin authentication.
+✅ View and manage incoming orders in real time.
+✅ Update order statuses (e.g., pending, processing, completed).
+✅ Manage product inventory and details.
+✅ Access reports and analytics for sales and orders.
+✅ Secure admin authentication.
 
 ### 📷Preview
 
