@@ -63,4 +63,4 @@ try {
     http_response_code(response_code: 500);
     echo json_encode(value: ['success' => false, 'message' => 'Registration failed. Please try again.']);
 }
-?>
+
